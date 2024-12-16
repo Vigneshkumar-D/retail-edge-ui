@@ -1,0 +1,113 @@
+Table {
+  font-size: 14px;
+}
+ 
+.form-input-tag-bottom-space {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+ 
+.input-tag-style {
+  background-color: #f8fafc;
+  font-weight: 700;
+}
+ 
+.hide-scrollbar {
+  overflow: auto; /* Content is scrollable */
+  scrollbar-width: thin; /* Reduces the scrollbar size in Firefox */
+}
+ 
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0px; /* Sets scrollbar width for Chrome, Safari, and Edge */
+}
+.ant-select-selector {
+  background-color: #f8fafc !important;
+}
+ 
+.ant-menu-title-content:hover, .ant-menu-item:hover, .ant-menu-submenu-title:hover {
+  /* color: #ff6c00 !important; */
+  color: #59A52C !important;
+ 
+}
+ 
+ 
+/*User contruction page style*/
+.skills-main-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+  margin: 10px;
+}
+ 
+.back-to-home-btn{
+/* background-color: transparent; */
+border-radius: 5px;
+padding: 5px;
+/* font-size: 18px; */
+margin-top: 15px;
+ 
+cursor: pointer;
+width: 150px;
+text-decoration: none;
+/* font-family: 'Times New Roman', Times, serif; */
+}
+.under-const-title{
+  margin-top: 20px;
+}
+.under-const-image{
+  border-radius: 10px;
+  height: 400px;
+  width: 650px;
+}
+ 
+ 
+/*Custom Scrollbar*/
+.custom-scrollbar {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #888 #f1f1f1;
+}
+ 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px; /* Adjust scrollbar width */
+}
+ 
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px; /* Rounded track edges */
+}
+ 
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px; /* Rounded thumb edges */
+  border: 3px solid #f1f1f1; /* Adds space around the thumb for rounded cap effect */
+}
+ 
+/* Create rounded caps on top and bottom */
+.custom-scrollbar::-webkit-scrollbar-thumb:before,
+.custom-scrollbar::-webkit-scrollbar-thumb:after {
+  content: "";
+  display: block;
+  height: 6px; /* Half of scrollbar width for perfect circular caps */
+  width: 6px;
+  background: #888;
+  border-radius: 50%; /* Fully rounded circle */
+  margin: auto;
+}
+ 
+/* Place the cap at the top of the thumb */
+.custom-scrollbar::-webkit-scrollbar-thumb:before {
+  position: absolute;
+  top: -6px; /* Negative offset to position the cap above */
+  left: 50%;
+  transform: translateX(-50%);
+}
+ 
+/* Place the cap at the bottom of the thumb */
+.custom-scrollbar::-webkit-scrollbar-thumb:after {
+  position: absolute;
+  bottom: -6px; /* Negative offset to position the cap below */
+  left: 50%;
+  transform: translateX(-50%);
+}
