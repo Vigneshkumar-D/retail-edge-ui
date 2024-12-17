@@ -107,7 +107,7 @@ class User extends TableParentPage {
         this.setState((prevState) => {
           return {
             ...prevState,
-            roleList: res.data.map((e) => {
+            roleList: res.data.data.map((e) => {
               return { value: e.id, label: e.roleName };
             }),
           };

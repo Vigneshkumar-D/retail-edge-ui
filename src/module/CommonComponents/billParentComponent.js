@@ -18,7 +18,7 @@ class BillParentComponent extends TableParentPage {
     this.userService
       .getAll()
       .then((res1) => {
-        this.setState({ salesManList: res1.data, mode: "add" });
+        this.setState({ salesManList: res1.data.data, mode: "add" });
         if (this.props.id) {
           this.setState({ mode: "update", id: this.props.id });
           this.service.getAll({ id: this.props.id }).then((res) => {

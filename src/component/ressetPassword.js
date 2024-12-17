@@ -217,7 +217,7 @@ import {
   Typography,
 } from "antd";
 
-import { LockOutlined, SyncOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, LockOutlined, SyncOutlined } from "@ant-design/icons";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import LoginService from "../service/defaultServices/authentication/loginService";
 import Cookies from "js-cookie";
@@ -249,13 +249,16 @@ export default function ResetPassword() {
         },
       })
       .then((res) => {
+        console.log("res" ,res);
+        
         message.success(res.data.message);
         setStatus(true);
         setSuccessMessage(res.data.message);
       })
       .catch((err) => {
+        // console.log(err);
         setStatus(false);
-        message.error(err.response.data);
+       message.error(err.response.data.message);
       })
       .finally(() => {
         setIsLoading(false);
@@ -363,9 +366,29 @@ export default function ResetPassword() {
             >
               {successMessage}
             </h1>
-            <Link to="/login" style={styles.forgotPassword}>
-              Login
-            </Link>
+            <Button
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  padding: "5px",
+                  float: "right",
+                  marginTop: "10px",
+                }}
+                disabled={isLoading}
+              >
+                <Link
+                  to="/login"
+                  style={{
+                    float: "left",
+                    color: "#4c5270",
+                  }}
+                >
+                  Login
+                  <ArrowRightOutlined
+                    style={{ paddingLeft: "3px", marginTop: "7px" }}
+                  />
+                </Link>
+              </Button>
           </>
         ) : (
           <Form

@@ -363,12 +363,11 @@ export default function ForgetPassword() {
             <h1
               style={{
                 textAlign: "center",
-                color: "#4c5270",
                 paddingBottom: "2rem",
               }}
             >
               {/* {resMessage} */}
-              We've emailed a password reset link. Please check your inbox.
+              We've emailed a password reset link. Please check your inbox or spam folder.
             </h1>
           ) : (
             <>

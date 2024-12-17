@@ -28,7 +28,7 @@ export default function Login() {
         navigate("/", { replace: true });
       })
       .catch((err) => {
-        message.error(err);
+        message.error(err.response.data.message);
       })
       .finally(() => {
         setIsLoading(false);
