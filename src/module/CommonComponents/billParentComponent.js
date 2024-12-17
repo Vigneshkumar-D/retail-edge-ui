@@ -70,7 +70,6 @@ class BillParentComponent extends TableParentPage {
           this.props.navigate(this.updateUrl, { replace: true });
         })
         .catch((err) => {
-          console.log(err)
           message.error(err.response?.data?.message);
         })
         .finally(() => {

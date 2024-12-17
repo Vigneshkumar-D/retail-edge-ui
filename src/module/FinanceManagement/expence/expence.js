@@ -110,7 +110,7 @@ class Expence extends TableParentPage {
       .getAll()
       .then((res) =>
         this.setState({
-          categoryList: res.data.map((e) => ({
+          categoryList: res.data.data.map((e) => ({
             value: e.id,
             label: e.category,
           })),
@@ -125,7 +125,7 @@ class Expence extends TableParentPage {
     this.userService
       .getAll()
       .then((res1) => {
-        this.setState({ salesManList: res1.data, mode: "add" });
+        this.setState({ salesManList: res1.data.data, mode: "add" });
         // if (this.props.id) {
         //   this.setState({ mode: "update", id: this.props.id });
         //   this.service.getAll({ id: this.props.id }).then((res) => {
@@ -326,7 +326,7 @@ class Expence extends TableParentPage {
                   className="form-input-tag-bottom-space"
                 >
                   <TextArea
-                  //  readOnly={this.state.mode === "view"}
+                    //  readOnly={this.state.mode === "view"}
                     className="input-tag-style"
                   />
                 </Form.Item>

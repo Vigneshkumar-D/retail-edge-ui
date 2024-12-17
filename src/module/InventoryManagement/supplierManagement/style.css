@@ -1,59 +1,65 @@
 .column {
-    background-color: #5aa3e4;
-    padding: 8px;
-  }
-  .card-style{
-    /* height: 100px; */
-    margin: 10px;
-    /* padding: 10px; */
-    font-weight: lighter;
-    /* background-color: #98FB98; */
-  }
-  .card-one{
-    background-color: #E6E6FA;
-  }
-  .card-two{
-    background-color: #F0FFFF	;
-  }
-  .card-three{
-    background-color: #FFF8DC	;
-  }
-  .card-four{
-    background-color: #cafed0;
-  }
-  .title{
-    align-self: center;
-  }
-  .icons{
-     font-size: 20px;
-  }
-  .inr-symbol{
-    align-self: flex-end;
-    font-size: 30px;
-    font-weight: 600;
-  }
-  .span{
-    font-size: 16px;
-  }
+  background-color: #5aa3e4;
+  padding: 18px;
+}
+.card-style {
+  height: 120px;
+  margin: 10px;
+  font-weight: lighter;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 0px !important;
+  margin-right: 10px !important;
+  /* background-color: #98FB98; */
+}
+.card-one {
+  background-color: #e6e6fa;
+}
+.card-two {
+  background-color: #f0ffff;
+}
+.card-three {
+  background-color: #fff8dc;
+}
+.card-four {
+  background-color: #cafed0;
+  margin-right: 0px !important;
+  margin-left: 10px !important;
+}
+.title {
+  align-self: center;
+}
+.icons {
+  font-size: 20px;
+}
+.inr-symbol {
+  align-self: flex-end;
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: 600;
+}
+.span {
+  font-size: 16px;
+}
 
-  .order-paymet-title{
-    padding: 10px;
-  }
-  .nav-button{
-    cursor: pointer;
-    /* color: #5aa3e4; */
-  }
+.order-paymet-title {
+  padding: 10px;
+}
+.nav-button {
+  cursor: pointer;
+  /* color: #5aa3e4; */
+}
 
-  .custom-table-row .editable-row {
-    padding: 10px !important;
-    max-height: 15px;
-  }
+.custom-table-row .editable-row {
+  padding: 10px !important;
+  max-height: 15px;
+}
 
-  .ant-table-cell{
-    padding: 0px;
-  }
+.ant-table-cell {
+  padding: 0px;
+}
 
-  /* Remove padding from table header cells */
+/* Remove padding from table header cells */
 .custom-table-row .ant-table th {
   padding: 8px !important; /* Removes padding from table header cells */
 }
@@ -64,9 +70,7 @@
   max-height: 125px !important; /* Removes padding from table data cells */
 }
 
-
-
-.custom-input{
+.custom-input {
   padding: 0px;
   border: 0.2px;
   border-radius: 2px;
@@ -80,7 +84,7 @@
   margin-bottom: 0 !important; /* Remove bottom margin from Form.Item div */
 }
 
-.custom-btn{
+.custom-btn {
   border-color: cadetblue;
   color: #36f136;
 }

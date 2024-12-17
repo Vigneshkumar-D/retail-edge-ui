@@ -19,7 +19,7 @@ import Delete from "../../../component/deleteButton";
 import Edit from "../../../component/editButton";
 import ProductService from "../../../service/customizeServices/InventoryManagement/product_management/productService";
 import CategoryService from "../../../service/customizeServices/InventoryManagement/product_management/categoryService";
-import { EditOutlined, UserAddOutlined } from "@ant-design/icons";
+import { EditOutlined, SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import Category from "./category";
 
 class Product extends TableParentPage {
@@ -38,6 +38,8 @@ class Product extends TableParentPage {
       categoryList: [],
       selectedCategory: null,
       categoryFormOpen: false,
+      barcodeUrl: null,
+      printBarcodeModel: false,
     };
   }
   columns = [
@@ -121,6 +123,9 @@ class Product extends TableParentPage {
             src={imageUrl}
             alt="Barcode"
             style={{ width: "100px", height: "auto" }}
+            onClick={() => {
+              this.setState({ barcodeUrl: imageUrl, printBarcodeModel: true });
+            }}
           />
         );
       },
@@ -153,14 +158,14 @@ class Product extends TableParentPage {
       .getAll()
       .then((res) =>
         this.setState({
-          categoryList: res.data.map((e) => ({
+          categoryList: res.data.data.map((e) => ({
             value: e.id,
             label: e.category,
           })),
         })
       )
       .catch((err) => {
-        message.error(err);
+        message.error(err.response.data?.message);
       })
       .finally(() => {
         this.setState({ isLoading: false });
@@ -174,6 +179,38 @@ class Product extends TableParentPage {
     this.setState({ categoryFormOpen: false, isLoading: false });
     this.componentDidMount();
   };
+  printBarcode = (imageUrl) => {
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print Barcode</title>
+          <style>
+            img {
+              width: 300px;
+              height: auto;
+              display: block;
+              margin: 50px auto;
+            }
+            body {
+              text-align: center;
+            }
+          </style>
+        </head>
+        <body>
+          <img src="${imageUrl}" alt="Barcode" />
+          <script>
+            window.onload = () => {
+              window.print();
+              window.onafterprint = window.close;
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
   render() {
     return (
       <Spin spinning={this.state.isLoading}>
@@ -391,7 +428,19 @@ class Product extends TableParentPage {
               )}
 
               <Flex justify="end" style={{ width: "100%" }}>
-                <Button type="primary" htmlType="submit">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={this.state.isLoading}
+                  icon={
+                    <Spin
+                      spinning={this.state.isLoading}
+                      indicator={<SyncOutlined spin />}
+                      // size="small"
+                      style={{ color: "white" }}
+                    />
+                  }
+                >
                   {this.state.mode == "add" ? "Add" : "Update"}
                 </Button>
               </Flex>
@@ -406,6 +455,34 @@ class Product extends TableParentPage {
         >
           <Category />
         </Drawer>
+        <Modal
+          onCancel={() => {
+            this.setState({ barcodeUrl: null, printBarcodeModel: false });
+          }}
+          open={this.state.printBarcodeModel}
+          footer={null} // Remove footer
+        >
+          <div style={{ textAlign: "center" }}>
+            <img
+              src={this.state.barcodeUrl}
+              alt="Barcode"
+              style={{ width: "100%", height: "auto", marginBottom: "20px" }}
+            />
+            <button
+              onClick={() => this.printBarcode(this.state.barcodeUrl)}
+              style={{
+                padding: "10px 20px",
+                backgroundColor: "#1890ff",
+                color: "#fff",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              Print Barcode
+            </button>
+          </div>
+        </Modal>
       </Spin>
     );
   }

@@ -66,3 +66,8 @@ export const SUPPLIER_DASHBOARD_PAYMENT_DETAIS =
   baseUrl + "/payments/last-three";
 export const SUPPLIER_DASHBOARD_PURCHASE_ORDER_DETAIS =
   baseUrl + "/purchase-order/last-three";
+
+// Store Configuration
+export const STORE_URL = baseUrl + "/store-details";
+export const STORE_ACCOUNT_URL = baseUrl + "/account-details";
+export const GST_URL = baseUrl + "/gst-details";

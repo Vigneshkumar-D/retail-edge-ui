@@ -83,7 +83,7 @@ class InvoiceHistory extends TableParentPage {
               className="editDeleteButton"
               onClick={() => {
                 this.setState({ isModelOpen: true });
-                this.setState({ pdfData: record })
+                this.setState({ pdfData: record });
               }}
             />
           </Tooltip>
@@ -95,7 +95,7 @@ class InvoiceHistory extends TableParentPage {
 
   handleCancel = () => {
     this.setState({ isModelOpen: false });
-    this.setState({ pdfData: null })
+    this.setState({ pdfData: null });
   };
 
   render() {
@@ -119,7 +119,12 @@ class InvoiceHistory extends TableParentPage {
             // style={{borderRadius:"12px",overflow:"hidden"}}
           />
         </ConfigProvider>
-        <Modal open={this.state.isModelOpen} width={840} onCancel={this.handleCancel}>
+        <Modal
+          open={this.state.isModelOpen}
+          width={840}
+          onCancel={this.handleCancel}
+          footer={false}
+        >
           <InvoicePdf pdfData={this.state.pdfData} />
         </Modal>
       </Spin>

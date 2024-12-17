@@ -35,7 +35,6 @@
 
 //   const onFinish = (values) => {
 //     setIsLoading(true);
-//     // console.log("hit");
 
 //     service
 //       .post(values)
@@ -244,16 +243,14 @@ export default function ForgetPassword() {
 
   const onFinish = (values) => {
     setIsLoading(true);
-    // console.log("hit");
 
     service
       .post(values)
       .then((res) => {
-        message.success(res.data);
-        setResMessage(res.data);
+        message.success(res.data.message);
+        setResMessage(res.data.message);
       })
       .catch((err) => {
-        console.log(err);
         message.error(err.response.data);
       })
       .finally(() => {

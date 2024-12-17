@@ -14,7 +14,7 @@ import {
 import Delete from "../../../component/deleteButton";
 import Edit from "../../../component/editButton";
 import CategoryService from "../../../service/customizeServices/InventoryManagement/product_management/categoryService";
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import View from "../../../component/viewButton";
 
 class Category extends TableParentPage {
@@ -91,7 +91,7 @@ class Category extends TableParentPage {
           />
         </ConfigProvider>
         <Modal
-          title="Basic Modal"
+          title="Category"
           open={this.state.formOpen}
           onCancel={this.handleCancel}
           footer={false}
@@ -113,13 +113,29 @@ class Category extends TableParentPage {
                       message: "Please enter the category",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input readOnly={this.state.mode === "view"} />
+                  <Input
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
                 </Form.Item>
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={this.state.isLoading}
+                    icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        // size="small"
+                        style={{ color: "white" }}
+                      />
+                    }
+                  >
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>

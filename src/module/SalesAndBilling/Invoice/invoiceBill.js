@@ -1431,7 +1431,7 @@ class InvoiceBillClass extends BillParentComponent {
       .getAll()
       .then((res) =>
         this.setState({
-          productList: res.data.map((e) => {
+          productList: res.data.data.map((e) => {
             return { ...e, identity: e.barcode || e.imeiNumber || "barcode" };
           }),
         })

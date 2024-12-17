@@ -24,7 +24,7 @@ export default function Login() {
       .post(values)
       .then((res) => {
         const expirationTime = new Date(new Date().getTime() + 10 * 60 * 1000); // Set for 10 minutes
-        Cookies.set("login_token", res.data.token, { expires: expirationTime });
+        Cookies.set("login_token", res.data.message, { expires: expirationTime });
         navigate("/", { replace: true });
       })
       .catch((err) => {

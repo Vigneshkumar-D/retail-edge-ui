@@ -230,7 +230,7 @@ export default function ResetPassword() {
   const [searchParams] = useSearchParams();
 
   // Get the value of the 'token' query parameter
-  const reset_token = searchParams.get("token");
+  const reset_token = searchParams.get("token")?.replace(/'/g, "");
   const [successMessage, setSuccessMessage] = useState(null);
   const [status, setStatus] = useState(false);
   const navigate = useNavigate();
@@ -241,7 +241,7 @@ export default function ResetPassword() {
   const [isLoading, setIsLoading] = useState(false);
 
   const onFinish = (values) => {
-    setIsLoading(true)
+    setIsLoading(true);
     service
       .post(values, {
         headers: {
@@ -249,16 +249,17 @@ export default function ResetPassword() {
         },
       })
       .then((res) => {
-        message.success(res.data);
+        message.success(res.data.message);
         setStatus(true);
-        setSuccessMessage(res.data);
+        setSuccessMessage(res.data.message);
       })
       .catch((err) => {
         setStatus(false);
-        message.error(err.data);
-      }).finally(()=>{
-        setIsLoading(false)
+        message.error(err.response.data);
       })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const styles = {

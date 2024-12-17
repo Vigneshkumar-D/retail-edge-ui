@@ -233,7 +233,7 @@ class User extends TableParentPage {
               {this.state.mode === "add" && (
                 <Col xs={24} sm={12}>
                   <Form.Item name="password" label="Password">
-                    <Input
+                    <Input.Password
                       type="Password"
                       readOnly={this.state.mode === "view"}
                     />

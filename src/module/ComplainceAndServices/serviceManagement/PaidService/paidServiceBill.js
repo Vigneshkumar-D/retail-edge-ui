@@ -33,7 +33,6 @@ class PaidServiceBillClass extends BillParentComponent {
             totalAmount: 0,
           }}
           onValuesChange={(changedValues, allValues) => {
-            console.log("allValues", allValues);
             const profitMargin =
               (allValues.customerCost || 0) - (allValues.sparePartCost || 0);
             this.form.setFieldsValue({

@@ -18,7 +18,7 @@ import {
 import Delete from "../../../component/deleteButton";
 import Edit from "../../../component/editButton";
 import StockTransactionService from "../../../service/customizeServices/InventoryManagement/product_management/stockTransactionService";
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import ProductService from "../../../service/customizeServices/InventoryManagement/product_management/productService";
 import { DateTimeFormat } from "../../../service/defaultServices/formates";
 import View from "../../../component/viewButton";
@@ -109,10 +109,10 @@ class StockTransaction extends TableParentPage {
     this.productService
       .getAll()
       .then((res) => {
-        this.setState({ productList: res.data });
+        this.setState({ productList: res.data.data });
       })
       .catch((err) => {
-        message.error(err);
+        message.error(err.response.data?.message);
       })
       .finally(() => {
         this.setState({ isLoading: false });
@@ -175,11 +175,13 @@ class StockTransaction extends TableParentPage {
                       message: "Please enter the product name",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <Select
                     options={this.state.productList?.map((d) => {
                       return { label: d.productName, value: d.id };
                     })}
+                    className="input-tag-style"
                     readOnly={this.state.mode === "view"}
                   />
                 </Form.Item>
@@ -188,9 +190,11 @@ class StockTransaction extends TableParentPage {
                 <Form.Item
                   name="type"
                   label="Type"
+                  className="form-input-tag-bottom-space"
                   rules={[{ required: true, message: "Please enter the type" }]}
                 >
                   <Select
+                    className="input-tag-style"
                     options={[
                       {
                         value: "TRANSFER",
@@ -212,8 +216,13 @@ class StockTransaction extends TableParentPage {
                   rules={[
                     { required: true, message: "Please enter the quantity" },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input type="Number" readOnly={this.state.mode === "view"} />
+                  <Input
+                    type="Number"
+                    className="input-tag-style"
+                    readOnly={this.state.mode === "view"}
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -226,8 +235,12 @@ class StockTransaction extends TableParentPage {
                       message: "Please enter the transfer person",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input readOnly={this.state.mode === "view"} />
+                  <Input
+                    className="input-tag-style"
+                    readOnly={this.state.mode === "view"}
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -240,17 +253,31 @@ class StockTransaction extends TableParentPage {
                       message: "Please enter the transaction date",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <DatePicker
                     showTime
                     format="YYYY-MM-DD hh-mm a"
                     readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
                   />
                 </Form.Item>
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={this.state.isLoading}
+                    icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        // size="small"
+                        style={{ color: "white" }}
+                      />
+                    }
+                  >
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>

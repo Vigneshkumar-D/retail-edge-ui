@@ -16,7 +16,7 @@ import Edit from "../../../component/editButton";
 
 import "./style.css";
 import SupplierService from "../../../service/customizeServices/SupplierService/supplierService";
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import Paragraph from "antd/es/typography/Paragraph";
 import View from "../../../component/viewButton";
 
@@ -163,8 +163,12 @@ class Suppiler extends TableParentPage {
                       message: "Please enter the supplier name",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input readOnly={this.state.mode === "view"} />
+                  <Input
+                    className="input-tag-style"
+                    readOnly={this.state.mode === "view"}
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -177,8 +181,12 @@ class Suppiler extends TableParentPage {
                       message: "Please enter the contact name",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input readOnly={this.state.mode === "view"} />
+                  <Input
+                    className="input-tag-style"
+                    readOnly={this.state.mode === "view"}
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -191,8 +199,12 @@ class Suppiler extends TableParentPage {
                       message: "Please enter the Contact Email",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input readOnly={this.state.mode === "view"} />
+                  <Input
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -209,8 +221,13 @@ class Suppiler extends TableParentPage {
                       message: "Please enter a valid 10-digit mobile number!",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input type="tel" readOnly={this.state.mode === "view"} />
+                  <Input
+                    type="tel"
+                    className="input-tag-style"
+                    readOnly={this.state.mode === "view"}
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -220,13 +237,29 @@ class Suppiler extends TableParentPage {
                   rules={[
                     { required: true, message: "Please enter the Address" },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input.TextArea readOnly={this.state.mode === "view"} />
+                  <Input.TextArea
+                    className="input-tag-style"
+                    readOnly={this.state.mode === "view"}
+                  />
                 </Form.Item>
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={this.state.isLoading}
+                    icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        // size="small"
+                        style={{ color: "white" }}
+                      />
+                    }
+                  >
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>
