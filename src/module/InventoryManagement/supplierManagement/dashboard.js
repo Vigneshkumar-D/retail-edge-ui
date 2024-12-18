@@ -178,11 +178,10 @@ class Dashboard extends TableParentPage {
   ];
 
   componentDidMount() {
+    this.setState({ isLoading: true });
     this.supplierService
       .getAll()
-      .then((res) => {
-        console.log("ew", res);
-        
+      .then((res) => {  
         const filteredSupplierData = res.data.data?.map((supplier) => ({
           value: supplier.id,
           label: supplier.supplierName,
@@ -205,14 +204,14 @@ class Dashboard extends TableParentPage {
   onSelectSupplier = (value) => {
     if (value) {
       this.paymentDetailsService.getSingleItem(value).then((res) => {
-        this.setState({ paymentData: res.data.data });
+        this.setState({ paymentData: res.data?.data });
       });
       this.service.getSingleItem(value).then((res) => {
-        this.setState({ puchaseOrderData: res.data.data });
+        this.setState({ puchaseOrderData: res.data?.data });
       });
 
       this.supplierService.getAll({ supplierId: value }).then((res) => {
-        this.setState({ data: res.data.data });
+        this.setState({ data: res.data?.data });
       });
     }
   };
