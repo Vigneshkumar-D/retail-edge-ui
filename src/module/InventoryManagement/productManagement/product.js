@@ -114,7 +114,9 @@ class Product extends TableParentPage {
       title: "Barcode Image",
       dataIndex: "barcodeImage",
       key: "barcodeImage",
-
+      onCell: (record) => ({
+        style: { cursor: "pointer" },
+      }),
       render: (e) => {
         if (!e) return "-";
         const imageUrl = `data:image/png;base64,${e}`;
