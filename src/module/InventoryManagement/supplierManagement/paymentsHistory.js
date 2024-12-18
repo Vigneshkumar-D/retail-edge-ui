@@ -146,7 +146,6 @@ class PaymentsHistory extends TableParentPage {
   }
 
   render() {
-    console.log("mode", this.state.data);
     return (
       <>
         <Spin spinning={this.state.isLoading}>
