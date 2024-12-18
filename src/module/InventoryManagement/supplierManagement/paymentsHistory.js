@@ -7,6 +7,7 @@ import {
   Flex,
   Form,
   Input,
+  message,
   Modal,
   Row,
   Select,
@@ -136,7 +137,11 @@ class PaymentsHistory extends TableParentPage {
         label: supplier.supplierName,
       }));
       this.setState({ supplierData: filteredSupplierData });
-      console.log("data 1", res);
+    }).catch((err) => {
+      message.error(err.response.data?.message);
+    })
+    .finally(() => {
+      this.setState({ isLoading: false });
     });
   }
 

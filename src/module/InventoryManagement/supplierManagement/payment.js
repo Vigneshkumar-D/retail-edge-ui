@@ -7,6 +7,7 @@ import {
   Flex,
   Form,
   Input,
+  message,
   Modal,
   Row,
   Select,
@@ -136,12 +137,16 @@ class Payment extends TableParentPage {
   componentDidMount() {
     super.componentDidMount();
     this.supplierService.getAll().then((res) => {
-      const filteredSupplierData = res.data.map((supplier) => ({
+      const filteredSupplierData = res.data.data.map((supplier) => ({
         value: supplier.id,
         label: supplier.supplierName,
       }));
       this.setState({ supplierData: filteredSupplierData });
-      console.log("data 1", res);
+    }).catch((err) => {
+      message.error(err.response.data?.message);
+    })
+    .finally(() => {
+      this.setState({ isLoading: false });
     });
   }
 
