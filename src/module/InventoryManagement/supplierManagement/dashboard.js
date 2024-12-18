@@ -202,7 +202,7 @@ class Dashboard extends TableParentPage {
   onSelectSupplier = (value) => {
     if (value) {
       this.paymentDetailsService.getSingleItem(value).then((res) => {
-        this.setState({ paymentData: res?.data });
+        this.setState({ paymentData: res?.data, defaultSupplier: value });
       });
       this.service.getSingleItem(value).then((res) => {
         this.setState({ puchaseOrderData: res.data });

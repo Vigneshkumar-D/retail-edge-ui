@@ -91,23 +91,57 @@ class Account extends StoreConfigurationParent {
               >
                 <Input disabled={this.state.readOnly} />
               </Form.Item>
+
+              {/* <Form.Item
+                label="UPI QR Code Image"
+                name="upiQRCodeImage"
+                rules={[
+                  { required: true, message: "Enter Upload UPI QR Code!" },
+                ]}
+                valuePropName="fileList"
+                getValueFromEvent={(e) => e?.fileList || []}
+              >
+                <Upload
+                  listType="picture-card"
+                  disabled={this.state.readOnly}
+                  accept="image/*"
+                  onChange={this.handleFileChange}
+                  onPreview={this.handlePreview}
+                  fileList={this.state.fileList} // Explicitly control the file list
+                  maxCount={1} // Prevent more than one file
+                >
+                  {this.state.fileList?.length >= 1 ? null : (
+                    <div>
+                      <PlusOutlined />
+                      <div style={{ marginTop: 8 }}>Upload</div>
+                    </div>
+                  )}
+                </Upload>
+              </Form.Item> */}
               <Form.Item
                 label="UPI QR Code Image"
                 name="upiQRCodeImage"
                 rules={[
                   { required: true, message: "Enter Upload UPI QR Code!" },
                 ]}
+                valuePropName="fileList"
+                getValueFromEvent={(e) => e?.fileList || []}
               >
                 <Upload
                   listType="picture-card"
-                  style={{ height: "2px" }}
                   disabled={this.state.readOnly}
                   accept="image/*"
+                  onChange={this.handleFileChange}
+                  onPreview={this.handlePreview}
+                  fileList={this.state.fileList} // Explicitly control the file list
+                  maxCount={1} // Prevent more than one file
                 >
-                  <div>
-                    <PlusOutlined />
-                    <div style={{ marginTop: 2 }}>Upload</div>
-                  </div>
+                  {this.state.fileList?.length >= 1 ? null : (
+                    <div>
+                      <PlusOutlined />
+                      <div style={{ marginTop: 8 }}>Upload</div>
+                    </div>
+                  )}
                 </Upload>
               </Form.Item>
             </Col>

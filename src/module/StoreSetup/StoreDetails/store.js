@@ -1,4 +1,14 @@
-import { Button, Card, Flex, Form, Input, message, Spin, Upload } from "antd";
+import {
+  Button,
+  Card,
+  Flex,
+  Form,
+  Input,
+  message,
+  Modal,
+  Spin,
+  Upload,
+} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { PlusOutlined } from "@ant-design/icons";
 import StoreConfigurationParent from "./storeConfigurationParent";
@@ -93,23 +103,34 @@ class Store extends StoreConfigurationParent {
             >
               <Input disabled={this.state.readOnly} />
             </Form.Item>
+
             <Form.Item
               label="Store Logo Image"
               name="storeLogoImage"
-              rules={[{ required: true, message: "Enter Upload UPI QR Code!" }]}
+              rules={[
+                { required: true, message: "Please upload the store logo!" },
+              ]}
+              valuePropName="fileList"
+              getValueFromEvent={(e) => e?.fileList || []}
             >
               <Upload
                 listType="picture-card"
-                style={{ height: "2px" }}
                 disabled={this.state.readOnly}
                 accept="image/*"
+                onChange={this.handleFileChange}
+                onPreview={this.handlePreview}
+                fileList={this.state.fileList} // Explicitly control the file list
+                maxCount={1} // Prevent more than one file
               >
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 2 }}>Upload</div>
-                </div>
+                {this.state.fileList?.length >= 1 ? null : (
+                  <div>
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Upload</div>
+                  </div>
+                )}
               </Upload>
             </Form.Item>
+
             <Flex justify="end">
               <Form.Item>
                 <Button
@@ -123,6 +144,18 @@ class Store extends StoreConfigurationParent {
             </Flex>
           </Form>
         </Card>
+        <Modal
+          visible={this.state.previewVisible}
+          footer={null}
+          onCancel={this.handleCancel}
+        >
+          <img
+            alt="Preview"
+            style={{ width: "100%" }}
+            // src={this.state.previewImage}
+            src={`data:image/png;base64,${this.state?.previewImage}`}
+          />
+        </Modal>
       </Spin>
     );
   }
