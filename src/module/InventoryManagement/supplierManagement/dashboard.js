@@ -181,7 +181,9 @@ class Dashboard extends TableParentPage {
     this.supplierService
       .getAll()
       .then((res) => {
-        const filteredSupplierData = res.data.map((supplier) => ({
+        console.log("ew", res);
+        
+        const filteredSupplierData = res.data.data?.map((supplier) => ({
           value: supplier.id,
           label: supplier.supplierName,
         }));
@@ -192,7 +194,8 @@ class Dashboard extends TableParentPage {
         this.onSelectSupplier(filteredSupplierData[0]?.value);
       })
       .catch((err) => {
-        message.error(err);
+        console.log("err", err.response.data?.message);
+        message.error(err.response.data?.message);
       })
       .finally(() => {
         this.setState({ isLoading: false });
@@ -202,14 +205,14 @@ class Dashboard extends TableParentPage {
   onSelectSupplier = (value) => {
     if (value) {
       this.paymentDetailsService.getSingleItem(value).then((res) => {
-        this.setState({ paymentData: res?.data });
+        this.setState({ paymentData: res.data.data });
       });
       this.service.getSingleItem(value).then((res) => {
-        this.setState({ puchaseOrderData: res.data });
+        this.setState({ puchaseOrderData: res.data.data });
       });
 
       this.supplierService.getAll({ supplierId: value }).then((res) => {
-        this.setState({ data: res.data });
+        this.setState({ data: res.data.data });
       });
     }
   };

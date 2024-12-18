@@ -28,7 +28,8 @@ export default function Login() {
         navigate("/", { replace: true });
       })
       .catch((err) => {
-        message.error(err.response.data.message);
+        const msg = err.response.data?.message ? err.response.data.message : err.message;
+        message.error(msg);
       })
       .finally(() => {
         setIsLoading(false);

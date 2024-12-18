@@ -1,6 +1,6 @@
 import TableParentPage from "../../../component/tableParentPage";
 import React from "react";
-import { Button, ConfigProvider, Flex, Modal, Table } from "antd";
+import { Button, ConfigProvider, Flex, message, Modal, Table } from "antd";
 import Delete from "../../../component/deleteButton";
 import Edit from "../../../component/editButton";
 import PurchaseOrderService from "../../../service/customizeServices/SupplierService/purchaseOrderService";
@@ -46,11 +46,16 @@ class PurchaseOrder extends TableParentPage {
   componentDidMount() {
     super.componentDidMount();
     this.supplierService.getAll().then((res) => {
-      const filteredSupplierData = res.data.map((supplier) => ({
+      const filteredSupplierData = res.data.data.map((supplier) => ({
         value: supplier.id,
         label: supplier.supplierName,
       }));
       this.setState({ supplierData: filteredSupplierData });
+    }).catch((err) => {
+      message.error(err.response.data?.message);
+    })
+    .finally(() => {
+      this.setState({ isLoading: false });
     });
   }
 
