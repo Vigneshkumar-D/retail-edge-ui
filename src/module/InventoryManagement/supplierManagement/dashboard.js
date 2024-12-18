@@ -54,7 +54,12 @@ class Dashboard extends TableParentPage {
       render: (e) => (
         <Button
           // className="editDeleteButton"
-          style={{ color: "green", border: "none", background: "transparent", height: "19px" }}
+          style={{
+            color: "green",
+            border: "none",
+            background: "transparent",
+            height: "19px",
+          }}
           onClick={() => {
             this.handleProductModule(e);
           }}
@@ -181,7 +186,7 @@ class Dashboard extends TableParentPage {
     this.setState({ isLoading: true });
     this.supplierService
       .getAll()
-      .then((res) => {  
+      .then((res) => {
         const filteredSupplierData = res.data.data?.map((supplier) => ({
           value: supplier.id,
           label: supplier.supplierName,
@@ -209,10 +214,10 @@ class Dashboard extends TableParentPage {
       this.service.getSingleItem(value).then((res) => {
         this.setState({ puchaseOrderData: res.data?.data });
       });
-
       this.supplierService.getAll({ supplierId: value }).then((res) => {
         this.setState({ data: res.data?.data });
       });
+      this.setState({ defaultSupplier: value });
     }
   };
 
