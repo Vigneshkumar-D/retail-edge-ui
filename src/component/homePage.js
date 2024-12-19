@@ -328,7 +328,6 @@ const HomePage = () => {
     service
       .getAll()
       .then((res) => {
-      
         setCurrentUser(res.data?.data);
       })
       .catch((err) => {
@@ -357,7 +356,7 @@ const HomePage = () => {
   }
 
 
-  const quickAccessMenu = (
+  const quickActionsMenu = (
     <Menu
       items={[
         {
@@ -642,42 +641,44 @@ const HomePage = () => {
           />
 
 
-          <div style={{ alignSelf: "flex-end", display: "flex", alignItems: "center", alignSelf: "center", justifyContent: "space-around", minWidth: "180px", maxWidth:"280px", }}>
-            <Dropdown
-              overlay={quickAccessMenu}
-              placement="bottom"
-              arrow
-              trigger={['click']}
-              color="blue"
-            >
-              <Tooltip placement="right" title="Quick Access">
-                <Button
-                  style={{
-                    fontSize: "16px",
-                    width: 20,
-                    height: 20,
-                    border: "none",
-                    padding: "0px",
-                    alignItems: "center"
-                  }}
+          <div style={{ alignSelf: "flex-end", display: "flex", alignItems: "center", alignSelf: "center", justifyContent: "space-around", minWidth: "180px", maxWidth: "280px", }}>
+            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", width:"120px", paddingRight:"10px"}}>
+              <Dropdown
+                overlay={quickActionsMenu}
+                placement="bottom"
+                arrow
+                trigger={['click']}
+                color="blue"
+              >
+                <Tooltip placement="right" title="Quick Actions">
+                  <Button
+                    style={{
+                      fontSize: "16px",
+                      width: 20,
+                      height: 20,
+                      border: "none",
+                      padding: "0px",
+                      alignItems: "center"
+                    }}
 
-                >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 
-                    <IoArrowRedo style={{ height: "25px", cursor: "pointer", color: "", width: "25px", }} />
-                  </div>
+                      <IoArrowRedo style={{ height: "25px", cursor: "pointer", color: "", width: "25px", }} />
+                    </div>
 
-                </Button>
+                  </Button>
+                </Tooltip>
+              </Dropdown>
+
+              <Tooltip placement="right" title="Notifications">
+                <MdOutlineNotificationsActive style={{ height: "25px", cursor: "pointer", color: "", width: "25px", }} />
               </Tooltip>
-            </Dropdown>
 
-            <Tooltip placement="right" title="Notifications">
-              <MdOutlineNotificationsActive style={{ height: "25px", cursor: "pointer", color: "", width: "25px", }} />
-            </Tooltip>
-           
-            <img src= {currentUser?.profileImage !== null ? `data:image/png;base64,${currentUser?.profileImage}` : "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} alt="Profile Picture" style={{ height: "30px", width: "30px", borderRadius: "50%", cursor: "pointer" }} />
-            {/* <img src="" alt="GHJ" style={{ height: "30px", width: "30px", borderRadius: "50%", cursor: "pointer" }} /> */}
-            <p style={{ fontWeight: "600", cursor: "pointer" }}>{currentUser?.username}</p>
+              <img src={currentUser?.profileImage !== null ? `data:image/png;base64,${currentUser?.profileImage}` : "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} alt="Profile Picture" style={{ height: "30px", width: "30px", borderRadius: "50%", cursor: "pointer" }} />
+              {/* <img src="" alt="GHJ" style={{ height: "30px", width: "30px", borderRadius: "50%", cursor: "pointer" }} /> */}
+            </div>
+            <p style={{ fontWeight: "600", cursor: "pointer", paddingRight:"6px" }}>{currentUser?.username}</p>
             <Dropdown
               menu={{
                 items: [

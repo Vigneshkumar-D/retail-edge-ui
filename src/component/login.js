@@ -188,9 +188,6 @@ export default function Login() {
           </Form>
         </div>
       </section>
-      <div style={{backgroundColor:"gray"}}>
-        <Dashboard />
-      </div>
     </>
   );
 }
