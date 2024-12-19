@@ -45,7 +45,13 @@ const InvoicePdf = (props) => {
 
   useEffect(() => {
     const formattedData = pdfData.lineItems.map((item, index) => {
+      console.log(`productName: \nIMEI:`);
+
       const product = item.product;
+      console.log(item);
+      console.log(product.hsnCode?.taxSlab?.cgst);
+      console.log(product.hsnCode?.taxSlab?.igst);
+      
       return {
         key: String(index + 1),
         srNo: index + 1,
@@ -54,8 +60,8 @@ const InvoicePdf = (props) => {
         qty: String(item.quantity),
         rate: String(item.pricePerUnit),
         taxableValue: String(item.lineTotal),
-        cgst: String(item.hsnCode?.taxSlab?.cgst || 0),
-        sgst: String(item.hsnCode?.taxSlab?.sgst || 0),
+        cgst: String(product.hsnCode?.taxSlab?.cgst || 0),
+        sgst: String(product.hsnCode?.taxSlab?.sgst || 0),
         cgstAmount: String(item.cgstAmount || 0),
         sgstAmount: String(item.sgstAmount || 0),
         total: String(item.lineTotal + item.totalTaxAmount || item.lineTotal),
@@ -148,7 +154,7 @@ const InvoicePdf = (props) => {
       title: "Descriptions of Goods",
       dataIndex: "productName",
       key: "productName",
-      align: "center",
+      align: "left",
     },
     {
       title: "HSN",
@@ -183,11 +189,13 @@ const InvoicePdf = (props) => {
           title: "%",
           dataIndex: "sgst",
           key: "sgst",
+          render: (text) => (text ? `%${text.toLocaleString()}` : "")
         },
         {
           title: "Amount",
-          dataIndex: "street",
-          key: "street",
+          dataIndex: "sgstAmount",
+          key: "sgstAmount",
+          render: (text) => (text ? `₹${text.toLocaleString()}` : "")
         },
       ],
     },
@@ -196,13 +204,15 @@ const InvoicePdf = (props) => {
       children: [
         {
           title: "%",
-          dataIndex: "street",
-          key: "street",
+          dataIndex: "cgst",
+          key: "cgst",
+          render: (text) => (text ? `%${text.toLocaleString()}` : "")
         },
         {
           title: "Amount",
-          dataIndex: "street",
-          key: "street",
+          dataIndex: "cgstAmount",
+          key: "cgstAmount",
+          render: (text) => (text ? `₹${text.toLocaleString()}` : "")
         },
       ],
     },
@@ -296,7 +306,7 @@ const InvoicePdf = (props) => {
               </Text>
             </Col>
             <Col>
-              <Text strong>TAX INVOICE</Text>
+              <Text strong style={{paddingLeft:"35px"}}>TAX INVOICE</Text>
             </Col>
             <Col>
               <Text strong>ORIGINAL FOR RECIPIENT</Text>
@@ -602,7 +612,9 @@ const InvoicePdf = (props) => {
                           </Text>
                         </Col>
 
-                        <Col span={4}>
+                        <Col span={5} style={{textAlign:"center"
+
+                        }}>
                           <img
                             style={{
                               height: "88px",
