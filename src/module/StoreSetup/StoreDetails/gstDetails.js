@@ -1,14 +1,4 @@
-import {
-  Button,
-  Card,
-  Col,
-  Flex,
-  Form,
-  Input,
-  message,
-  Spin,
-  Upload,
-} from "antd";
+import { Button, Card, Flex, Form, Input, message, Spin } from "antd";
 import StoreConfigurationParent from "./storeConfigurationParent";
 import GstService from "../../../service/customizeServices/StoreManagement/StoreDetails/gestService";
 
@@ -17,39 +7,46 @@ class GstDetails extends StoreConfigurationParent {
   constructor() {
     super();
     this.state = {
-      readOnly: true,
+      ...this.state,
     };
     this.save = this.save.bind(this); // Bind the save method
   }
 
   componentDidMount() {
-    super.componentDidMount();
+    this.setState({ isLoading: true });
+    this.service
+      .getAll()
+      .then((res) => {
+        if (res.data.data.length > 0) {
+          this.setState({ id: res.data.data[0].id });
+          if (this.formRef.current) {
+            this.formRef.current.setFieldsValue(res.data.data[0]);
+          }
+        }
+      })
+      .catch((err) => {
+        message.error(err.response?.data?.message || "Failed to fetch data");
+      })
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
   }
 
   save = (data) => {
     const requestBody = {};
-
-    // Loop through the data to handle file fields and other fields
     Object.keys(data).forEach((key) => {
       if (key.toLowerCase().includes("image") && Array.isArray(data[key])) {
-        const file = data[key][0]?.originFileObj; // Extract the actual file
-        console.log("Uploading file:", file);
+        const file = data[key][0]?.originFileObj;
         if (file) {
-          console.log("key:", key);
-          // Here you can handle the file, if necessary, like converting to base64 or sending as part of a different parameter
-          // In this example, we're sending file names or base64 (if necessary)
-          requestBody[key] = file.name; // You can modify this line based on your API's expected input (e.g., base64 encoding)
+          requestBody[key] = file.name;
         }
       } else {
-        // For other fields, just add them to the request body
         requestBody[key] = data[key];
       }
     });
 
     // Indicate loading state
     this.setState({ isLoading: true });
-
-    console.log("this.state.id", this.state.id);
 
     if (!this.state.id) {
       // Send normal data as JSON for creating a new entry
@@ -58,6 +55,7 @@ class GstDetails extends StoreConfigurationParent {
         .then((res) => {
           this.setState({ id: res.data.data.id });
           message.success("Created successfully");
+          this.setState({ readOnly: true });
           this.formRef.current.setFieldsValue(res.data); // Update form values with server response
         })
         .catch((err) => {
@@ -73,6 +71,7 @@ class GstDetails extends StoreConfigurationParent {
           message.success("Updated successfully");
           this.setState({ id: res.data.data.id });
           this.formRef.current.setFieldsValue(res.data); // Update form values with server response
+          this.setState({ readOnly: true });
         })
         .catch((err) => {
           message.error(err.response.data.message || "Failed to update entry");

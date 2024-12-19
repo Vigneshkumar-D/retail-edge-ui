@@ -6,6 +6,7 @@ class StoreConfigurationParent extends Component {
     super(props);
     this.save = this.save.bind(this);
     this.state = {
+      readOnly: true,
       isLoading: false,
       previewVisible: false,
       previewImage: "",
@@ -15,48 +16,6 @@ class StoreConfigurationParent extends Component {
   handleCancel = () => this.setState({ previewVisible: false });
 
   formRef = React.createRef();
-
-  componentDidMount() {
-    this.setState({ isLoading: true });
-    this.service
-      .getAll()
-      .then((res) => {
-        if (res.data.data.length > 0) {
-          const storeData = res.data.data[0];
-
-          // Process storeLogoImage for Upload component
-          const fileList =
-            storeData.storeLogoImage &&
-            typeof storeData.storeLogoImage === "string"
-              ? [
-                  {
-                    uid: "-1",
-                    name: "store-logo.jpg",
-                    status: "done",
-                    url: storeData.storeLogoImage, // Assuming this is the image URL
-                  },
-                ]
-              : [];
-
-          // Set processed form data
-          const processedFormData = {
-            ...storeData,
-            storeLogoImage: fileList, // Use the formatted file list
-          };
-
-          this.setState({ id: storeData.id });
-          if (this.formRef.current) {
-            this.formRef.current.setFieldsValue(processedFormData);
-          }
-        }
-      })
-      .catch((err) => {
-        message.error(err.response?.data?.message || "Failed to fetch data");
-      })
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
-  }
 
   save = (data) => {
     const formData = new FormData();
@@ -83,6 +42,7 @@ class StoreConfigurationParent extends Component {
         message.success(
           isUpdate ? "Updated successfully" : "Created successfully"
         );
+        this.setState({ readOnly: true });
         this.formRef.current.setFieldsValue(res.data);
       })
       .catch((err) => {

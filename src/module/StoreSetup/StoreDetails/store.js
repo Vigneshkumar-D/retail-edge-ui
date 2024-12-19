@@ -16,17 +16,73 @@ import StoreService from "../../../service/customizeServices/StoreManagement/Sto
 
 class Store extends StoreConfigurationParent {
   service = new StoreService();
+
   constructor() {
     super();
     this.state = {
-      readOnly: true,
+      ...this.state,
+      fileList: [], // Store Logo file list for Upload component
+      previewVisible: false, // Controls visibility of the image preview modal
+      previewImage: "", // Stores the URL or base64 string for the preview image
+      isLoading: false, // Spinner state
     };
-    this.save = this.save.bind(this); // Bind the save method
+
+    this.save = this.save.bind(this); // Bind save method
   }
 
   componentDidMount() {
-    super.componentDidMount();
+    this.setState({ isLoading: true });
+    this.service
+      .getAll()
+      .then((res) => {
+        if (res.data.data.length > 0) {
+          const storeData = res.data.data[0];
+
+          // Process storeLogoImage for the Upload component
+          const fileList =
+            storeData.storeLogoImage && typeof storeData.storeLogoImage === "string"
+              ? [
+                  {
+                    uid: "-1",
+                    name: "store-logo.jpg",
+                    status: "done",
+                    url: storeData.storeLogoImage, // Assuming this is the image URL
+                  },
+                ]
+              : [];
+
+          this.setState({ id: storeData.id, fileList });
+
+          if (this.formRef.current) {
+            this.formRef.current.setFieldsValue({
+              ...storeData,
+              storeLogoImage: fileList, // Set the processed file list
+            });
+          }
+        }
+      })
+      .catch((err) => {
+        message.error(err.response?.data?.message || "Failed to fetch data");
+      })
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
   }
+
+  handleFileChange = ({ fileList }) => {
+    this.setState({ fileList });
+  };
+
+  handlePreview = (file) => {
+    this.setState({
+      previewImage: file.url || file.thumbUrl,
+      previewVisible: true,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({ previewVisible: false });
+  };
 
   render() {
     return (
@@ -42,7 +98,7 @@ class Store extends StoreConfigurationParent {
                   this.setState({ readOnly: !this.state.readOnly });
                 }}
               >
-                {this.state.readOnly ? "Update" : "Cancle"}
+                {this.state.readOnly ? "Update" : "Cancel"}
               </Button>
             </Flex>
           }
@@ -54,7 +110,7 @@ class Store extends StoreConfigurationParent {
             colon={false}
             layout="horizontal"
             ref={this.formRef}
-            onFinish={(data) => this.save(data)} // Arrow function to preserve context
+            onFinish={(data) => this.save(data)}
           >
             <Form.Item
               label="Store Name"
@@ -67,7 +123,7 @@ class Store extends StoreConfigurationParent {
             <Form.Item
               label="Address"
               name="address"
-              rules={[{ required: true, message: "Enter Store Address" }]}
+              rules={[{ required: true, message: "Enter Store Address!" }]}
             >
               <TextArea
                 rows={3}
@@ -75,6 +131,7 @@ class Store extends StoreConfigurationParent {
                 disabled={this.state.readOnly}
               />
             </Form.Item>
+
             <Form.Item
               label="State"
               name="state"
@@ -82,24 +139,27 @@ class Store extends StoreConfigurationParent {
             >
               <Input disabled={this.state.readOnly} />
             </Form.Item>
+
             <Form.Item
               label="Pincode"
               name="pinCode"
               rules={[{ required: true, message: "Enter pincode!" }]}
             >
-              <Input type="Number" disabled={this.state.readOnly} />
+              <Input type="number" disabled={this.state.readOnly} />
             </Form.Item>
+
             <Form.Item
               label="Primary Phone"
               name="primaryPhone"
-              rules={[{ required: true, message: "Enter Primary Phone" }]}
+              rules={[{ required: true, message: "Enter Primary Phone!" }]}
             >
               <Input disabled={this.state.readOnly} />
             </Form.Item>
+
             <Form.Item
               label="Secondary Phone"
               name="secondaryPhone"
-              rules={[{ required: true, message: "Enter Secondary Phone" }]}
+              rules={[{ required: true, message: "Enter Secondary Phone!" }]}
             >
               <Input disabled={this.state.readOnly} />
             </Form.Item>
@@ -119,10 +179,10 @@ class Store extends StoreConfigurationParent {
                 accept="image/*"
                 onChange={this.handleFileChange}
                 onPreview={this.handlePreview}
-                fileList={this.state.fileList} // Explicitly control the file list
-                maxCount={1} // Prevent more than one file
+                fileList={this.state.fileList}
+                maxCount={1} // Restrict to one file
               >
-                {this.state.fileList?.length >= 1 ? null : (
+                {this.state.fileList.length >= 1 ? null : (
                   <div>
                     <PlusOutlined />
                     <div style={{ marginTop: 8 }}>Upload</div>
@@ -144,6 +204,7 @@ class Store extends StoreConfigurationParent {
             </Flex>
           </Form>
         </Card>
+
         <Modal
           visible={this.state.previewVisible}
           footer={null}
@@ -152,7 +213,6 @@ class Store extends StoreConfigurationParent {
           <img
             alt="Preview"
             style={{ width: "100%" }}
-            // src={this.state.previewImage}
             src={`data:image/png;base64,${this.state?.previewImage}`}
           />
         </Modal>

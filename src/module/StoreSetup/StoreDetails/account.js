@@ -6,6 +6,7 @@ import {
   Form,
   Input,
   message,
+  Modal,
   Spin,
   Upload,
 } from "antd";
@@ -18,13 +19,84 @@ class Account extends StoreConfigurationParent {
   constructor() {
     super();
     this.state = {
-      readOnly: true,
+      ...this.state,
+      fileList: [], // Store Logo file list
+      upiQRCodeFileList: [], // UPI QR Code file list
+      previewVisible: false,
+      previewImage: "",
     };
+
     this.save = this.save.bind(this); // Bind the save method
   }
 
   componentDidMount() {
-    super.componentDidMount();
+    this.setState({ isLoading: true });
+    this.service
+      .getAll()
+      .then((res) => {
+        // if (res.data.data.length > 0) {
+        //   const storeData = res.data.data[0];
+
+        //   // Process storeLogoImage for Upload component
+        //   const fileList =
+        //     storeData.upiQRCodeImage &&
+        //     typeof storeData.upiQRCodeImage === "string"
+        //       ? [
+        //           {
+        //             uid: "-1",
+        //             name: "store-logo.jpg",
+        //             status: "done",
+        //             url: storeData.storeLogoImage, // Assuming this is the image URL
+        //           },
+        //         ]
+        //       : [];
+
+        //   // Set processed form data
+        //   const processedFormData = {
+        //     ...storeData,
+        //     upiQRCodeImage: fileList, // Use the formatted file list
+        //   };
+
+        //   this.setState({ id: storeData.id });
+        //   if (this.formRef.current) {
+        //     this.formRef.current.setFieldsValue(processedFormData);
+        //   }
+        // }
+        if (res.data.data.length > 0) {
+          const storeData = res.data.data[0];
+
+          const upiQRCodeFileList =
+            storeData.upiQRCodeImage &&
+            typeof storeData.upiQRCodeImage === "string"
+              ? [
+                  {
+                    uid: "-1",
+                    name: "upi-qr-code.jpg",
+                    status: "done",
+                    url: storeData.upiQRCodeImage,
+                  },
+                ]
+              : [];
+
+          this.setState({
+            id: storeData.id,
+            upiQRCodeFileList,
+          });
+
+          if (this.formRef.current) {
+            this.formRef.current.setFieldsValue({
+              ...storeData,
+              upiQRCodeImage: upiQRCodeFileList,
+            });
+          }
+        }
+      })
+      .catch((err) => {
+        message.error(err.response?.data?.message || "Failed to fetch data");
+      })
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
   }
 
   render() {
@@ -118,11 +190,12 @@ class Account extends StoreConfigurationParent {
                   )}
                 </Upload>
               </Form.Item> */}
+
               <Form.Item
                 label="UPI QR Code Image"
                 name="upiQRCodeImage"
                 rules={[
-                  { required: true, message: "Enter Upload UPI QR Code!" },
+                  { required: true, message: "Please upload the UPI QR Code!" },
                 ]}
                 valuePropName="fileList"
                 getValueFromEvent={(e) => e?.fileList || []}
@@ -131,12 +204,19 @@ class Account extends StoreConfigurationParent {
                   listType="picture-card"
                   disabled={this.state.readOnly}
                   accept="image/*"
-                  onChange={this.handleFileChange}
-                  onPreview={this.handlePreview}
-                  fileList={this.state.fileList} // Explicitly control the file list
-                  maxCount={1} // Prevent more than one file
+                  onChange={(info) =>
+                    this.setState({ upiQRCodeFileList: info.fileList })
+                  }
+                  onPreview={(file) => {
+                    this.setState({
+                      previewImage: file.url || file.preview,
+                      previewVisible: true,
+                    });
+                  }}
+                  fileList={this.state.upiQRCodeFileList} // Bind specific state
+                  maxCount={1}
                 >
-                  {this.state.fileList?.length >= 1 ? null : (
+                  {this.state.upiQRCodeFileList.length >= 1 ? null : (
                     <div>
                       <PlusOutlined />
                       <div style={{ marginTop: 8 }}>Upload</div>
@@ -158,6 +238,18 @@ class Account extends StoreConfigurationParent {
             </Flex>
           </Form>
         </Card>
+        <Modal
+          visible={this.state.previewVisible}
+          footer={null}
+          onCancel={this.handleCancel}
+        >
+          <img
+            alt="Preview"
+            style={{ width: "100%" }}
+            // src={this.state.previewImage}
+            src={`data:image/png;base64,${this.state?.previewImage}`}
+          />
+        </Modal>
       </Spin>
     );
   }
