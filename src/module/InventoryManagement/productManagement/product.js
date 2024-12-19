@@ -463,12 +463,13 @@ class Product extends TableParentPage {
           }}
           open={this.state.printBarcodeModel}
           footer={null} // Remove footer
+          width={300}
         >
           <div style={{ textAlign: "center" }}>
             <img
               src={this.state.barcodeUrl}
               alt="Barcode"
-              style={{ width: "100%", height: "auto", marginBottom: "20px" }}
+              style={{ width: "100%", height: "auto", marginBottom: "0px" }}
             />
             <button
               onClick={() => this.printBarcode(this.state.barcodeUrl)}

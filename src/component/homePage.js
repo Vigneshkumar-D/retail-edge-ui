@@ -5,7 +5,7 @@ import {
   PoweroffOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, theme } from "antd";
+import { Button, Dropdown, Layout, Menu, theme, Tooltip } from "antd";
 import { Link, Navigate, useNavigate, useRoutes } from "react-router-dom";
 import Cookies from "js-cookie";
 import { FaUsers, FaChartLine, FaFileInvoiceDollar } from "react-icons/fa";
@@ -25,6 +25,16 @@ import { BsShop } from "react-icons/bs";
 import StoreSetup from "../module/StoreSetup/storeSetup";
 import SalesAndBilling from "../module/SalesAndBilling/salesAndBilling";
 import BusinessInsight from "../module/BusinessInsights/businessInsights";
+import { MdOutlineNotificationsActive } from "react-icons/md";
+import { FaChevronDown, FaUserTie } from "react-icons/fa";
+import { TbPasswordFingerprint } from "react-icons/tb";
+import { CiSettings } from "react-icons/ci";
+import { FaSearch, FaBell, FaUser } from 'react-icons/fa'; // Font Awesome icons
+import { MdDashboard, MdSettings } from 'react-icons/md';
+import { MdOutlineSwitchAccessShortcutAdd } from "react-icons/md";
+import { FaLocationArrow } from "react-icons/fa6";
+import { IoArrowRedo } from "react-icons/io5";
+
 
 const { Header, Sider, Content } = Layout;
 
@@ -319,8 +329,125 @@ const HomePage = () => {
       window.removeEventListener("mousemove", refreshTokenExpiration);
       window.removeEventListener("keydown", refreshTokenExpiration);
     };
+
   }, []);
 
+  const dropDownStyle = {
+    background: "none",
+    fontSize: "16px",
+    padding: "0px"
+  }
+
+
+  const quickAccessMenu = (
+    <Menu
+      items={[
+        {
+          key: 1,
+          label: (
+            <Tooltip placement="bottom" title="Add new product">
+              <Button
+                type="text"
+                icon={<>📦</>}
+                // icon={<FaUserTie style={{fontSize:"20px", color:"blueviolet"}} />}
+                onClick={() => {
+                  navigate("/inventory-management/procuct-management/product", { replace: true });
+                }}
+                style={dropDownStyle}
+              >
+
+              </Button>
+            </Tooltip>
+          ),
+        },
+        {
+          key: 2,
+          label: (
+            <Tooltip placement="bottom" title="Add new invoice">
+              <Button
+                type="text"
+                // icon={<CiSettings style={{fontSize:"20px", color:"green"}} />}
+                // icon={<p>⚙️</p>}
+                icon={<>🧾</>}
+                onClick={() => {
+
+                  navigate("/sales-and-billing/invoice/new", { replace: true });
+
+                }}
+                style={dropDownStyle}
+              >
+
+              </Button>
+            </Tooltip>
+          ),
+        },
+        {
+          key: 3,
+          label: (
+            <Tooltip placement="bottom" title="Manage Customer">
+              <Button
+                type="text"
+                icon={<>👥</>}
+                // icon={<TbPasswordFingerprint style={{fontSize:"20px",color:"orange" }}/>}
+                onClick={() => {
+                  // Cookies.remove("login_token");
+                  navigate("/customer-engagement/customer", { replace: true });
+                }}
+                style={dropDownStyle}
+              >
+
+              </Button>
+            </Tooltip>
+          ),
+        },
+        {
+          key: 4,
+          label: (
+            <Tooltip placement="bottom" title="Get Report">
+              <Button
+                type="text"
+                // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
+                icon={<p>📈</p>}
+                onClick={() => {
+
+                  navigate("/business-insights/reports", { replace: true });
+                }}
+                style={dropDownStyle}
+              >
+
+              </Button>
+            </Tooltip>
+          ),
+        },
+        {
+          key: 5,
+          label: (
+            <Tooltip placement="bottom" title="Add new offer">
+              <Button
+                type="text"
+                // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
+                icon={<p>🎁</p>}
+                onClick={() => {
+
+                  navigate("/customer-engagement/offer-alert", { replace: true });
+                }}
+                style={dropDownStyle}
+              >
+
+              </Button>
+            </Tooltip>
+          ),
+        },
+      ]}
+      style={{
+        display: 'flex',
+        flexWrap: "wrap",
+        width: "200px",
+        gap: '10px',
+
+      }}
+    />
+  )
   // return token ? (
   //   <Layout style={{ height: "100vh" }}>
   //     <Sider
@@ -465,6 +592,7 @@ const HomePage = () => {
   //   <Navigate to="/login" />
   // );
 
+
   return token ? (
     <Layout style={{ height: "100vh" }}>
       <Sider
@@ -549,6 +677,7 @@ const HomePage = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            padding: "10px"
           }}
         >
           <Button
@@ -562,43 +691,138 @@ const HomePage = () => {
             }}
           />
 
-          <Dropdown
-            menu={{
-              items: [
-                {
-                  key: 1,
-                  label: (
-                    <Button
-                      type="text"
-                      icon={<PoweroffOutlined />}
-                      onClick={() => {
-                        Cookies.remove("login_token");
-                        navigate("/login", { replace: true });
-                      }}
-                      style={{
-                        fontSize: "16px",
-                      }}
-                    >
-                      Log out
-                    </Button>
-                  ),
-                },
-              ],
-            }}
-            placement="bottomRight"
-            arrow
-          >
-            <Button
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-                border: "none",
-              }}
+
+          <div style={{ alignSelf: "flex-end", display: "flex", alignItems: "center", alignSelf: "center", justifyContent: "space-around", minWidth: "250px" }}>
+            <Dropdown
+              overlay={quickAccessMenu}
+              placement="bottom"
+              arrow
+              trigger={['click']}
+              color="blue"
             >
-              <UserOutlined />
-            </Button>
-          </Dropdown>
+              <Tooltip placement="right" title="Quick Access">
+                <Button
+                  style={{
+                    fontSize: "16px",
+                    width: 20,
+                    height: 20,
+                    border: "none",
+                    padding: "0px",
+                    alignItems: "center"
+                  }}
+
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+
+                    <IoArrowRedo style={{ height: "25px", cursor: "pointer", color: "", width: "25px", }} />
+                  </div>
+
+                </Button>
+              </Tooltip>
+            </Dropdown>
+
+            <Tooltip placement="right" title="Notifications">
+              <MdOutlineNotificationsActive style={{ height: "25px", cursor: "pointer", color: "", width: "25px", }} />
+            </Tooltip>
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="GHJ" style={{ height: "30px", width: "30px", borderRadius: "50%", cursor: "pointer" }} />
+            <p style={{ fontWeight: "600", cursor: "pointer" }}>{"Vigneshkumar"}</p>
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: 1,
+                    label: (
+                      <Button
+                        type="text"
+                        icon={<>👤</>}
+                        // icon={<FaUserTie style={{fontSize:"20px", color:"blueviolet"}} />}
+                        onClick={() => {
+                          // Cookies.remove("login_token");
+                          // navigate("/login", { replace: true });
+
+                        }}
+                        style={dropDownStyle}
+                      >
+                        Profile
+                      </Button>
+                    ),
+                  },
+                  {
+                    key: 2,
+                    label: (
+                      <Button
+                        type="text"
+                        // icon={<CiSettings style={{fontSize:"20px", color:"green"}} />}
+                        // icon={<p>⚙️</p>}
+                        icon={<>🛠️</>}
+                        onClick={() => {
+                          // Cookies.remove("login_token");
+                          // navigate("/login", { replace: true });
+
+                        }}
+                        style={dropDownStyle}
+                      >
+                        Settings
+                      </Button>
+                    ),
+                  }, {
+                    key: 3,
+                    label: (
+                      <Button
+                        type="text"
+                        icon={<TbPasswordFingerprint style={{ fontSize: "20px", color: "" }} />}
+                        onClick={() => {
+                          // Cookies.remove("login_token");
+                          // navigate("/login", { replace: true });
+                        }}
+                        style={dropDownStyle}
+                      >
+                        Change password
+                      </Button>
+                    ),
+                  },
+                  {
+                    key: 4,
+                    label: (
+                      <Button
+                        type="text"
+                        // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
+                        icon={<p>🔓</p>}
+                        onClick={() => {
+                          Cookies.remove("login_token");
+                          navigate("/login", { replace: true });
+                        }}
+                        style={dropDownStyle}
+                      >
+                        Logout
+                      </Button>
+                    ),
+                  },
+                ],
+              }}
+              placement="bottomRight"
+              arrow
+              trigger={['click']}
+            >
+              <Button
+                style={{
+                  fontSize: "16px",
+                  width: 20,
+                  height: 20,
+                  border: "none",
+                  padding: "0px",
+                  alignItems: "center"
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+
+                  <FaChevronDown />
+                </div>
+
+              </Button>
+
+            </Dropdown>
+          </div>
         </Header>
         <Content
           style={{
