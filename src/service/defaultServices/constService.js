@@ -46,6 +46,7 @@ export const WARRANTY_SERVICES_URL = baseUrl + "/warranty-service";
 // User Management
 
 export const USER_URL = baseUrl + "/users";
+export const CURRENT_USER_URL = baseUrl + "/users/current-user"
 export const ROLE_URL = baseUrl + "/roles";
 export const USER_ACCESS_URL = baseUrl + "/";
 export const EMAIL_AND_SMS_CONFIGURATION_URL = baseUrl + "/";
