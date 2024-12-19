@@ -116,7 +116,7 @@ const HomePage = () => {
         {
           key: "order",
           label: "Order",
-          path: "/sales-and-billing/order",
+          path: "/sales-and-billing/order/history",
         },
         {
           key: "invoice",

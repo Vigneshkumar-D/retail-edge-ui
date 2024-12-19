@@ -23,7 +23,7 @@ import OrderService from "../../../service/customizeServices/SalesAndBiling/Orde
 class OrderBillClass extends BillParentComponent {
   userService = new UserService();
   service = new OrderService();
-  updateUrl="/sales-and-billing/order";
+  updateUrl = "/sales-and-billing/order";
   render() {
     return (
       <Spin spinning={this.state.isLoading}>
@@ -48,10 +48,9 @@ class OrderBillClass extends BillParentComponent {
                   padding: "10px 15px 15px",
                 }}
               >
-                <Link to="/sales-and-billing/order">
+                <Link to="/sales-and-billing/order/history">
                   <Flex>
                     <ArrowLeftOutlined />
-
                     <h3 style={{ color: "blue", paddingLeft: "5px" }}>Order</h3>
                   </Flex>
                 </Link>
@@ -87,25 +86,7 @@ class OrderBillClass extends BillParentComponent {
                       />
                     </Form.Item>
                   </Col>
-                  {/* <Col xs={24} sm={12}>
-                    <Form.Item
-                      name="serviceDate"
-                      label="Service Date"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please enter the service date",
-                        },
-                      ]}
-                      className="form-input-tag-bottom-space"
-                    >
-                      <DatePicker
-                        style={{ width: "100%" }}
-                        className="input-tag-style"
-                        format="YYYY-MM-DD"
-                      />
-                    </Form.Item>
-                  </Col> */}
+
                   <Col xs={24} sm={12}>
                     <Form.Item
                       name="totalAmount"
@@ -567,7 +548,7 @@ class OrderBillClass extends BillParentComponent {
 
 const OrderBill = () => {
   const { id } = useParams();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return <OrderBillClass id={id} navigate={navigate} />;
 };
 

@@ -46,7 +46,6 @@ class InvoiceBillClass extends TableParentPage {
   };
   componentDidMount() {
     this.setState({ isLoading: true });
-
     this.productService
       .getAll()
       .then((res) => this.setState({ productList: res.data.data }))
@@ -62,6 +61,7 @@ class InvoiceBillClass extends TableParentPage {
         this.setState({ isLoading: false });
       });
   }
+
   save(data) {
     this.service
       .create(data)
