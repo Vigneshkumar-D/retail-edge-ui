@@ -115,7 +115,7 @@ class TaxAndHSNCode extends TableParentPage {
       .getAll()
       .then((res) =>
         this.setState({
-          categoryList: res.data.map((e) => ({
+          categoryList: res.data?.data.map((e) => ({
             value: e.id,
             label: e.category,
           })),
