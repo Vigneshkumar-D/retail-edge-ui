@@ -23,7 +23,7 @@ const { Title, Text } = Typography;
 const numberToWords = require("number-to-words");
 
 const amount = 19999;
-const desiredTableSize = 25;
+const desiredTableSize = 30;
 const integerPart = Math.floor(amount); // Get the integer part
 
 // Convert integer part to words
@@ -189,12 +189,14 @@ const InvoicePdf = (props) => {
           title: "%",
           dataIndex: "sgst",
           key: "sgst",
-          render: (text) => (text ? `%${text.toLocaleString()}` : "")
+          align: "center",
+          render: (text) => (text ? `${text.toLocaleString()}%` : "")
         },
         {
           title: "Amount",
           dataIndex: "sgstAmount",
           key: "sgstAmount",
+          align: "center",
           render: (text) => (text ? `₹${text.toLocaleString()}` : "")
         },
       ],
@@ -206,12 +208,14 @@ const InvoicePdf = (props) => {
           title: "%",
           dataIndex: "cgst",
           key: "cgst",
-          render: (text) => (text ? `%${text.toLocaleString()}` : "")
+          align: "center",
+          render: (text) => (text ? `${text.toLocaleString()}%` : "")
         },
         {
           title: "Amount",
           dataIndex: "cgstAmount",
           key: "cgstAmount",
+          align: "center",
           render: (text) => (text ? `₹${text.toLocaleString()}` : "")
         },
       ],
@@ -537,7 +541,7 @@ const InvoicePdf = (props) => {
                     <Card
                       className="invoice-card"
                       title={"Amount in Words"}
-                      style={{ height: "85px" }}
+                      style={{ height: "90px" }}
                     >
                       <Text>
                         <strong>Bill Value:</strong>
@@ -546,9 +550,9 @@ const InvoicePdf = (props) => {
                           {numberToWords
                             .toWords(
                               props.pdfData.lineItems.reduce(
-                                (total, e) => total + e.lineTotal,
+                                (total, e) => total + (e.lineTotal + e.totalTaxAmount),
                                 0
-                              )
+                              )                              
                             )
                             .toUpperCase()}{" "}
                           ONLY
@@ -585,7 +589,7 @@ const InvoicePdf = (props) => {
                     <Card
                       className="invoice-card"
                       title={"Bank Details"}
-                      style={{ height: "150px" }}
+                      style={{ height: "174px" }}
                     >
                       <Row style={{ lineHeight: "10px", marginRight: "5px" }}>
                         <Col span={19}>
