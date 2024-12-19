@@ -1,7 +1,20 @@
- .ant-form-item .css-dev-only-do-not-override-5wsri9{
-    margin-bottom: 1px !important;
+.ant-form-item .css-dev-only-do-not-override-5wsri9 {
+  margin-bottom: 1px !important;
 }
 
-.ant-card-body{
-    border-Radius: 10px !important;
+.ant-card-body {
+  border-radius: 10px !important;
+}
+
+.upload-preview-container {
+  position: relative;
+}
+
+.upload-preview-container .action-buttons {
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.upload-preview-container:hover .action-buttons {
+  opacity: 1; /* Show on hover */
 }

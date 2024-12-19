@@ -10,12 +10,13 @@ import {
   Spin,
   Upload,
 } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import StoreConfigurationParent from "./storeConfigurationParent";
 import AccountService from "../../../service/customizeServices/StoreManagement/StoreDetails/accountService";
 
 class Account extends StoreConfigurationParent {
   service = new AccountService();
+
   constructor() {
     super();
     this.state = {
@@ -24,6 +25,8 @@ class Account extends StoreConfigurationParent {
       upiQRCodeFileList: [], // UPI QR Code file list
       previewVisible: false,
       previewImage: "",
+      isLoading: false, // Track loading state
+      readOnly: true, // For toggling form read-only mode
     };
 
     this.save = this.save.bind(this); // Bind the save method
@@ -34,34 +37,6 @@ class Account extends StoreConfigurationParent {
     this.service
       .getAll()
       .then((res) => {
-        // if (res.data.data.length > 0) {
-        //   const storeData = res.data.data[0];
-
-        //   // Process storeLogoImage for Upload component
-        //   const fileList =
-        //     storeData.upiQRCodeImage &&
-        //     typeof storeData.upiQRCodeImage === "string"
-        //       ? [
-        //           {
-        //             uid: "-1",
-        //             name: "store-logo.jpg",
-        //             status: "done",
-        //             url: storeData.storeLogoImage, // Assuming this is the image URL
-        //           },
-        //         ]
-        //       : [];
-
-        //   // Set processed form data
-        //   const processedFormData = {
-        //     ...storeData,
-        //     upiQRCodeImage: fileList, // Use the formatted file list
-        //   };
-
-        //   this.setState({ id: storeData.id });
-        //   if (this.formRef.current) {
-        //     this.formRef.current.setFieldsValue(processedFormData);
-        //   }
-        // }
         if (res.data.data.length > 0) {
           const storeData = res.data.data[0];
 
@@ -99,6 +74,21 @@ class Account extends StoreConfigurationParent {
       });
   }
 
+  handleFileChange = ({ fileList }) => {
+    this.setState({ upiQRCodeFileList: fileList });
+  };
+
+  handlePreview = (file) => {
+    this.setState({
+      previewImage: file.url || file.thumbUrl,
+      previewVisible: true,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({ previewVisible: false });
+  };
+
   render() {
     return (
       <Spin spinning={this.state.isLoading}>
@@ -112,7 +102,7 @@ class Account extends StoreConfigurationParent {
                   this.setState({ readOnly: !this.state.readOnly });
                 }}
               >
-                {this.state.readOnly ? "Update" : "Cancle"}
+                {this.state.readOnly ? "Update" : "Cancel"}
               </Button>
             </Flex>
           }
@@ -155,6 +145,7 @@ class Account extends StoreConfigurationParent {
             >
               <Input disabled={this.state.readOnly} />
             </Form.Item>
+
             <Col gutter={[8, 8]}>
               <Form.Item
                 label="IFSC Code"
@@ -163,33 +154,6 @@ class Account extends StoreConfigurationParent {
               >
                 <Input disabled={this.state.readOnly} />
               </Form.Item>
-
-              {/* <Form.Item
-                label="UPI QR Code Image"
-                name="upiQRCodeImage"
-                rules={[
-                  { required: true, message: "Enter Upload UPI QR Code!" },
-                ]}
-                valuePropName="fileList"
-                getValueFromEvent={(e) => e?.fileList || []}
-              >
-                <Upload
-                  listType="picture-card"
-                  disabled={this.state.readOnly}
-                  accept="image/*"
-                  onChange={this.handleFileChange}
-                  onPreview={this.handlePreview}
-                  fileList={this.state.fileList} // Explicitly control the file list
-                  maxCount={1} // Prevent more than one file
-                >
-                  {this.state.fileList?.length >= 1 ? null : (
-                    <div>
-                      <PlusOutlined />
-                      <div style={{ marginTop: 8 }}>Upload</div>
-                    </div>
-                  )}
-                </Upload>
-              </Form.Item> */}
 
               <Form.Item
                 label="UPI QR Code Image"
@@ -204,17 +168,76 @@ class Account extends StoreConfigurationParent {
                   listType="picture-card"
                   disabled={this.state.readOnly}
                   accept="image/*"
-                  onChange={(info) =>
-                    this.setState({ upiQRCodeFileList: info.fileList })
-                  }
-                  onPreview={(file) => {
-                    this.setState({
-                      previewImage: file.url || file.preview,
-                      previewVisible: true,
-                    });
-                  }}
-                  fileList={this.state.upiQRCodeFileList} // Bind specific state
-                  maxCount={1}
+                  onChange={this.handleFileChange}
+                  onPreview={this.handlePreview}
+                  fileList={this.state.upiQRCodeFileList}
+                  maxCount={1} // Restrict to one file
+                  itemRender={(originNode, file, fileList, actions) => (
+                    <div
+                      style={{
+                        textAlign: "center",
+                        position: "relative",
+                      }}
+                      className="upload-preview-container"
+                    >
+                      {/* Display the uploaded image */}
+                      <img
+                        src={
+                          file.url
+                            ? `data:image/png;base64,${file.url}`
+                            : file.thumbUrl
+                        }
+                        alt={file.name}
+                        style={{
+                          width: "102px",
+                          height: "102px",
+                          borderRadius: "8px",
+                        }}
+                      />
+
+                      {/* Add a custom remove or preview button */}
+                      <div className="action-buttons">
+                        {!this.state.readOnly ? (
+                          <Button
+                            type="link"
+                            style={{
+                              color: "white",
+                              position: "absolute",
+                              top: "0px",
+                              right: "0px",
+                              backgroundColor: "rgba(0, 0, 0, 0.6)",
+                              height: "102px",
+                              width: "102px",
+                            }}
+                            onClick={() => actions.remove()}
+                          >
+                            <DeleteOutlined />
+                          </Button>
+                        ) : (
+                          <Button
+                            type="link"
+                            style={{
+                              color: "white",
+                              position: "absolute",
+                              top: "0px",
+                              right: "0px",
+                              backgroundColor: "rgba(0, 0, 0, 0.6)",
+                              height: "102px",
+                              width: "102px",
+                            }}
+                            onClick={() => {
+                              this.setState({
+                                previewVisible: true,
+                                previewImage: file.url,
+                              });
+                            }}
+                          >
+                            <EyeOutlined />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 >
                   {this.state.upiQRCodeFileList.length >= 1 ? null : (
                     <div>
@@ -225,6 +248,7 @@ class Account extends StoreConfigurationParent {
                 </Upload>
               </Form.Item>
             </Col>
+
             <Flex justify="end">
               <Form.Item>
                 <Button
@@ -238,6 +262,7 @@ class Account extends StoreConfigurationParent {
             </Flex>
           </Form>
         </Card>
+
         <Modal
           visible={this.state.previewVisible}
           footer={null}
@@ -246,7 +271,6 @@ class Account extends StoreConfigurationParent {
           <img
             alt="Preview"
             style={{ width: "100%" }}
-            // src={this.state.previewImage}
             src={`data:image/png;base64,${this.state?.previewImage}`}
           />
         </Modal>

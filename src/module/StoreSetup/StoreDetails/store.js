@@ -10,7 +10,7 @@ import {
   Upload,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import StoreConfigurationParent from "./storeConfigurationParent";
 import StoreService from "../../../service/customizeServices/StoreManagement/StoreDetails/storeService";
 
@@ -40,7 +40,8 @@ class Store extends StoreConfigurationParent {
 
           // Process storeLogoImage for the Upload component
           const fileList =
-            storeData.storeLogoImage && typeof storeData.storeLogoImage === "string"
+            storeData.storeLogoImage &&
+            typeof storeData.storeLogoImage === "string"
               ? [
                   {
                     uid: "-1",
@@ -181,6 +182,72 @@ class Store extends StoreConfigurationParent {
                 onPreview={this.handlePreview}
                 fileList={this.state.fileList}
                 maxCount={1} // Restrict to one file
+                itemRender={(originNode, file, fileList, actions) => (
+                  <div
+                    style={{
+                      textAlign: "center",
+                      position: "relative",
+                    }}
+                    className="upload-preview-container"
+                  >
+                    {/* Display the uploaded image */}
+                    <img
+                      src={
+                        file.url
+                          ? `data:image/png;base64,${file.url}`
+                          : file.thumbUrl
+                      }
+                      alt={file.name}
+                      style={{
+                        width: "102px",
+                        height: "102px",
+                        borderRadius: "8px",
+                      }}
+                    />
+
+                    {/* Add a custom remove or preview button */}
+                    <div className="action-buttons">
+                      {!this.state.readOnly ? (
+                        <Button
+                          type="link"
+                          style={{
+                            color: "white",
+                            position: "absolute",
+                            top: "0px",
+                            right: "0px",
+                            backgroundColor: "rgba(0, 0, 0, 0.6)",
+                            height: "102px",
+                            width: "102px",
+                          }}
+                          onClick={() => actions.remove()}
+                        >
+                          <DeleteOutlined />
+                        </Button>
+                      ) : (
+                        <Button
+                          type="link"
+                          style={{
+                            color: "white",
+                            position: "absolute",
+                            top: "0px",
+                            right: "0px",
+                            backgroundColor: "rgba(0, 0, 0, 0.6)",
+                            height: "102px",
+                            width: "102px",
+                          }}
+                          onClick={() => {
+                            this.setState({
+                              previewVisible: true,
+                              previewImage: file.url,
+                            });
+                          }}
+                        >
+                          <EyeOutlined />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                )}
               >
                 {this.state.fileList.length >= 1 ? null : (
                   <div>
