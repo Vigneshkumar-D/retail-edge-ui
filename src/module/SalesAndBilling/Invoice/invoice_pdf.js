@@ -277,18 +277,18 @@ const InvoicePdf = (props) => {
               <img
                 src={`data:image/png;base64,${storeData?.storeLogoImage}`}
                 alt="Shop Logo"
-                style={{ height: 85 }}
+                style={{ height: 85, borderRadius:"10px" }}
               />
             </Col>
-            <Col span={10}>
+            <Col span={10} style={{paddingLeft:"10px"}}>
               <Title level={3} style={{ margin: "0px", color: "#057cbd" }}>
                 {storeData?.storeName}
               </Title>
-              <Text>
+              <Text style={{ lineHeight: "3px" }}>
                 {storeData?.address}
                 <br />
                 {storeData?.state} - {storeData?.pinCode}
-                <br />
+                <br/>
                 Ph: {storeData?.primaryPhone}
                 {storeData?.secondaryPhone && `, ${storeData?.secondaryPhone}`}
               </Text>

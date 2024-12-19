@@ -58,7 +58,7 @@ class InvoiceHistory extends TableParentPage {
       title: "Total Amount",
       dataIndex: "totalAmount",
       key: "totalAmount",
-      render: (e) => e || "-",
+      render: (e) => `₹${e.toLocaleString()}` || "-",
     },
     {
       title: "Soled by",
