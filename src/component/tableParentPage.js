@@ -51,8 +51,6 @@ class TableParentPage extends Component {
     this.service
       .getAll()
       .then((res) => {
-        console.log("res3", res);
-        
         this.setState({ data: res.data.data });
       })
       .catch((err) => {

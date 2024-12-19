@@ -31,7 +31,6 @@ class OrderBillClass extends BillParentComponent {
           layout="vertical"
           onFinish={this.save}
           onValuesChange={(changedValues, allValues) => {
-            console.log("allValues", allValues);
             const balanceAmount =
               (allValues.totalAmount || 0) - (allValues.advanceAmount || 0);
             this.form.setFieldsValue({

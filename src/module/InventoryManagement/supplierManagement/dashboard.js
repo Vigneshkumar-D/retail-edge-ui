@@ -198,7 +198,6 @@ class Dashboard extends TableParentPage {
         this.onSelectSupplier(filteredSupplierData[0]?.value);
       })
       .catch((err) => {
-        console.log("err", err.response.data?.message);
         message.error(err.response.data?.message);
       })
       .finally(() => {

@@ -171,7 +171,6 @@ class Order extends TableParentPage {
 
   handleProductModule = (id) => {
     const order = this.state.data.find((order) => order.id === id); // Find the order by id
-    console.log("ord", order);
 
     this.setState({
       formOpenProductList: true,

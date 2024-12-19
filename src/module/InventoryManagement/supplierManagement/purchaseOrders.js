@@ -61,7 +61,6 @@ class PurchaseOrder extends TableParentPage {
 
   handleProductModule = (id) => {
     const order = this.state.data.find((order) => order.id === id); // Find the order by id
-    console.log("ord", order);
 
     this.setState({
       formOpenProductList: true,
@@ -215,8 +214,6 @@ class PurchaseOrder extends TableParentPage {
   };
 
   onFinish = (values) => {
-    console.log("Hit");
-
     const { supplierId } = this.state;
     const purchaseProducts = values.productDetails || [];
 
@@ -234,7 +231,6 @@ class PurchaseOrder extends TableParentPage {
     };
 
     this.service.create(data).then((res) => {
-      console.log("res", res);
       if (res.status === 200) {
         this.setState({ formOpen: false });
       }

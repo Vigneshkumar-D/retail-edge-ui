@@ -325,7 +325,6 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    console.log("hirrf");
     service
       .getAll()
       .then((res) => {
