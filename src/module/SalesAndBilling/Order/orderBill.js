@@ -23,7 +23,7 @@ import OrderService from "../../../service/customizeServices/SalesAndBiling/Orde
 class OrderBillClass extends BillParentComponent {
   userService = new UserService();
   service = new OrderService();
-  updateUrl = "/sales-and-billing/order";
+  updateUrl = "/sales-and-billing/order/history";
   render() {
     return (
       <Spin spinning={this.state.isLoading}>

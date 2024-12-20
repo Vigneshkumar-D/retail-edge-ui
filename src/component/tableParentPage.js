@@ -103,37 +103,6 @@ class TableParentPage extends Component {
       });
     }
 
-    // if (formData) {
-    //   // Function to process nested objects and convert dates
-    //   const processFormDataDeep = (data) => {
-    //     if (typeof data !== "object" || data === null) {
-    //       // Return non-object values as-is
-    //       return data;
-    //     }
-
-    //     if (Array.isArray(data)) {
-    //       // Process arrays recursively
-    //       return data.map((item) => processFormDataDeep(item));
-    //     }
-
-    //     // Process objects
-    //     return Object.fromEntries(
-    //       Object.entries(data).map(([key, value]) => [
-    //         key,
-    //         key.toLowerCase().includes("date") && value
-    //           ? dayjs(value)
-    //           : processFormDataDeep(value),
-    //       ])
-    //     );
-    //   };
-
-    //   // Process the response data
-    //   const processedFormData = processFormDataDeep(formData[0]);
-
-    //   // Set the processed data into the form
-    //   this.form.setFieldsValue(processedFormData);
-    // }
-
     this.setState({ isLoading: false });
   };
 
