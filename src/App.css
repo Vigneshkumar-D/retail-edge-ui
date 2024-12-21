@@ -111,3 +111,7 @@ text-decoration: none;
   left: 50%;
   transform: translateX(-50%);
 }
+
+.ant-typography{
+  margin: 0px !important;
+}
