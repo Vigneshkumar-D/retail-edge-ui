@@ -21,7 +21,6 @@
     /* border-left: none !important; */
   }
 
-
   .invoice-table td{
      border-top: none !important;
      border-left: none !important;
@@ -34,9 +33,7 @@
  }
  .invoice-table tr:last-child{
   border-bottom: 1px solid #057cbd !important;
-}
-
-
+  }
   .invoice-table td {
     padding: 8px;
     text-align: center;
@@ -121,7 +118,7 @@
   padding: 15px !important;
 }
 
-.invoice-tatal-card .ant-card-body {
+.paid-service-invoice-total-card .ant-card-body {
   padding: 0px !important;
   height: 88px !important;
 }

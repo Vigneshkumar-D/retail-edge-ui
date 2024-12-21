@@ -194,7 +194,7 @@ const ServiceInvoicePdf = () => {
         sgstAmount: String(item.sgstAmount || 0),
         total: String(item.lineTotal + item.totalTaxAmount || item.lineTotal),
       };
-    });  
+    });
     const adjustedData = Array.from({ length: desiredTableSize }, (_, i) => {
       if (i < formattedData.length) {
         return formattedData[i]; // Use actual data if available
@@ -221,11 +221,31 @@ const ServiceInvoicePdf = () => {
     const originalContent = document.body.innerHTML;
 
     // Apply A4-specific styles for printing
+    // const style = `
+    // @media print {
+    //     @page {
+    //         size: 566px 794px; /* Landscape orientation */
+    //         margin: 5mm;
+    //     }
+    //     body {
+    //         margin: 0;
+    //         padding: 0;
+    //     }
+    //     .no-print {
+    //         display: none;
+    //     }
+    //     .print-container {
+    //         height: 794px;
+    //         width: 566px;
+    //         margin: 10px; /* Center the content */
+    //     }
+    // }`;
+
     const style = `
     @media print {
         @page {
-            size: 566px 794px; /* Landscape orientation */
-            margin: 5mm;
+            size: 148mm 210mm; /* A5 size */
+            margin: 0mm;
         }
         body {
             margin: 0;
@@ -235,9 +255,17 @@ const ServiceInvoicePdf = () => {
             display: none;
         }
         .print-container {
-            height: 794px;
-            width: 566px;
-            margin: 10px; /* Center the content */
+            height: 210mm;
+            width: 148mm;
+            margin: 0mm; /* Center the content */
+        }
+          @page {
+            margin-top: 0mm;
+            margin-bottom: 0mm;
+        }
+        body {
+            margin-top: 0mm;
+            margin-bottom: 0mm;
         }
     }`;
 
@@ -306,7 +334,7 @@ const ServiceInvoicePdf = () => {
   ];
 
   return (
-    <div style={{ minHeight: "800px", width: "570px"}}>
+    <div style={{ minHeight: "800px", width: "570px" }}>
       <div
         style={{
           background: "#f5f5f5",
@@ -314,7 +342,7 @@ const ServiceInvoicePdf = () => {
           fontSize: "10px",
           minHeight: "800px",
           width: "570px",
-          borderRadius:"10px"
+          borderRadius: "10px"
         }}
         id="pdf-content"
       >
@@ -591,9 +619,9 @@ const ServiceInvoicePdf = () => {
                   },
                 }}
               >
-                <Card className="invoice-tatal-card">
+                <Card className="paid-service-invoice-total-card">
                   <Row
-                    style={{ borderBottom: "1px solid #057cbd", height:'28px' }}
+                    style={{ borderBottom: "1px solid #057cbd", height: '28px' }}
                     justify={"space-between"}
                   >
                     <Col>
@@ -607,11 +635,11 @@ const ServiceInvoicePdf = () => {
                       </Text>
                     </Col>
                   </Row>
-                  <Row justify={"space-between"} style={{height:'28px'}}>
+                  <Row justify={"space-between"} style={{ height: '28px' }}>
                     <Col>
                       <Text style={{ paddingLeft: "5px" }}>
                         <strong>Total Amount:</strong>
-                       
+
                       </Text>
                     </Col>
                     <Col>
@@ -647,7 +675,7 @@ const ServiceInvoicePdf = () => {
                   },
                 }}
               >
-                <Card className="invoice-card" style={{ marginTop: 2, height: "130px" }}>
+                <Card className="invoice-card" style={{ marginTop: 4, height: "130px" }}>
                   <Col span={24}>
                     <Row>
                       <Col span={24}
@@ -685,7 +713,7 @@ const ServiceInvoicePdf = () => {
                   },
                 }}
               >
-                <Card className="invoice-card" style={{ marginTop: 2, height: "130px" }}>
+                <Card className="invoice-card" style={{ marginTop: 4, height: "130px" }}>
                   <Col span={24}>
                     <Row>
                       <Col span={24}
