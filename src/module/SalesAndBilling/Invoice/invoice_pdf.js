@@ -590,7 +590,7 @@ const InvoicePdf = (props) => {
                     <Card
                       className="invoice-card"
                       title={"Bank Details"}
-                      style={{ height: "174px" }}
+                      style={{ height: "170px" }}
                     >
                       <Row style={{ lineHeight: "10px", marginRight: "5px" }}>
                         <Col span={19}>
@@ -616,7 +616,6 @@ const InvoicePdf = (props) => {
                             <strong>UPI ID:</strong> {accountData?.upiId}
                           </Text>
                         </Col>
-
                         <Col span={5} style={{textAlign:"center"
 
                         }}>
