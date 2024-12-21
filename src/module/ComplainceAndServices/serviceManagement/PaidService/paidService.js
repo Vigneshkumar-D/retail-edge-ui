@@ -120,6 +120,10 @@ class PaidService extends TableParentPage {
       fixed: "right",
     },
   ];
+  handleCancel = () => {
+    this.setState({ isModelOpen: false });
+    this.setState({ pdfData: null });
+  };
   render() {
     return (
       <Spin spinning={this.state.isLoading}>
