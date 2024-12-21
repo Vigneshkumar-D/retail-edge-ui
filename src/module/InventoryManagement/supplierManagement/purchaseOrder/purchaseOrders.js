@@ -194,7 +194,7 @@ class PurchaseOrder extends TableParentPage {
     return (
       <Spin spinning={this.state.isLoading}>
         <Flex justify="space-between">
-          <h2>Customer</h2>
+          <h2>Purchase Order</h2>
           <Button
             type="primary"
             onClick={() => {
@@ -252,7 +252,7 @@ class PurchaseOrder extends TableParentPage {
         </Modal>
 
         <Modal
-          title={"Order Items"}
+          title={"Purchase Order"}
           open={this.state.formOpen}
           onCancel={this.handleCancel}
           footer={false}

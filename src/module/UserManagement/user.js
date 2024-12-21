@@ -174,8 +174,13 @@ class User extends TableParentPage {
                       message: `Please enter the username}`,
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input readOnly={this.state.mode === "view"} />
+                  <Input
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                    disabled={this.state.mode === "edit"}
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -188,8 +193,13 @@ class User extends TableParentPage {
                       message: `Please enter the email}`,
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input readOnly={this.state.mode === "view"} />
+                  <Input
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                    disabled={this.state.mode === "edit"}
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -202,13 +212,18 @@ class User extends TableParentPage {
                       message: `Please enter the username}`,
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input type="Number" readOnly={this.state.mode === "view"} />
+                  <Input
+                    type="Number"
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
                 <Form.Item
-                  name={["role","id"]}
+                  name={["role", "id"]}
                   label="Role"
                   rules={[
                     {
@@ -216,6 +231,7 @@ class User extends TableParentPage {
                       message: `Please select the role}`,
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <Select
                     showSearch
@@ -227,6 +243,7 @@ class User extends TableParentPage {
                         .includes(input.toLowerCase())
                     }
                     readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
                   />
                 </Form.Item>
               </Col>

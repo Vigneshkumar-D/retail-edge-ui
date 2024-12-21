@@ -532,16 +532,19 @@ class PurchaseOrderFormClass extends BillParentComponent {
           onFinish={this.save}
           ref={this.props.formRef}
           onValuesChange={(changedValues, allValues) => {
-            const orderTotal = allValues.purchaseProducts
-              .map((e) => {
-                return (
-                  (Number(e?.pricePerUnit) || 0) * (Number(e?.quantity) || 0)
-                );
-              })
-              .reduce((e, total) => total + e, 0);
-              if (this.props.formRef && this.props.formRef.current) {
-                this.props.formRef.current.setFieldsValue({ orderTotal });
-              }
+            const orderTotal = allValues.purchaseProducts?.length > 0
+              ? allValues.purchaseProducts
+                  .map((e) => {
+                    return (
+                      (Number(e?.pricePerUnit) || 0) *
+                      (Number(e?.quantity) || 0)
+                    );
+                  })
+                  .reduce((e, total) => total + e, 0)
+              : 0;
+            if (this.props.formRef && this.props.formRef.current) {
+              this.props.formRef.current.setFieldsValue({ orderTotal });
+            }
           }}
         >
           <div
