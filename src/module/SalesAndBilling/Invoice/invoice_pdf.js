@@ -48,6 +48,7 @@ const InvoicePdf = (props) => {
       console.log(`productName: \nIMEI:`);
 
       const product = item.product;
+      const imei = product.category.category === "Mobile" ? product.imeiNumber : product.barcode;
       console.log(item);
       console.log(product.hsnCode?.taxSlab?.cgst);
       console.log(product.hsnCode?.taxSlab?.igst);
@@ -55,7 +56,7 @@ const InvoicePdf = (props) => {
       return {
         key: String(index + 1),
         srNo: index + 1,
-        productName: `${product.productName} ${product.brand} ${product.model}\nIMEI: ${product.imeiNumber}`,
+        productName: String.raw`${product.productName} ${product.brand} ${product.model} <br> IMEI: ${imei}`        ,
         hsn: product.hsnCode.code || "N/A",
         qty: String(item.quantity),
         rate: String(item.pricePerUnit),
