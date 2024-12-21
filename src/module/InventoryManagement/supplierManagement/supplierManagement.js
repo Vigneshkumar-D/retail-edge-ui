@@ -1,8 +1,8 @@
 import { useRoutes } from "react-router-dom";
 import Dashboard from "./dashboard";
 import Suppiler from "./supplier";
-import PurchaseOrder from "./purchaseOrders";
 import Payment from "./payment";
+import PurchaseOrder from "./purchaseOrder/purchaseOrders";
 
 const SupplierManagement = () => {
   const render = useRoutes([
