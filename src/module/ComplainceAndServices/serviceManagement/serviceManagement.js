@@ -3,6 +3,7 @@ import PaidService from "./PaidService/paidService";
 import PaidServiceBill from "./PaidService/paidServiceBill";
 import WarrentService from "./WarrantyService/warrantyService";
 import WarrantyServiceBill from "./WarrantyService/warrantyServiceBill";
+import ServiceInvoicePdf from "./PaidService/service_Invoice_pdf";
 
 const ServiceManagement = () => {
   const render = useRoutes([
@@ -30,6 +31,11 @@ const ServiceManagement = () => {
       path: "warranty-service/update/:id",
       element: <WarrantyServiceBill />,
     },
+    {
+      path: "/service/invoice",
+      element: <ServiceInvoicePdf />,
+      
+    }
   ]);
   return <>{render}</>;
 };

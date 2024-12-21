@@ -8,7 +8,7 @@ import {
 import { Button, Dropdown, Layout, Menu, message, theme, Tooltip } from "antd";
 import { Link, Navigate, useNavigate, useRoutes } from "react-router-dom";
 import Cookies from "js-cookie";
-import { FaUsers, FaChartLine, FaFileInvoiceDollar } from "react-icons/fa";
+import { FaUsers, FaChartLine, FaFileInvoiceDollar, FaCartArrowDown } from "react-icons/fa";
 import { AiOutlineSetting, AiFillProduct } from "react-icons/ai";
 import {
   MdOutlineManageAccounts,
@@ -21,7 +21,7 @@ import CustomerEngagement from "../module/CustomerEngagement/customerEngagement"
 import FinanceManagement from "../module/FinanceManagement/financeManagement";
 import ComplalinceAndService from "../module/ComplainceAndServices/complainc_and_service";
 import UserManagement from "../module/UserManagement/userManagement";
-import { BsShop } from "react-icons/bs";
+import { BsCartCheck, BsShop } from "react-icons/bs";
 import StoreSetup from "../module/StoreSetup/storeSetup";
 import SalesAndBilling from "../module/SalesAndBilling/salesAndBilling";
 import BusinessInsight from "../module/BusinessInsights/businessInsights";
@@ -29,13 +29,17 @@ import { MdOutlineNotificationsActive } from "react-icons/md";
 import { FaChevronDown, FaUserTie } from "react-icons/fa";
 import { TbPasswordFingerprint } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
-import { FaSearch, FaBell, FaUser } from 'react-icons/fa'; // Font Awesome icons
+import { FaSearch, FaBell, FaUser, FaCartPlus } from 'react-icons/fa'; // Font Awesome icons
 import { MdDashboard, MdSettings } from 'react-icons/md';
 import { MdOutlineSwitchAccessShortcutAdd } from "react-icons/md";
-import { FaLocationArrow } from "react-icons/fa6";
+import { FaLocationArrow, FaFileInvoice } from "react-icons/fa6";
+import { RiMoneyRupeeCircleFill, RiShareForwardLine } from "react-icons/ri";
+import { IoIosPeople } from "react-icons/io";
 import { IoArrowRedo } from "react-icons/io5";
 import CurrentUserService from "../service/customizeServices/UserManagements/currentUserSevice";
-
+import { BsGraphUpArrow } from "react-icons/bs";
+import { LuBellRing } from "react-icons/lu";
+import { SlActionRedo } from "react-icons/sl";
 
 
 const { Header, Sider, Content } = Layout;
@@ -383,7 +387,7 @@ const HomePage = () => {
             <Tooltip placement="bottom" title="Invoice">
               <Button
                 type="text"
-                // icon={<CiSettings style={{fontSize:"20px", color:"green"}} />}
+                // icon={<FaFileInvoiceDollar style={{ fontSize: "20px", color: "" }} />}
                 // icon={<p>⚙️</p>}
                 icon={<>🧾</>}
                 onClick={() => {
@@ -405,7 +409,7 @@ const HomePage = () => {
               <Button
                 type="text"
                 icon={<>👥</>}
-                // icon={<TbPasswordFingerprint style={{fontSize:"20px",color:"orange" }}/>}
+                // icon={<IoIosPeople style={{ fontSize: "30px", color: "" }} />}
                 onClick={() => {
                   // Cookies.remove("login_token");
                   navigate("/customer-engagement/customer", { replace: true });
@@ -423,7 +427,7 @@ const HomePage = () => {
             <Tooltip placement="bottom" title="Get Report">
               <Button
                 type="text"
-                // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
+                // icon={<BsGraphUpArrow style={{ fontSize: "26px", color: "", padding: "2px" }} />}
                 icon={<p>📈</p>}
                 onClick={() => {
 
@@ -461,7 +465,7 @@ const HomePage = () => {
             <Tooltip placement="top" title="Purchase order">
               <Button
                 type="text"
-                // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
+                // icon={<BsCartCheck style={{ fontSize: "30px", color: "", padding: "2px" }} />}
                 icon={<p>🛒</p>}
                 onClick={() => {
 
@@ -499,7 +503,7 @@ const HomePage = () => {
             <Tooltip placement="top" title="Expense">
               <Button
                 type="text"
-                // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
+                // icon={<RiMoneyRupeeCircleFill style={{ fontSize: "30px", padding: "2px" }} />}
                 icon={<p>💳</p>}
                 onClick={() => {
 
@@ -641,8 +645,8 @@ const HomePage = () => {
           />
 
 
-          <div style={{ alignSelf: "flex-end", display: "flex", alignItems: "center", alignSelf: "center", justifyContent: "space-around", minWidth: "180px", maxWidth: "280px", }}>
-            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", width:"120px", paddingRight:"10px"}}>
+          <div style={{ alignSelf: "flex-end", display: "flex", alignItems: "center", alignSelf: "center", justifyContent: "space-around", minWidth: "200px", maxWidth: "280px", paddingRight:"20px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "120px", marginRight: "10px" }}>
               <Dropdown
                 overlay={quickActionsMenu}
                 placement="bottom"
@@ -651,34 +655,34 @@ const HomePage = () => {
                 color="blue"
               >
                 <Tooltip placement="right" title="Quick Actions">
-                  <Button
+                  {/* <Button
                     style={{
-                      fontSize: "16px",
+                      // fontSize: "16px",
                       width: 20,
                       height: 20,
                       border: "none",
                       padding: "0px",
                       alignItems: "center"
                     }}
-
-                  >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-
-                      <IoArrowRedo style={{ height: "25px", cursor: "pointer", color: "", width: "25px", }} />
+0
+                  > */}
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#e5ecf0", borderRadius: "50%", width: "30px", height: "30px" }}>
+                      <RiShareForwardLine style={{ height: "26px", cursor: "pointer", width: "20px", }} />
                     </div>
 
-                  </Button>
+                  {/* </Button> */}
                 </Tooltip>
               </Dropdown>
-
               <Tooltip placement="right" title="Notifications">
-                <MdOutlineNotificationsActive style={{ height: "25px", cursor: "pointer", color: "", width: "25px", }} />
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#e5ecf0", borderRadius: "50%", width: "30px", height: "30px" }}>
+                  <LuBellRing style={{ height: "18px", cursor: "pointer", width: "18px", }} />
+                </div>
               </Tooltip>
 
               <img src={currentUser?.profileImage !== null ? `data:image/png;base64,${currentUser?.profileImage}` : "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} alt="Profile Picture" style={{ height: "30px", width: "30px", borderRadius: "50%", cursor: "pointer" }} />
               {/* <img src="" alt="GHJ" style={{ height: "30px", width: "30px", borderRadius: "50%", cursor: "pointer" }} /> */}
             </div>
-            <p style={{ fontWeight: "600", cursor: "pointer", paddingRight:"6px" }}>{currentUser?.username}</p>
+            <p style={{ fontWeight: "600", cursor: "pointer", paddingRight: "6px" }}>{currentUser?.username}</p>
             <Dropdown
               menu={{
                 items: [

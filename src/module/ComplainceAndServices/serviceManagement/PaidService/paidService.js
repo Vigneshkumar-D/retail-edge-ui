@@ -3,15 +3,18 @@ import {
   Button,
   ConfigProvider,
   Flex,
+  Modal,
   Spin,
   Table,
+  Tooltip,
 } from "antd";
 import Delete from "../../../../component/deleteButton";
 import Edit from "../../../../component/editButton";
-import { UserAddOutlined } from "@ant-design/icons";
+import { FilePdfOutlined, UserAddOutlined } from "@ant-design/icons";
 import PaidServiceService from "../../../../service/customizeServices/ComplainceAndServices/ServiceManagement/paidServicesService";
 import { Link } from "react-router-dom";
 import { DateFormat, DateTimeFormat } from "../../../../service/defaultServices/formates";
+import ServiceInvoicePdf from "./service_Invoice_pdf";
 
 class PaidService extends TableParentPage {
   service = new PaidServiceService();
@@ -100,6 +103,17 @@ class PaidService extends TableParentPage {
             >
               <Edit />
             </Link>
+            <Tooltip title="Bill">
+              <Button
+                icon={<FilePdfOutlined />}
+                style={{ color: "red" }}
+                className="editDeleteButton"
+                onClick={() => {
+                  this.setState({ isModelOpen: true });
+                  // this.setState({ pdfData: record });
+                }}
+              />
+            </Tooltip>
           </>
         );
       },
@@ -135,6 +149,16 @@ class PaidService extends TableParentPage {
             }}
           />
         </ConfigProvider>
+        <Modal
+          open={this.state.isModelOpen}
+          width={590}
+          onCancel={this.handleCancel}
+          footer={false}
+          className="paid-service-invoice-model"
+          style={{padding:"10px"}}
+        >
+            <ServiceInvoicePdf psfData={this.state.psfData}/>
+        </Modal>
       </Spin>
     );
   }
