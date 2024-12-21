@@ -20,7 +20,6 @@ import { DateFormat } from "../../service/defaultServices/formates";
 
 import { UserAddOutlined } from "@ant-design/icons";
 import React from "react";
-import TextArea from "antd/es/input/TextArea";
 import View from "../../component/viewButton";
 const { Paragraph } = Typography;
 
@@ -84,7 +83,6 @@ class Customer extends TableParentPage {
         </Paragraph>
       ),
     },
-
     {
       title: "Action",
       dataIndex: "id",
@@ -277,7 +275,7 @@ class Customer extends TableParentPage {
               </Col>
               <Col xs={24} sm={12}>
                 <Form.Item
-                  name="pincode"
+                  name="pinCode"
                   label="Pincode"
                   rules={[
                     {
