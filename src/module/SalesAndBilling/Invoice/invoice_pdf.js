@@ -616,7 +616,6 @@ const InvoicePdf = (props) => {
                             <strong>UPI ID:</strong> {accountData?.upiId}
                           </Text>
                         </Col>
-
                         <Col span={5} style={{textAlign:"center"
 
                         }}>
