@@ -179,7 +179,7 @@ class OrderBillClass extends BillParentComponent {
                     </Form.Item>
                   </Col>
                   <Col span={24}>
-                    <Form.List name="orderItems">
+                    <Form.List name="orderItems" initialValue={[{}]}>
                       {(fields, { add, remove }) => (
                         <>
                           <Table
