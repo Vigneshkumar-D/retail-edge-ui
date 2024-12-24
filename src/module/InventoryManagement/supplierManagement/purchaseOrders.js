@@ -94,11 +94,10 @@ class PurchaseOrder extends TableParentPage {
     },
     {
       title: "Delivery Date",
-      dataIndex: "actualDeliveryDate",
-      key: "actualDeliveryDate",
+      dataIndex: "deliveryDate",
+      key: "deliveryDate",
       render: (e) => DateFormat(e) || "-",
     },
-
     {
       title: "Remark",
       dataIndex: "remark",

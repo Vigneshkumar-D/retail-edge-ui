@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import "./invoice.css";
+import "./paid_service_invoice.css";
 import {
   Button,
   Card,
@@ -16,6 +16,7 @@ import react, { useEffect } from "react";
 import html2canvas from "html2canvas";
 import { IndianDateTimeFormate } from "../../../../service/defaultServices/formates";
 const { Title, Text } = Typography;
+
 
 const pdfData = {
   "id": 6,
@@ -362,7 +363,7 @@ const ServiceInvoicePdf = () => {
               <img
                 src={`${process.env.PUBLIC_URL}/client-logo.png`}
                 alt="Shop Logo"
-                style={{ height: 50 }}
+                style={{ height: 50 , width:70}}
               />
             </Col>
             <Col style={{}}>
