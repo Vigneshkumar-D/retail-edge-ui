@@ -1,5 +1,6 @@
 import TableParentPage from "../../component/tableParentPage";
 import {
+  Button,
   Col,
   ConfigProvider,
   DatePicker,
@@ -14,6 +15,7 @@ import Edit from "../../component/editButton";
 import EmiService from "../../service/customizeServices/FinanceManagement/emi";
 import TextArea from "antd/es/input/TextArea";
 import View from "../../component/viewButton";
+import { FaList } from "react-icons/fa";
 
 class EMI extends TableParentPage {
   service = new EmiService();
@@ -29,6 +31,14 @@ class EMI extends TableParentPage {
       // specific datas
     };
   }
+  handleProductModule = (id) => {
+    const order = this.state.data.find((order) => order.id === id); // Find the order by id
+
+    this.setState({
+      formOpenProductList: true,
+      productData: order.product,
+    });
+  };
   columns = [
     {
       title: "Name",
@@ -43,58 +53,33 @@ class EMI extends TableParentPage {
       render: (e) => e.phoneNumber || "-",
     },
     {
-      title: "Balance Amount",
-      dataIndex: "balanceAmount",
-      key: "totalAmount",
-      render: (e) => `Rs. ${e}`,
-    },
-    {
       title: "EMI Amount",
       dataIndex: "emiAmount",
       key: "emiAmount",
       render: (e) => `Rs. ${e}`,
     },
     {
-      title: "Upfront Amount",
-      dataIndex: "upfront",
-      key: "upfront",
-      render: (e) => `Rs. ${e}`,
-    },
-    {
-      title: "Scheme",
-      dataIndex: "scheme",
-      key: "scheme",
-      render: (e) => e,
-    },
-    {
-      title: "Start Date",
-      dataIndex: "startDate",
-      key: "startDate",
-      render: (e) => e || "-",
-    },
-    {
-      title: "End Date",
-      dataIndex: "endDate",
-      key: "endDate",
-      render: (e) => e || "-",
-    },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-      render: (e) => e || "-",
-    },
-    {
-      title: "Product",
-      dataIndex: "product",
-      key: "product",
-      render: (e) => e.productName || "-",
-      fixed: "left",
+      title: "Products",
+      dataIndex: "id",
+      key: "id",
+      align: "center",
+      render: (e) => (
+        <Button
+          className="editDeleteButton"
+          style={{ border: "none", color: "green", background: "tranparent" }}
+          onClick={() => {
+            this.handleProductModule(e);
+          }}
+        >
+          <FaList />
+        </Button>
+      ),
     },
     {
       title: "Action",
       dataIndex: "id",
       key: "id",
+      align:"center",
       render: (e) => {
         return (
           <>
@@ -111,6 +96,45 @@ class EMI extends TableParentPage {
       fixed: "right",
     },
   ];
+  productColumns = [
+    {
+      title: "Product Name",
+      dataIndex: "productName",
+      key: "productName",
+      render: (e) => e || "-",
+      fixed: "left",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+      render: (e) => e.category || "-",
+    },
+    {
+      title: "Brand",
+      dataIndex: "brand",
+      key: "brand",
+      render: (e) => e || "-",
+    },
+
+    {
+      title: "Model",
+      dataIndex: "model",
+      key: "model",
+      render: (e) => e || "-",
+    },
+    // {
+    //   title: "Price",
+    //   dataIndex: "price",
+    //   key: "price",
+    //   render: (e) => `₹${e.toLocaleString()}` || "-",
+    // },
+  ];
+
+  handleCancelProductList = () => {
+    this.setState({ formOpenProductList: false });
+  };
+
   render() {
     return (
       <>
@@ -276,6 +300,31 @@ class EMI extends TableParentPage {
               </Col>
             </Row>
           </Form>
+        </Modal>
+        <Modal
+          title={"Products"}
+          open={this.state.formOpenProductList}
+          onCancel={this.handleCancelProductList}
+          footer={false}
+          width={800}
+        >
+          <ConfigProvider
+            theme={{
+              components: {
+                Table: {
+                  headerBg: "#7CB9E8",
+                },
+              },
+            }}
+          >
+            <Table
+              columns={this.productColumns}
+              dataSource={this.state.productData}
+              scroll={{
+                x: "max-content",
+              }}
+            />
+          </ConfigProvider>
         </Modal>
       </>
     );

@@ -125,6 +125,60 @@ class PaidServiceBillClass extends BillParentComponent {
                       />
                     </Form.Item>
                   </Col>
+
+                  {this.state.mode === "add" || (
+                    <Col xs={24} sm={12}>
+                      <Form.Item
+                        name="postServicePayment"
+                        label="Post Service Payment"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please enter the amount paid by customer",
+                          },
+                        ]}
+                        className="form-input-tag-bottom-space"
+                      >
+                        <Input
+                          type="Number"
+                          className="input-tag-style"
+                          readOnly={this.props.mode === "view"}
+                        />
+                      </Form.Item>
+                    </Col>
+                  )}
+
+                  <Col xs={24} sm={12}>
+                    <Form.Item
+                      name="status"
+                      label="Status"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please select the status",
+                        },
+                      ]}
+                      className="form-input-tag-bottom-space"
+                    >
+                      <Select
+                        type="Number"
+                        options={[
+                          { value: "On Service", lable: "On Service" },
+                          {
+                            value: "Delivered, Payment Pending",
+                            lable: "Delivered, Payment Pending",
+                          },
+                          {
+                            value: "Delivered, Payment Completed",
+                            lable: "Delivered, Payment Completed",
+                          },
+                        ]}
+                        className="input-tag-style"
+                        disabled={this.props.mode === "view"}
+                      />
+                    </Form.Item>
+                  </Col>
+
                   <Col xs={24} sm={12}>
                     <Form.Item
                       name="imeiNumber"

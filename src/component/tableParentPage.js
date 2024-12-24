@@ -87,6 +87,7 @@ class TableParentPage extends Component {
     let formData = this.state.data.find((e) => e.id === id);
 
     if (formData) {
+      this.setState({ formData });
       // Process formData to convert date fields to dayjs objects
       const processedFormData = Object.fromEntries(
         Object.entries(formData).map(([key, value]) => [

@@ -24,6 +24,7 @@ import CustomerService from "../../service/customizeServices/CustomerEngagement/
 import TextArea from "antd/es/input/TextArea";
 import { DateFormat } from "../../service/defaultServices/formates";
 import View from "../../component/viewButton";
+import dayjs from "dayjs";
 
 class CreditRemainder extends TableParentPage {
   service = new CreditReminderService();
@@ -39,6 +40,7 @@ class CreditRemainder extends TableParentPage {
 
       // specific datas
       customerList: [],
+      formData: {},
     };
   }
   columns = [
@@ -64,26 +66,11 @@ class CreditRemainder extends TableParentPage {
       render: (e) => (e === null ? "-" : `₹${e.toLocaleString()}`),
     },
     {
-      title: "Last Payment",
-      dataIndex: "lastPayment",
-      key: "lastPayment",
-      render: (e) => (e === null ? "-" : `₹${e}`),
-    },
-    {
       title: "Balance",
       dataIndex: "remainingBalance",
       key: "remainingBalance",
       render: (e) => (e === null ? "-" : `₹${e}`),
     },
-    {
-      title: "Last Paid On",
-      dataIndex: "lastPaymentDate",
-      key: "lastPaymentDate",
-      render: (e) => {
-        return DateFormat(e) || "-";
-      },
-    },
-
     {
       title: "Due Date",
       dataIndex: "dueDate",
@@ -91,21 +78,9 @@ class CreditRemainder extends TableParentPage {
       render: (e) => DateFormat(e) || "-",
     },
     {
-      title: "Notified",
-      dataIndex: "reminderSent",
-      key: "reminderSent",
-      render: (e) => (e ? "Yes" : "No"),
-    },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-    },
-    {
-      title: "Credit Type",
-      dataIndex: "creditType",
-      key: "creditType",
-      render: (e) => e?.map((f) => <li>{f},</li>),
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
     },
     {
       title: "Action",
@@ -189,6 +164,27 @@ class CreditRemainder extends TableParentPage {
             name="form_item_path"
             layout="vertical"
             onFinish={this.save}
+            onValuesChange={(changedValue, allValue) => {
+              console.log("allValue", allValue);
+              if (this.state.mode === "add") {
+                this.formRef.current.setFieldsValue({
+                  remainingBalance: allValue.totalCreditAmount || 0,
+                });
+              } else {
+                this.formRef.current.setFieldsValue({
+                  remainingBalance:
+                    (this.state.formData.remainingBalance || 0) -
+                    (allValue.lastPayment || 0),
+                  totalPaidAmount: Number(
+                    Number(this.state.formData.totalPaidAmount || 0) +
+                      Number(allValue.lastPayment || 0)
+                  ),
+                });
+              }
+            }}
+            initialValues={{
+              lastPayment: 0, // Set the initial value for lastPayment
+            }}
           >
             <Row gutter={[5, 5]}>
               <Col xs={24} sm={12}>
@@ -201,12 +197,14 @@ class CreditRemainder extends TableParentPage {
                       message: "Please enter the name",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <AutoComplete
                     options={this.state.customerList?.map((cat) => ({
                       value: cat.phoneNumber,
                       label: cat.phoneNumber,
                     }))}
+                    className="input-tag-style"
                     placeholder="Select a phone number"
                     onSelect={(value) => {
                       const selectedCustomer = this.state.customerList.find(
@@ -237,6 +235,7 @@ class CreditRemainder extends TableParentPage {
                       message: "Please enter the name",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <Select
                     open={false}
@@ -246,10 +245,32 @@ class CreditRemainder extends TableParentPage {
                         label: e?.name,
                       };
                     })}
+                    className="input-tag-style"
                     readOnly={this.state.mode === "view"}
                   />
                 </Form.Item>
               </Col>
+
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  name="totalAmount"
+                  label="Total Amount"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter the total amount",
+                    },
+                  ]}
+                  className="form-input-tag-bottom-space"
+                >
+                  <Input
+                    type="Number"
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
+                </Form.Item>
+              </Col>
+
               <Col xs={24} sm={12}>
                 <Form.Item
                   name="totalCreditAmount"
@@ -260,29 +281,58 @@ class CreditRemainder extends TableParentPage {
                       message: "Please enter the total credit amount",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input type="Number" readOnly={this.state.mode === "view"} />
+                  <Input
+                    type="Number"
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  name="status"
+                  label="Credit Status"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select the status",
+                    },
+                  ]}
+                  className="form-input-tag-bottom-space"
+                >
+                  <Select
+                    disabled={this.state.mode === "view"}
+                    className="input-tag-style"
+                    options={[
+                      { value: "Pending", label: "Pending" },
+                      { value: "Completed", label: "Completed" },
+                    ]}
+                  />
+                </Form.Item>
+              </Col>
+              <Col
+                xs={this.state.mode === "add" ? 0 : 24}
+                sm={this.state.mode === "add" ? 0 : 12}
+              >
+                <Form.Item
+                  name="remainingBalance"
+                  label="Balance"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter the balance",
+                    },
+                  ]}
+                  className="form-input-tag-bottom-space"
+                  hidden={this.state.mode === "add"}
+                >
+                  <Input type="Number" readOnly className="input-tag-style" />
                 </Form.Item>
               </Col>
               {this.state.mode === "add" || (
                 <>
-                  <Col xs={24} sm={12}>
-                    <Form.Item
-                      name="remainingBalance"
-                      label="Balance"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please enter the balance",
-                        },
-                      ]}
-                    >
-                      <Input
-                        type="Number"
-                        readOnly={this.state.mode === "view"}
-                      />
-                    </Form.Item>
-                  </Col>
                   <Col xs={24} sm={12}>
                     <Form.Item
                       name="lastPayment"
@@ -293,13 +343,35 @@ class CreditRemainder extends TableParentPage {
                           message: "Please enter the last payment",
                         },
                       ]}
+                      className="form-input-tag-bottom-space"
                     >
                       <Input
                         type="Number"
                         readOnly={this.state.mode === "view"}
+                        className="input-tag-style"
                       />
                     </Form.Item>
                   </Col>
+                  <Col xs={24} sm={12}>
+                    <Form.Item
+                      name="totalPaidAmount"
+                      label="Total Paid Amount"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter the total amount",
+                        },
+                      ]}
+                      className="form-input-tag-bottom-space"
+                    >
+                      <Input
+                        type="Number"
+                        readOnly={this.state.mode === "view"}
+                        className="input-tag-style"
+                      />
+                    </Form.Item>
+                  </Col>
+
                   <Col xs={24} sm={12}>
                     <Form.Item
                       name="lastPaymentDate"
@@ -310,11 +382,13 @@ class CreditRemainder extends TableParentPage {
                           message: "Please enter the last payment date",
                         },
                       ]}
+                      className="form-input-tag-bottom-space"
                     >
                       <DatePicker
                         format="YYYY-MM-DD"
                         style={{ width: "100%" }}
                         readOnly={this.state.mode === "view"}
+                        className="input-tag-style"
                       />
                     </Form.Item>
                   </Col>
@@ -327,11 +401,13 @@ class CreditRemainder extends TableParentPage {
                   rules={[
                     { required: true, message: "Please enter the due date" },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <DatePicker
                     format="YYYY-MM-DD"
                     style={{ width: "100%" }}
                     readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
                   />
                 </Form.Item>
               </Col>
@@ -345,10 +421,12 @@ class CreditRemainder extends TableParentPage {
                       message: "Please enter the credit type",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <Select
                     mode="multiple"
                     readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
                     options={[
                       {
                         value: "MOBILE",
@@ -388,10 +466,12 @@ class CreditRemainder extends TableParentPage {
                       message: "Please enter the description",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <TextArea
                     placeholder="Description"
                     readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
                   />
                 </Form.Item>
               </Col>
@@ -400,8 +480,12 @@ class CreditRemainder extends TableParentPage {
                   name="reminderSent"
                   label="Reminder Sent"
                   rules={[{ required: true, message: "Please check the box" }]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Radio.Group readOnly={this.state.mode === "view"}>
+                  <Radio.Group
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  >
                     <Radio value={true}>Yes</Radio>
                     <Radio value={false}>No</Radio>
                   </Radio.Group>

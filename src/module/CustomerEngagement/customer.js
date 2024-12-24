@@ -21,6 +21,7 @@ import { DateFormat } from "../../service/defaultServices/formates";
 import { UserAddOutlined } from "@ant-design/icons";
 import React from "react";
 import View from "../../component/viewButton";
+import TextArea from "antd/es/input/TextArea";
 const { Paragraph } = Typography;
 
 class Customer extends TableParentPage {
@@ -59,12 +60,6 @@ class Customer extends TableParentPage {
       dataIndex: "email",
       key: "email",
       render: (e) => e || "-",
-    },
-    {
-      title: "Date of Birth",
-      dataIndex: "dateOfBirth",
-      key: "dateOfBirth",
-      render: (e) => DateFormat(e) || "-",
     },
     {
       title: "Address",
@@ -247,7 +242,7 @@ class Customer extends TableParentPage {
                   ]}
                   className="form-input-tag-bottom-space"
                 >
-                  <Input
+                  <TextArea
                     placeholder="Address"
                     className="input-tag-style"
                     readOnly={this.state.mode === "view"}
