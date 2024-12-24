@@ -19,16 +19,24 @@ const ServiceManagement = () => {
       element: <PaidServiceBill />,
     },
     {
+      path: "paid-service/view/:id",
+      element: <PaidServiceBill mode="view"/>,
+    },
+    {
       path: "warranty-service",
       element: <WarrentService />,
     },
     {
       path: "warranty-service/new",
-      element: <WarrantyServiceBill />,
+      element: <WarrantyServiceBill/>,
     },
     {
       path: "warranty-service/update/:id",
-      element: <WarrantyServiceBill />,
+      element: <WarrantyServiceBill/>,
+    },
+    {
+      path: "warranty-service/view/:id",
+      element: <WarrantyServiceBill mode="view"/>,
     },
   ]);
   return <>{render}</>;

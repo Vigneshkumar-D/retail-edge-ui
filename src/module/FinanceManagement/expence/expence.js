@@ -126,41 +126,6 @@ class Expence extends TableParentPage {
       .getAll()
       .then((res1) => {
         this.setState({ salesManList: res1.data.data, mode: "add" });
-        // if (this.props.id) {
-        //   this.setState({ mode: "update", id: this.props.id });
-        //   this.service.getAll({ id: this.props.id }).then((res) => {
-        //     if (this.form) {
-        //       // Function to process nested objects and convert dates
-        //       const processFormDataDeep = (data) => {
-        //         if (typeof data !== "object" || data === null) {
-        //           // Return non-object values as-is
-        //           return data;
-        //         }
-
-        //         if (Array.isArray(data)) {
-        //           // Process arrays recursively
-        //           return data.map((item) => processFormDataDeep(item));
-        //         }
-
-        //         // Process objects
-        //         return Object.fromEntries(
-        //           Object.entries(data).map(([key, value]) => [
-        //             key,
-        //             key.toLowerCase().includes("date") && value
-        //               ? dayjs(value)
-        //               : processFormDataDeep(value),
-        //           ])
-        //         );
-        //       };
-
-        //       // Process the response data
-        //       const processedFormData = processFormDataDeep(res.data[0]);
-
-        //       // Set the processed data into the form
-        //       this.form.setFieldsValue(processedFormData);
-        //     }
-        //   });
-        // }
       })
       .catch((err) => message.error(err.response.data.message))
       .finally(() => {
@@ -230,12 +195,6 @@ class Expence extends TableParentPage {
                   ]}
                   className="form-input-tag-bottom-space"
                 >
-                  {/* <Select
-                    options={this.state.productList?.map((d) => {
-                      return { label: d.productName, value: d.id };
-                    })}
-                    readOnly={this.state.mode === "view"}
-                  /> */}
                   <Select
                     optionFilterProp="label"
                     value={this.state.selectedIndustries}
@@ -259,6 +218,7 @@ class Expence extends TableParentPage {
                         </Button>
                       </>
                     )}
+                    disabled={this.state.mode === "view"}
                   />
                 </Form.Item>
               </Col>
@@ -281,6 +241,7 @@ class Expence extends TableParentPage {
                     }))}
                     placeholder="Sold By"
                     className="input-tag-style"
+                    disabled={this.state.mode === "view"}
                   />
                 </Form.Item>
               </Col>
@@ -295,7 +256,7 @@ class Expence extends TableParentPage {
                 >
                   <Input
                     type="Number"
-                    // readOnly={this.state.mode === "view"}
+                    readOnly={this.state.mode === "view"}
                     className="input-tag-style"
                   />
                 </Form.Item>
@@ -310,7 +271,7 @@ class Expence extends TableParentPage {
                   className="form-input-tag-bottom-space"
                 >
                   <Input
-                    // readOnly={this.state.mode === "view"}
+                    readOnly={this.state.mode === "view"}
                     className="input-tag-style"
                   />
                 </Form.Item>
@@ -326,7 +287,7 @@ class Expence extends TableParentPage {
                   className="form-input-tag-bottom-space"
                 >
                   <TextArea
-                    //  readOnly={this.state.mode === "view"}
+                     readOnly={this.state.mode === "view"}
                     className="input-tag-style"
                   />
                 </Form.Item>
@@ -347,7 +308,7 @@ class Expence extends TableParentPage {
                     showTime
                     format="YYYY-MM-DD hh-mm a"
                     style={{ width: "100%" }}
-                    // readOnly={this.state.mode === "view"}
+                    disabled={this.state.mode === "view"}
                     className="input-tag-style"
                   />
                 </Form.Item>

@@ -15,6 +15,7 @@ import PaidServiceService from "../../../../service/customizeServices/Complaince
 import { Link } from "react-router-dom";
 import { DateFormat, DateTimeFormat } from "../../../../service/defaultServices/formates";
 import ServiceInvoicePdf from "./service_Invoice_pdf";
+import View from "../../../../component/viewButton";
 
 class PaidService extends TableParentPage {
   service = new PaidServiceService();
@@ -61,30 +62,6 @@ class PaidService extends TableParentPage {
       render: (e) => e || "-",
     },
     {
-      title: "Sparepart Cost",
-      dataIndex: "sparePartCost",
-      key: "sparePartCost",
-      render: (e) => `₹${e.toLocaleString()}` || "-",
-    },
-    {
-      title: "Customer Cost",
-      dataIndex: "customerCost",
-      key: "customerCost",
-      render: (e) => `₹${e.toLocaleString()}` || "-",
-    },
-    {
-      title: "Profit Margin",
-      dataIndex: "profitMargin",
-      key: "profitMargin",
-      render: (e) => `₹${e.toLocaleString()}` || "-",
-    },
-    {
-      title: "Advance Payment",
-      dataIndex: "advancePayment",
-      key: "advancePayment",
-      render: (e) => `₹${e.toLocaleString()}` || "-",
-    },
-    {
       title: "Service Date",
       dataIndex: "serviceDate",
       key: "serviceDate",
@@ -93,6 +70,7 @@ class PaidService extends TableParentPage {
     {
       title: "Action",
       dataIndex: "id",
+      align:"center",
       key: "id",
       render: (e) => {
         return (
@@ -102,6 +80,11 @@ class PaidService extends TableParentPage {
               to={`/complaince-and-services/service-management/paid-service/update/${e}`}
             >
               <Edit />
+            </Link>
+            <Link
+              to={`/complaince-and-services/service-management/paid-service/view/${e}`}
+            >
+              <View />
             </Link>
             <Tooltip title="Bill">
               <Button

@@ -45,18 +45,16 @@ const InvoicePdf = (props) => {
 
   useEffect(() => {
     const formattedData = pdfData.lineItems.map((item, index) => {
-      console.log(`productName: \nIMEI:`);
-
       const product = item.product;
-      const imei = product.category.category === "Mobile" ? product.imeiNumber : product.barcode;
-      console.log(item);
-      console.log(product.hsnCode?.taxSlab?.cgst);
-      console.log(product.hsnCode?.taxSlab?.igst);
-      
+      const imei =
+        product.category.category === "Mobile"
+          ? product.imeiNumber
+          : product.barcode;
+
       return {
         key: String(index + 1),
         srNo: index + 1,
-        productName: String.raw`${product.productName} ${product.brand} ${product.model} <br> IMEI: ${imei}`        ,
+        productName: String.raw`${product.productName} ${product.brand} ${product.model} <br> IMEI: ${imei}`,
         hsn: product.hsnCode.code || "N/A",
         qty: String(item.quantity),
         rate: String(item.pricePerUnit),
@@ -191,14 +189,14 @@ const InvoicePdf = (props) => {
           dataIndex: "sgst",
           key: "sgst",
           align: "center",
-          render: (text) => (text ? `${text.toLocaleString()}%` : "")
+          render: (text) => (text ? `${text.toLocaleString()}%` : ""),
         },
         {
           title: "Amount",
           dataIndex: "sgstAmount",
           key: "sgstAmount",
           align: "center",
-          render: (text) => (text ? `₹${text.toLocaleString()}` : "")
+          render: (text) => (text ? `₹${text.toLocaleString()}` : ""),
         },
       ],
     },
@@ -210,14 +208,14 @@ const InvoicePdf = (props) => {
           dataIndex: "cgst",
           key: "cgst",
           align: "center",
-          render: (text) => (text ? `${text.toLocaleString()}%` : "")
+          render: (text) => (text ? `${text.toLocaleString()}%` : ""),
         },
         {
           title: "Amount",
           dataIndex: "cgstAmount",
           key: "cgstAmount",
           align: "center",
-          render: (text) => (text ? `₹${text.toLocaleString()}` : "")
+          render: (text) => (text ? `₹${text.toLocaleString()}` : ""),
         },
       ],
     },
@@ -273,15 +271,15 @@ const InvoicePdf = (props) => {
             border: "none",
           }}
         >
-          <Row align="middle">
+          {/* <Row align="middle">
             <Col span={4}>
               <img
                 src={`data:image/png;base64,${storeData?.storeLogoImage}`}
                 alt="Shop Logo"
-                style={{ height: 85, borderRadius:"10px" }}
+                style={{ height: 85,width:85, borderRadius: "10px" }}
               />
             </Col>
-            <Col span={10} style={{paddingLeft:"10px"}}>
+            <Col span={10} style={{ paddingLeft: "10px" }}>
               <Title level={3} style={{ margin: "0px", color: "#057cbd" }}>
                 {storeData?.storeName}
               </Title>
@@ -289,7 +287,37 @@ const InvoicePdf = (props) => {
                 {storeData?.address}
                 <br />
                 {storeData?.state} - {storeData?.pinCode}
-                <br/>
+                <br />
+                Ph: {storeData?.primaryPhone}
+                {storeData?.secondaryPhone && `, ${storeData?.secondaryPhone}`}
+              </Text>
+            </Col>
+            <Col span={10} textAlign={"end"}>
+              <img
+                src={`${process.env.PUBLIC_URL}/brand-logo.png`}
+                alt="Brand Logo"
+                style={{ height: 80 }}
+              />
+            </Col>
+          </Row> */}
+          <Flex>
+            <img
+              src={`data:image/png;base64,${storeData?.storeLogoImage}`}
+              alt="Shop Logo"
+              style={{ height: 85, width: 85, borderRadius: "10px" }}
+            />
+          </Flex>
+          <Row align="middle">
+            <Col span={4}></Col>
+            <Col span={10} style={{ paddingLeft: "10px" }}>
+              <Title level={3} style={{ margin: "0px", color: "#057cbd" }}>
+                {storeData?.storeName}
+              </Title>
+              <Text style={{ lineHeight: "3px" }}>
+                {storeData?.address}
+                <br />
+                {storeData?.state} - {storeData?.pinCode}
+                <br />
                 Ph: {storeData?.primaryPhone}
                 {storeData?.secondaryPhone && `, ${storeData?.secondaryPhone}`}
               </Text>
@@ -311,7 +339,9 @@ const InvoicePdf = (props) => {
               </Text>
             </Col>
             <Col>
-              <Text strong style={{paddingLeft:"35px"}}>TAX INVOICE</Text>
+              <Text strong style={{ paddingLeft: "35px" }}>
+                TAX INVOICE
+              </Text>
             </Col>
             <Col>
               <Text strong>ORIGINAL FOR RECIPIENT</Text>
@@ -434,7 +464,9 @@ const InvoicePdf = (props) => {
                     <Col span={24}>
                       <Text>
                         <strong>Credit:</strong> ₹{" "}
-                        {pdfData.creditReminder?.totalCreditAmount ? pdfData.creditReminder.totalCreditAmount : 0}
+                        {pdfData.creditReminder?.totalCreditAmount
+                          ? pdfData.creditReminder.totalCreditAmount
+                          : 0}
                       </Text>
                     </Col>
                     {/* )} */}
@@ -488,36 +520,65 @@ const InvoicePdf = (props) => {
                       </Table.Summary.Cell>
                       <Table.Summary.Cell index={1} />
                       <Table.Summary.Cell index={3}>
-                        <strong>{totalQty}</strong>
+                        <strong>
+                          {props.pdfData.lineItems
+                            ? props.pdfData.lineItems.reduce(
+                                (total, e) => total + e.quantity,
+                                0
+                              )
+                            : 0}
+                        </strong>
                       </Table.Summary.Cell>
-                      <Table.Summary.Cell index={4} align="right">
-                        <strong>₹{totalRate.toLocaleString("en-IN")}</strong>
-                      </Table.Summary.Cell>
+                      <Table.Summary.Cell
+                        index={4}
+                        align="right"
+                      ></Table.Summary.Cell>
+                      {console.log(props.pdfData)}
                       <Table.Summary.Cell index={5} align="right">
                         <strong>
-                          ₹{totalTaxableValue.toLocaleString("en-IN")}
+                          ₹
+                          {props.pdfData.lineItems
+                            .reduce((total, e) => total + e.lineTotal, 0)
+                            .toLocaleString("en-IN")}
                         </strong>
                       </Table.Summary.Cell>
                       {/* SGST */}
-                      <Table.Summary.Cell index={6} align="center">
-                        <strong>18%</strong> {/* Static SGST Percentage */}
-                      </Table.Summary.Cell>
+                      <Table.Summary.Cell
+                        index={6}
+                        align="center"
+                      ></Table.Summary.Cell>
                       <Table.Summary.Cell index={7} align="right">
                         <strong>
-                          ₹{totalSGSTAmount.toLocaleString("en-IN")}
+                          ₹
+                          {props.pdfData.lineItems
+                            .reduce((total, e) => total + e.sgstAmount, 0)
+                            .toLocaleString("en-IN")}
                         </strong>
                       </Table.Summary.Cell>
                       {/* CGST */}
-                      <Table.Summary.Cell index={8} align="center">
-                        <strong>18%</strong> {/* Static CGST Percentage */}
-                      </Table.Summary.Cell>
+                      <Table.Summary.Cell
+                        index={8}
+                        align="center"
+                      ></Table.Summary.Cell>
                       <Table.Summary.Cell index={9} align="right">
                         <strong>
-                          ₹{totalCGSTAmount.toLocaleString("en-IN")}
+                          ₹
+                          {props.pdfData.lineItems
+                            .reduce((total, e) => total + e.cgstAmount, 0)
+                            .toLocaleString("en-IN")}
                         </strong>
                       </Table.Summary.Cell>
                       <Table.Summary.Cell index={10} align="right">
-                        <strong>₹{grandTotal.toLocaleString("en-IN")}</strong>
+                        <strong>
+                          ₹
+                          {props.pdfData.lineItems
+                            .reduce(
+                              (total, e) =>
+                                total + e.totalTaxAmount + e.lineTotal,
+                              0
+                            )
+                            .toLocaleString("en-IN")}
+                        </strong>
                       </Table.Summary.Cell>
                     </Table.Summary.Row>
                   </>
@@ -551,9 +612,10 @@ const InvoicePdf = (props) => {
                           {numberToWords
                             .toWords(
                               props.pdfData.lineItems.reduce(
-                                (total, e) => total + (e.lineTotal + e.totalTaxAmount),
+                                (total, e) =>
+                                  total + (e.lineTotal + e.totalTaxAmount),
                                 0
-                              )                              
+                              )
                             )
                             .toUpperCase()}{" "}
                           ONLY
@@ -616,9 +678,7 @@ const InvoicePdf = (props) => {
                             <strong>UPI ID:</strong> {accountData?.upiId}
                           </Text>
                         </Col>
-                        <Col span={5} style={{textAlign:"center"
-
-                        }}>
+                        <Col span={5} style={{ textAlign: "center" }}>
                           <img
                             style={{
                               height: "88px",

@@ -21,7 +21,7 @@ import BillParentComponent from "../../../CommonComponents/billParentComponent";
 class PaidServiceBillClass extends BillParentComponent {
   userService = new UserService();
   service = new PaidServiceService();
-  updateUrl = "/complaince-and-services/service-management/paid-service"
+  updateUrl = "/complaince-and-services/service-management/paid-service";
   render() {
     return (
       <Spin spinning={this.state.isLoading}>
@@ -80,7 +80,10 @@ class PaidServiceBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input className="input-tag-style" />
+                      <Input
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -99,6 +102,7 @@ class PaidServiceBillClass extends BillParentComponent {
                         style={{ width: "100%" }}
                         className="input-tag-style"
                         format="YYYY-MM-DD"
+                        disabled={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -114,7 +118,11 @@ class PaidServiceBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input type="Number" className="input-tag-style" />
+                      <Input
+                        type="Number"
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -129,7 +137,10 @@ class PaidServiceBillClass extends BillParentComponent {
                         },
                       ]}
                     >
-                      <Input className="input-tag-style" />
+                      <Input
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -151,6 +162,7 @@ class PaidServiceBillClass extends BillParentComponent {
                         }))}
                         placeholder="Sold By"
                         className="input-tag-style"
+                        disabled={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -166,7 +178,10 @@ class PaidServiceBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input className="input-tag-style" />
+                      <Input
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -181,7 +196,11 @@ class PaidServiceBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input type="Number" className="input-tag-style" />
+                      <Input
+                        type="Number"
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -196,7 +215,11 @@ class PaidServiceBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input type="Number" className="input-tag-style" />
+                      <Input
+                        type="Number"
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -233,6 +256,7 @@ class PaidServiceBillClass extends BillParentComponent {
                       <TextArea
                         placeholder="Description"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -269,7 +293,11 @@ class PaidServiceBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input placeholder="Name" className="input-tag-style" />
+                      <Input
+                        placeholder="Name"
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -292,6 +320,7 @@ class PaidServiceBillClass extends BillParentComponent {
                         type="tel"
                         placeholder="Phone Number"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -305,6 +334,7 @@ class PaidServiceBillClass extends BillParentComponent {
                         type="email"
                         placeholder="Email"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -318,6 +348,7 @@ class PaidServiceBillClass extends BillParentComponent {
                         style={{ width: "100%" }}
                         className="input-tag-style"
                         format="YYYY-MM-DD"
+                        disabled={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -327,7 +358,11 @@ class PaidServiceBillClass extends BillParentComponent {
                       label="GSTIN"
                       className="form-input-tag-bottom-space"
                     >
-                      <Input className="input-tag-style" placeholder="GSTIN" />
+                      <Input
+                        className="input-tag-style"
+                        placeholder="GSTIN"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
@@ -345,6 +380,7 @@ class PaidServiceBillClass extends BillParentComponent {
                       <Input
                         placeholder="Address"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -360,7 +396,11 @@ class PaidServiceBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input placeholder="State" className="input-tag-style" />
+                      <Input
+                        placeholder="State"
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -379,13 +419,16 @@ class PaidServiceBillClass extends BillParentComponent {
                         type="Number"
                         placeholder="Pincode"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
                   <Flex justify="end" style={{ width: "100%" }}>
-                    <Button type="primary" htmlType="submit">
-                      {this.state.mode === "add" ? "Submit" : "Update"}
-                    </Button>
+                    {this.props.mode === "view" || (
+                      <Button type="primary" htmlType="submit">
+                        {this.state.mode === "add" ? "Submit" : "Update"}
+                      </Button>
+                    )}
                   </Flex>
                 </Row>
               </div>
@@ -397,10 +440,10 @@ class PaidServiceBillClass extends BillParentComponent {
   }
 }
 
-const PaidServiceBill = () => {
+const PaidServiceBill = (props) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  return <PaidServiceBillClass id={id} navigate={navigate} />;
+  return <PaidServiceBillClass id={id} navigate={navigate} mode={props.mode} />;
 };
 
 export default PaidServiceBill;

@@ -18,6 +18,7 @@ import { UserAddOutlined } from "@ant-design/icons";
 import WarrantyServiceService from "../../../../service/customizeServices/ComplainceAndServices/ServiceManagement/warrantyServiceService";
 import { Link } from "react-router-dom";
 import { DateFormat } from "../../../../service/defaultServices/formates";
+import View from "../../../../component/viewButton";
 
 class WarrentService extends TableParentPage {
   service = new WarrantyServiceService();
@@ -86,6 +87,11 @@ class WarrentService extends TableParentPage {
               to={`/complaince-and-services/service-management/warranty-service/update/${e}`}
             >
               <Edit />
+            </Link>
+            <Link
+              to={`/complaince-and-services/service-management/warranty-service/view/${e}`}
+            >
+              <View />
             </Link>
           </>
         );

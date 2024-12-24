@@ -11,17 +11,16 @@ import {
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import UserService from "../../../../service/customizeServices/UserManagements/userService";
-import {
-  ArrowLeftOutlined,
-} from "@ant-design/icons";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Link, useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";import BillParentComponent from "../../../CommonComponents/billParentComponent";
+import { useNavigate } from "react-router-dom";
+import BillParentComponent from "../../../CommonComponents/billParentComponent";
 import WarrantyServiceService from "../../../../service/customizeServices/ComplainceAndServices/ServiceManagement/warrantyServiceService";
 
 class WarrantyBillClass extends BillParentComponent {
   userService = new UserService();
   service = new WarrantyServiceService();
-  updateUrl = "/complaince-and-services/service-management/warranty-service"
+  updateUrl = "/complaince-and-services/service-management/warranty-service";
   render() {
     return (
       <Spin spinning={this.state.isLoading}>
@@ -80,7 +79,10 @@ class WarrantyBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input className="input-tag-style" />
+                      <Input
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -95,7 +97,10 @@ class WarrantyBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input className="input-tag-style" />
+                      <Input
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -114,6 +119,7 @@ class WarrantyBillClass extends BillParentComponent {
                         style={{ width: "100%" }}
                         className="input-tag-style"
                         format="YYYY-MM-DD"
+                        disabled={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -129,7 +135,10 @@ class WarrantyBillClass extends BillParentComponent {
                         },
                       ]}
                     >
-                      <Input className="input-tag-style" />
+                      <Input
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -151,6 +160,7 @@ class WarrantyBillClass extends BillParentComponent {
                         }))}
                         placeholder="Sold By"
                         className="input-tag-style"
+                        disabled={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -166,7 +176,10 @@ class WarrantyBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input className="input-tag-style" />
+                      <Input
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -184,6 +197,7 @@ class WarrantyBillClass extends BillParentComponent {
                       <TextArea
                         placeholder="Description"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -220,7 +234,11 @@ class WarrantyBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input placeholder="Name" className="input-tag-style" />
+                      <Input
+                        placeholder="Name"
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -243,6 +261,7 @@ class WarrantyBillClass extends BillParentComponent {
                         type="tel"
                         placeholder="Phone Number"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -256,6 +275,7 @@ class WarrantyBillClass extends BillParentComponent {
                         type="email"
                         placeholder="Email"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -269,6 +289,7 @@ class WarrantyBillClass extends BillParentComponent {
                         style={{ width: "100%" }}
                         className="input-tag-style"
                         format="YYYY-MM-DD"
+                        disabled={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -278,7 +299,11 @@ class WarrantyBillClass extends BillParentComponent {
                       label="GSTIN"
                       className="form-input-tag-bottom-space"
                     >
-                      <Input className="input-tag-style" placeholder="GSTIN" />
+                      <Input
+                        className="input-tag-style"
+                        placeholder="GSTIN"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
@@ -296,6 +321,7 @@ class WarrantyBillClass extends BillParentComponent {
                       <Input
                         placeholder="Address"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
@@ -311,7 +337,11 @@ class WarrantyBillClass extends BillParentComponent {
                       ]}
                       className="form-input-tag-bottom-space"
                     >
-                      <Input placeholder="State" className="input-tag-style" />
+                      <Input
+                        placeholder="State"
+                        className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
+                      />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
@@ -330,13 +360,16 @@ class WarrantyBillClass extends BillParentComponent {
                         type="Number"
                         placeholder="Pincode"
                         className="input-tag-style"
+                        readOnly={this.props.mode === "view"}
                       />
                     </Form.Item>
                   </Col>
                   <Flex justify="end" style={{ width: "100%" }}>
-                    <Button type="primary" htmlType="submit">
-                      {this.state.mode === "add" ? "Submit" : "Update"}
-                    </Button>
+                    {this.props.mode === "view" || (
+                      <Button type="primary" htmlType="submit">
+                        {this.state.mode === "add" ? "Submit" : "Update"}
+                      </Button>
+                    )}
                   </Flex>
                 </Row>
               </div>
@@ -348,10 +381,10 @@ class WarrantyBillClass extends BillParentComponent {
   }
 }
 
-const WarrantyServiceBill = () => {
+const WarrantyServiceBill = (props) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  return <WarrantyBillClass id={id} navigate={navigate} />;
+  return <WarrantyBillClass id={id} navigate={navigate} mode={props.mode} />;
 };
 
 export default WarrantyServiceBill;
