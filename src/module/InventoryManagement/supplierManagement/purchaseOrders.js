@@ -5,7 +5,7 @@ import Delete from "../../../component/deleteButton";
 import Edit from "../../../component/editButton";
 import PurchaseOrderService from "../../../service/customizeServices/SupplierService/purchaseOrderService";
 import SupplierService from "../../../service/customizeServices/SupplierService/supplierService";
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import { FaList } from "react-icons/fa";
 
 import { Form, Input, Popconfirm, Spin, Row, Col, Select } from "antd";
@@ -45,18 +45,21 @@ class PurchaseOrder extends TableParentPage {
 
   componentDidMount() {
     super.componentDidMount();
-    this.supplierService.getAll().then((res) => {
-      const filteredSupplierData = res.data.data.map((supplier) => ({
-        value: supplier.id,
-        label: supplier.supplierName,
-      }));
-      this.setState({ supplierData: filteredSupplierData });
-    }).catch((err) => {
-      message.error(err.response.data?.message);
-    })
-    .finally(() => {
-      this.setState({ isLoading: false });
-    });
+    this.supplierService
+      .getAll()
+      .then((res) => {
+        const filteredSupplierData = res.data.data.map((supplier) => ({
+          value: supplier.id,
+          label: supplier.supplierName,
+        }));
+        this.setState({ supplierData: filteredSupplierData });
+      })
+      .catch((err) => {
+        message.error(err.response.data?.message);
+      })
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
   }
 
   handleProductModule = (id) => {
@@ -432,7 +435,18 @@ class PurchaseOrder extends TableParentPage {
               </Row>
               {this.state.mode === "view" || (
                 <Row justify="end" gutter={[10, 10]} style={{ marginTop: 16 }}>
-                  <Button type="primary" size="medium" htmlType="submit">
+                  <Button
+                    type="primary"
+                    size="medium"
+                    htmlType="submit"
+                    icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }
+                  >
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Row>

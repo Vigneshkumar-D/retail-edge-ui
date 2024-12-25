@@ -7,7 +7,7 @@ class TableParentPage extends Component {
   constructor(props) {
     super(props);
     this.save = this.save.bind(this);
-    this.state = { isLoading: false };
+    this.state = { isLoading: false, pdfData: null };
   }
   componentDidMount() {
     this.tableDataCall();

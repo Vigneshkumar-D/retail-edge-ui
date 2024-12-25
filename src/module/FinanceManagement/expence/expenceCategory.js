@@ -14,7 +14,7 @@ import {
 import Delete from "../../../component/deleteButton";
 import Edit from "../../../component/editButton";
 import CategoryService from "../../../service/customizeServices/InventoryManagement/product_management/categoryService";
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import View from "../../../component/viewButton";
 import ExpenseCategoryService from "../../../service/customizeServices/FinanceManagement/expenseCategory";
 
@@ -121,7 +121,13 @@ class ExpenseCategory extends TableParentPage {
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button type="primary" htmlType="submit" icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }>
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>

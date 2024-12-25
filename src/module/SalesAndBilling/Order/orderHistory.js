@@ -56,35 +56,10 @@ class OrderHistory extends TableParentPage {
       render: (e) => e?.phoneNumber || "-",
     },
     {
-      title: "Order Number",
-      dataIndex: "orderNumber",
-      key: "orderNumber",
-      render: (e) => e || "-",
-    },
-    {
       title: "Status",
       dataIndex: "status",
       key: "status",
     },
-    {
-      title: "Total Amount",
-      dataIndex: "totalAmount",
-      key: "totalAmount",
-      render: (e) => `₹${e.toLocaleString()}` || "-",
-    },
-    {
-      title: "Advance",
-      dataIndex: "totalAmount",
-      key: "totalAmount",
-      render: (e) => `₹${e.toLocaleString()}` || "-",
-    },
-    {
-      title: "Balance Amount",
-      dataIndex: "balanceAmount",
-      key: "balanceAmount",
-      render: (e) => `₹${e.toLocaleString()}` || "-",
-    },
-
     {
       title: "Order Date",
       dataIndex: "createdDate",
@@ -92,7 +67,7 @@ class OrderHistory extends TableParentPage {
       render: (e) => DateFormat(e) || "-",
     },
     {
-      title: "Delivery",
+      title: "Delivery Date",
       dataIndex: "expectedDeliveryDate",
       key: "expectedDeliveryDate",
       render: (e) => DateFormat(e) || "-",

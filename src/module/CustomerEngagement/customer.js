@@ -18,7 +18,7 @@ import Edit from "../../component/editButton";
 import CustomerService from "../../service/customizeServices/CustomerEngagement/customer";
 import { DateFormat } from "../../service/defaultServices/formates";
 
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import React from "react";
 import View from "../../component/viewButton";
 import TextArea from "antd/es/input/TextArea";
@@ -290,7 +290,17 @@ class Customer extends TableParentPage {
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }
+                  >
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>

@@ -1,6 +1,7 @@
 import { Button, Card, Flex, Form, Input, message, Spin } from "antd";
 import StoreConfigurationParent from "./storeConfigurationParent";
 import GstService from "../../../service/customizeServices/StoreManagement/StoreDetails/gestService";
+import { SyncOutlined } from "@ant-design/icons";
 
 class GstDetails extends StoreConfigurationParent {
   service = new GstService();
@@ -171,6 +172,13 @@ class GstDetails extends StoreConfigurationParent {
                   type="primary"
                   htmlType="submit"
                   disabled={this.state.readOnly}
+                  icon={
+                    <Spin
+                      spinning={this.state.isLoading}
+                      indicator={<SyncOutlined spin />}
+                      style={{ color: "white" }}
+                    />
+                  }
                 >
                   Save
                 </Button>

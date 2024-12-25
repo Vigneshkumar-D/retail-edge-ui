@@ -10,7 +10,12 @@ import {
   Spin,
   Upload,
 } from "antd";
-import { PlusOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  SyncOutlined,
+} from "@ant-design/icons";
 import StoreConfigurationParent from "./storeConfigurationParent";
 import AccountService from "../../../service/customizeServices/StoreManagement/StoreDetails/accountService";
 
@@ -255,6 +260,13 @@ class Account extends StoreConfigurationParent {
                   type="primary"
                   htmlType="submit"
                   disabled={this.state.readOnly}
+                  icon={
+                    <Spin
+                      spinning={this.state.isLoading}
+                      indicator={<SyncOutlined spin />}
+                      style={{ color: "white" }}
+                    />
+                  }
                 >
                   Save
                 </Button>

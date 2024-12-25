@@ -11,7 +11,7 @@ import {
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import UserService from "../../../../service/customizeServices/UserManagements/userService";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, SyncOutlined } from "@ant-design/icons";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import BillParentComponent from "../../../CommonComponents/billParentComponent";
@@ -366,7 +366,17 @@ class WarrantyBillClass extends BillParentComponent {
                   </Col>
                   <Flex justify="end" style={{ width: "100%" }}>
                     {this.props.mode === "view" || (
-                      <Button type="primary" htmlType="submit">
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        icon={
+                          <Spin
+                            spinning={this.state.isLoading}
+                            indicator={<SyncOutlined spin />}
+                            style={{ color: "white" }}
+                          />
+                        }
+                      >
                         {this.state.mode === "add" ? "Submit" : "Update"}
                       </Button>
                     )}

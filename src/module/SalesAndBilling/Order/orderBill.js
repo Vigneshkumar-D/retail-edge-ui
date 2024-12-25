@@ -15,6 +15,7 @@ import {
   ArrowLeftOutlined,
   MinusCircleOutlined,
   PlusOutlined,
+  SyncOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import BillParentComponent from "../../CommonComponents/billParentComponent";
@@ -532,7 +533,13 @@ class OrderBillClass extends BillParentComponent {
                     </Form.Item>
                   </Col>
                   <Flex justify="end" style={{ width: "100%" }}>
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }>
                       {this.state.mode === "add" ? "Submit" : "Update"}
                     </Button>
                   </Flex>

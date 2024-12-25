@@ -18,7 +18,7 @@ import {
 } from "antd";
 import Delete from "../../component/deleteButton";
 import Edit from "../../component/editButton";
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import CreditReminderService from "../../service/customizeServices/CustomerEngagement/creditreminderService";
 import CustomerService from "../../service/customizeServices/CustomerEngagement/customer";
 import TextArea from "antd/es/input/TextArea";
@@ -493,7 +493,17 @@ class CreditRemainder extends TableParentPage {
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }
+                  >
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>

@@ -10,7 +10,7 @@ import {
   Upload,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { DeleteOutlined, EyeOutlined, PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EyeOutlined, PlusOutlined, SyncOutlined } from "@ant-design/icons";
 import StoreConfigurationParent from "./storeConfigurationParent";
 import StoreService from "../../../service/customizeServices/StoreManagement/StoreDetails/storeService";
 
@@ -264,6 +264,13 @@ class Store extends StoreConfigurationParent {
                   type="primary"
                   htmlType="submit"
                   disabled={this.state.readOnly}
+                  icon={
+                    <Spin
+                      spinning={this.state.isLoading}
+                      indicator={<SyncOutlined spin />}
+                      style={{ color: "white" }}
+                    />
+                  }
                 >
                   Save
                 </Button>

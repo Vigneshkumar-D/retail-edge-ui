@@ -324,7 +324,13 @@ class Payment extends TableParentPage {
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button type="primary" htmlType="submit" icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }>
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>

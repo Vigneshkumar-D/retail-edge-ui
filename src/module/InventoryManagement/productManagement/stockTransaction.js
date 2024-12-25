@@ -273,7 +273,6 @@ class StockTransaction extends TableParentPage {
                       <Spin
                         spinning={this.state.isLoading}
                         indicator={<SyncOutlined spin />}
-                        // size="small"
                         style={{ color: "white" }}
                       />
                     }

@@ -12,7 +12,7 @@ import {
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import UserService from "../../../../service/customizeServices/UserManagements/userService";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, SyncOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
 import PaidServiceService from "../../../../service/customizeServices/ComplainceAndServices/ServiceManagement/paidServicesService";
@@ -479,7 +479,17 @@ class PaidServiceBillClass extends BillParentComponent {
                   </Col>
                   <Flex justify="end" style={{ width: "100%" }}>
                     {this.props.mode === "view" || (
-                      <Button type="primary" htmlType="submit">
+                      <Button
+                        icon={
+                          <Spin
+                            spinning={this.state.isLoading}
+                            indicator={<SyncOutlined spin />}
+                            style={{ color: "white" }}
+                          />
+                        }
+                        type="primary"
+                        htmlType="submit"
+                      >
                         {this.state.mode === "add" ? "Submit" : "Update"}
                       </Button>
                     )}

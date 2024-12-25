@@ -15,7 +15,7 @@ import {
 import Delete from "../../component/deleteButton";
 import Edit from "../../component/editButton";
 import RoleService from "../../service/customizeServices/UserManagements/roleService";
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import { DateTimeFormat } from "../../service/defaultServices/formates";
 import View from "../../component/viewButton";
 
@@ -155,7 +155,13 @@ class Role extends TableParentPage {
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button type="primary" htmlType="submit" icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }>
                     {this.state.mode === "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>

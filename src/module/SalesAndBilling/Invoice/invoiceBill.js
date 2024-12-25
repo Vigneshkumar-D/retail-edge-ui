@@ -15,7 +15,11 @@ import {
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import UserService from "../../../service/customizeServices/UserManagements/userService";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  MinusCircleOutlined,
+  PlusOutlined,
+  SyncOutlined,
+} from "@ant-design/icons";
 import ProductService from "../../../service/customizeServices/InventoryManagement/product_management/productService";
 import InvoiceGenerationService from "../../../service/customizeServices/SalesAndBiling/invoiceGenerationService";
 import { useNavigate, useParams } from "react-router-dom";
@@ -1475,7 +1479,17 @@ class InvoiceBillClass extends BillParentComponent {
                   <br />
                   <br />
                   <Flex justify="end" style={{ width: "100%" }}>
-                    <Button type="primary" htmlType="submit">
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      icon={
+                        <Spin
+                          spinning={this.state.isLoading}
+                          indicator={<SyncOutlined spin />}
+                          style={{ color: "white" }}
+                        />
+                      }
+                    >
                       {this.state.mode === "add" ? "Submit" : "Update"}
                     </Button>
                   </Flex>

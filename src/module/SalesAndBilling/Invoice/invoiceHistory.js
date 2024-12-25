@@ -14,6 +14,7 @@ class InvoiceHistory extends TableParentPage {
   constructor(props) {
     super(props);
     this.state = {
+      ...this.state,
       // Common data
       data: [],
       formOpen: false,
@@ -23,7 +24,6 @@ class InvoiceHistory extends TableParentPage {
 
       // Specific data
       isModelOpen: false,
-      pdfData: null,
     };
   }
 

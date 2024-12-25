@@ -16,7 +16,7 @@ import {
 import Delete from "../../../component/deleteButton";
 import Edit from "../../../component/editButton";
 import TaxAndHSNCodeService from "../../../service/customizeServices/ComplainceAndServices/GST/hsnCodeAndTaxSlabService";
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import CategoryService from "../../../service/customizeServices/InventoryManagement/product_management/categoryService";
 import View from "../../../component/viewButton";
 
@@ -337,7 +337,17 @@ class TaxAndHSNCode extends TableParentPage {
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }
+                    type="primary"
+                    htmlType="submit"
+                  >
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>

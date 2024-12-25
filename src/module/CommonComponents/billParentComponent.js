@@ -9,7 +9,7 @@ class BillParentComponent extends TableParentPage {
       isLoading: false,
       salesManList: [],
       mode: "add",
-      id:null
+      id: null,
     };
   }
 
@@ -62,6 +62,7 @@ class BillParentComponent extends TableParentPage {
   }
 
   save(data) {
+    this.setState({ isLoading: true });
     if (this.state.mode === "add") {
       this.service
         .create(data)

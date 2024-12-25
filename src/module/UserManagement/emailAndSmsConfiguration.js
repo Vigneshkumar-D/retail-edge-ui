@@ -12,6 +12,7 @@ import {
 } from "antd";
 import EmailAndSmsConfigurationService from "../../service/customizeServices/UserManagements/emailAndSmsConfigurationService";
 import { useState } from "react";
+import { SyncOutlined } from "@ant-design/icons";
 
 const EmailAndSmsConfiguration = () => {
   const service = new EmailAndSmsConfigurationService();
@@ -97,7 +98,18 @@ const EmailAndSmsConfiguration = () => {
             title={
               <Flex justify="space-between">
                 <h3>SMS Configuration</h3>
-                <Button type="primary">Update</Button>
+                <Button
+                  type="primary"
+                  icon={
+                    <Spin
+                      spinning={this.state.isLoading}
+                      indicator={<SyncOutlined spin />}
+                      style={{ color: "white" }}
+                    />
+                  }
+                >
+                  Update
+                </Button>
               </Flex>
             }
           >
@@ -117,14 +129,14 @@ const EmailAndSmsConfiguration = () => {
                 name="accountSid"
                 rules={[{ required: true, message: "Enter Account SID" }]}
               >
-                <Input type="password"/>
+                <Input type="password" />
               </Form.Item>
               <Form.Item
                 label="Auth ID"
                 name="authId"
                 rules={[{ required: true, message: "Enter Auth ID" }]}
               >
-                <Input type="password"/>
+                <Input type="password" />
               </Form.Item>
               <Form.Item
                 label="Twilio Number"
@@ -141,7 +153,17 @@ const EmailAndSmsConfiguration = () => {
               </Form.Item>
               <Flex justify="end">
                 <Form.Item>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }
+                  >
                     Save
                   </Button>
                 </Form.Item>

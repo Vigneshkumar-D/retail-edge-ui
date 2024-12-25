@@ -18,7 +18,7 @@ import Delete from "../../component/deleteButton";
 import Edit from "../../component/editButton";
 import UserService from "../../service/customizeServices/UserManagements/userService";
 import { DateTimeFormat } from "../../service/defaultServices/formates";
-import { UserAddOutlined } from "@ant-design/icons";
+import { SyncOutlined, UserAddOutlined } from "@ant-design/icons";
 import RoleService from "../../service/customizeServices/UserManagements/roleService";
 import View from "../../component/viewButton";
 
@@ -63,20 +63,12 @@ class User extends TableParentPage {
       key: "role",
       render: (roleName) => roleName || "-",
     },
-
-    {
-      title: "Active",
-      dataIndex: "active",
-      key: "active",
-      render: (e) => (e ? "Active" : "Inactive"),
-    },
     {
       title: "Last Login",
       dataIndex: "lastLogin",
       key: "lastLogin",
       render: (e) => DateTimeFormat(e) || "-",
     },
-
     {
       title: "Action",
       dataIndex: "id",
@@ -276,7 +268,17 @@ class User extends TableParentPage {
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    icon={
+                      <Spin
+                        spinning={this.state.isLoading}
+                        indicator={<SyncOutlined spin />}
+                        style={{ color: "white" }}
+                      />
+                    }
+                  >
                     {this.state.mode === "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>
