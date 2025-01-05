@@ -24,6 +24,7 @@ class InvoiceHistory extends TableParentPage {
 
       // Specific data
       isModelOpen: false,
+      pdfData: null,
     };
   }
 
@@ -82,8 +83,7 @@ class InvoiceHistory extends TableParentPage {
               style={{ color: "red" }}
               className="editDeleteButton"
               onClick={() => {
-                this.setState({ isModelOpen: true });
-                this.setState({ pdfData: record });
+                this.setState({ isModelOpen: true, pdfData: record });
               }}
             />
           </Tooltip>

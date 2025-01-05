@@ -23,11 +23,11 @@ const GradientDonutChart = (props) => {
       fill: {
         type: 'gradient',
       },
-      legend: {
-        formatter: function (val, opts) {
-          return val + " - " + opts.w.globals.series[opts.seriesIndex];
-        },
-      },
+      // legend: {
+      //   formatter: function (val, opts) {
+      //     return val + " - " + opts.w.globals.series[opts.seriesIndex];
+      //   },
+      // },
       title: {
         text: props.title,
       },

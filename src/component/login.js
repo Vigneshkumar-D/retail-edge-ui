@@ -24,11 +24,15 @@ export default function Login() {
       .post(values)
       .then((res) => {
         const expirationTime = new Date(new Date().getTime() + 10 * 60 * 1000); // Set for 10 minutes
-        Cookies.set("login_token", res.data.message, { expires: expirationTime });
+        Cookies.set("login_token", res.data.message, {
+          expires: expirationTime,
+        });
         navigate("/", { replace: true });
       })
       .catch((err) => {
-        const msg = err.response.data?.message ? err.response.data.message : err.message;
+        const msg = err.response.data?.message
+          ? err.response.data.message
+          : err.message;
         message.error(msg);
       })
       .finally(() => {

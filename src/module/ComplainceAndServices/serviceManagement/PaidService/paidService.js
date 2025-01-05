@@ -13,7 +13,10 @@ import Edit from "../../../../component/editButton";
 import { FilePdfOutlined, UserAddOutlined } from "@ant-design/icons";
 import PaidServiceService from "../../../../service/customizeServices/ComplainceAndServices/ServiceManagement/paidServicesService";
 import { Link } from "react-router-dom";
-import { DateFormat, DateTimeFormat } from "../../../../service/defaultServices/formates";
+import {
+  DateFormat,
+  DateTimeFormat,
+} from "../../../../service/defaultServices/formates";
 import ServiceInvoicePdf from "./service_Invoice_pdf";
 import View from "../../../../component/viewButton";
 
@@ -70,9 +73,9 @@ class PaidService extends TableParentPage {
     {
       title: "Action",
       dataIndex: "id",
-      align:"center",
+      align: "center",
       key: "id",
-      render: (e) => {
+      render: (e, record) => {
         return (
           <>
             <Delete id={e} deleteItem={() => this.delete(e)} />
@@ -92,8 +95,7 @@ class PaidService extends TableParentPage {
                 style={{ color: "red" }}
                 className="editDeleteButton"
                 onClick={() => {
-                  this.setState({ isModelOpen: true });
-                  // this.setState({ pdfData: record });
+                  this.setState({ isModelOpen: true, pdfData: record });
                 }}
               />
             </Tooltip>
@@ -142,9 +144,9 @@ class PaidService extends TableParentPage {
           onCancel={this.handleCancel}
           footer={false}
           className="paid-service-invoice-model"
-          style={{padding:"10px"}}
+          style={{ padding: "10px" }}
         >
-            <ServiceInvoicePdf psfData={this.state.psfData}/>
+          <ServiceInvoicePdf pdfData={this.state.pdfData} />
         </Modal>
       </Spin>
     );

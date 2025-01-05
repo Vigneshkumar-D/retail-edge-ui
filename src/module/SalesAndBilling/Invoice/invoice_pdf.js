@@ -31,7 +31,6 @@ const integerInWords = numberToWords.toWords(integerPart);
 
 const InvoicePdf = (props) => {
   const { pdfData } = props;
-  const componentRef = useRef();
   const [updatedData, setUpdatedData] = useState([]);
   const storeService = new StoreService();
   const accountService = new AccountService();
@@ -271,65 +270,36 @@ const InvoicePdf = (props) => {
             border: "none",
           }}
         >
-          {/* <Row align="middle">
-            <Col span={4}>
-              <img
-                src={`data:image/png;base64,${storeData?.storeLogoImage}`}
-                alt="Shop Logo"
-                style={{ height: 85,width:85, borderRadius: "10px" }}
-              />
-            </Col>
-            <Col span={10} style={{ paddingLeft: "10px" }}>
-              <Title level={3} style={{ margin: "0px", color: "#057cbd" }}>
-                {storeData?.storeName}
-              </Title>
-              <Text style={{ lineHeight: "3px" }}>
-                {storeData?.address}
-                <br />
-                {storeData?.state} - {storeData?.pinCode}
-                <br />
-                Ph: {storeData?.primaryPhone}
-                {storeData?.secondaryPhone && `, ${storeData?.secondaryPhone}`}
-              </Text>
-            </Col>
-            <Col span={10} textAlign={"end"}>
-              <img
-                src={`${process.env.PUBLIC_URL}/brand-logo.png`}
-                alt="Brand Logo"
-                style={{ height: 80 }}
-              />
-            </Col>
-          </Row> */}
           <Flex>
             <img
               src={`data:image/png;base64,${storeData?.storeLogoImage}`}
               alt="Shop Logo"
-              style={{ height: 85, width: 85, borderRadius: "10px" }}
+              style={{ height: 85, width: 85, borderRadius: "10px",marginRight:"15px", marginTop:"7px" }}
             />
+            <Row style={{display:"flex",flex:1}} >
+              <Col span={12}>
+                <Title level={3} style={{ margin: "0px", color: "#057cbd" }}>
+                  {storeData?.storeName}
+                </Title>
+                <Text style={{ lineHeight: "3px" }}>
+                  {storeData?.address}
+                  <br />
+                  {storeData?.state} - {storeData?.pinCode}
+                  <br />
+                  Ph: {storeData?.primaryPhone}
+                  {storeData?.secondaryPhone &&
+                    `, ${storeData?.secondaryPhone}`}
+                </Text>
+              </Col>
+              <Col span={12} textAlign={"end"}>
+                <img
+                  src={`${process.env.PUBLIC_URL}/brand-logo.png`}
+                  alt="Brand Logo"
+                  style={{ height: 80 }}
+                />
+              </Col>
+            </Row>
           </Flex>
-          <Row align="middle">
-            <Col span={4}></Col>
-            <Col span={10} style={{ paddingLeft: "10px" }}>
-              <Title level={3} style={{ margin: "0px", color: "#057cbd" }}>
-                {storeData?.storeName}
-              </Title>
-              <Text style={{ lineHeight: "3px" }}>
-                {storeData?.address}
-                <br />
-                {storeData?.state} - {storeData?.pinCode}
-                <br />
-                Ph: {storeData?.primaryPhone}
-                {storeData?.secondaryPhone && `, ${storeData?.secondaryPhone}`}
-              </Text>
-            </Col>
-            <Col span={10} textAlign={"end"}>
-              <img
-                src={`${process.env.PUBLIC_URL}/brand-logo.png`}
-                alt="Brand Logo"
-                style={{ height: 80 }}
-              />
-            </Col>
-          </Row>
           <hr style={{ height: "2px", backgroundColor: "black" }} />
 
           <Row justify="space-between" style={{ padding: "2px" }}>
