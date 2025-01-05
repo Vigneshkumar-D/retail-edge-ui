@@ -72,3 +72,6 @@ export const SUPPLIER_DASHBOARD_PURCHASE_ORDER_DETAIS =
 export const STORE_URL = baseUrl + "/store-details";
 export const STORE_ACCOUNT_URL = baseUrl + "/account-details";
 export const GST_URL = baseUrl + "/gst-details";
+
+//Settlement
+export const SETTLEMENT_URL = baseUrl + "/settlement"
