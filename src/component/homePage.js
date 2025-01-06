@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  PoweroffOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, Layout, Menu, message, theme, Tooltip } from "antd";
 import { Link, Navigate, useNavigate, useRoutes } from "react-router-dom";
 import Cookies from "js-cookie";
-import { FaUsers, FaChartLine, FaFileInvoiceDollar, FaCartArrowDown } from "react-icons/fa";
+import { FaChartLine, FaFileInvoiceDollar } from "react-icons/fa";
 import { AiOutlineSetting, AiFillProduct } from "react-icons/ai";
 import {
   MdOutlineManageAccounts,
@@ -784,7 +782,7 @@ const HomePage = () => {
         <Content
           style={{
             margin: "24px 16px",
-            padding: 24,
+            padding: "0px 24px",
             minHeight: 280,
             // background: colorBgContainer,
             borderRadius: borderRadiusLG,

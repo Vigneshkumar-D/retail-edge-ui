@@ -8,7 +8,7 @@ const GradientDonutChart = (props) => {
     const options = {
       series: [44, 55, 41, 17, 15],
       chart: {
-        width: 380,
+        width: 280,
         type: 'donut',
       },
       plotOptions: {
@@ -23,11 +23,6 @@ const GradientDonutChart = (props) => {
       fill: {
         type: 'gradient',
       },
-      // legend: {
-      //   formatter: function (val, opts) {
-      //     return val + " - " + opts.w.globals.series[opts.seriesIndex];
-      //   },
-      // },
       title: {
         text: props.title,
       },

@@ -1,23 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const LineChart = ({ columns, dataSource }) => {
-  // Extracting categories (x-axis) and data (y-axis) from the props
-  const categories = dataSource.map((data) => data[columns[0].dataIndex]); // Product names
-  const seriesData = dataSource.map((data) => data[columns[1].dataIndex]); // Count values
-
-  // State for chart options
-  const [state, setState] = React.useState({
+const LineChart = ({
+  chartTitle,
+  chartData,
+  chartCategories,
+  height,
+  type,
+}) => {
+  const [chartOptions, setChartOptions] = useState({
     series: [
       {
-        name: columns[1].title, // Use the title of the "Count" column as the series name
-        data: seriesData, // Data for the chart
+        name: "Desktops",
+        data: chartData || [41, 35, 148, 69, 51, 49, 62, 91, 10], // Default data
       },
     ],
     options: {
       chart: {
         height: 350,
-        type: "line",
         zoom: {
           enabled: false,
         },
@@ -27,19 +27,30 @@ const LineChart = ({ columns, dataSource }) => {
       },
       stroke: {
         curve: "straight",
+        width: 2,
       },
       title: {
-        text: "Product Trends by Count",
+        text: chartTitle || "Product Trends by Month", // Accepts title via props
         align: "left",
       },
       grid: {
         row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          colors: ["#f3f3f3", "transparent"], // Alternating row colors
           opacity: 0.5,
         },
       },
       xaxis: {
-        categories: categories, // Categories (Product names)
+        categories: chartCategories || [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+        ], // Default categories
       },
     },
   });
@@ -48,13 +59,12 @@ const LineChart = ({ columns, dataSource }) => {
     <div>
       <div id="chart">
         <ReactApexChart
-          options={state.options}
-          series={state.series}
-          type="line"
-          height={350}
+          options={chartOptions.options}
+          series={chartOptions.series}
+          type={type || "line"}
+          height={height || 350}
         />
       </div>
-      <div id="html-dist"></div>
     </div>
   );
 };
