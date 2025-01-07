@@ -8,8 +8,7 @@ import SupplierService from "../../../../service/customizeServices/SupplierServi
 import { UserAddOutlined } from "@ant-design/icons";
 import { FaList } from "react-icons/fa";
 
-import { Form, Input, Popconfirm, Spin, Row, Col, Select } from "antd";
-import { DeleteFilled } from "@ant-design/icons";
+import { Spin } from "antd";
 import "../style.css";
 import { DateFormat } from "../../../../service/defaultServices/formates";
 import View from "../../../../component/viewButton";
@@ -258,7 +257,14 @@ class PurchaseOrder extends TableParentPage {
           footer={false}
           width={800}
         >
-          <PurchaseOrderForm formRef={this.formRef} supplierData={this.state.supplierData} id={this.state.id}/>
+          <PurchaseOrderForm
+            formRef={this.formRef}
+            supplierData={this.state.supplierData}
+            id={this.state.id}
+            onSuccess={() => {
+              this.setState({ formOpen: false });
+            }}
+          />
         </Modal>
       </Spin>
     );

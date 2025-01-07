@@ -5,18 +5,15 @@ import {
   Flex,
   Form,
   Input,
+  message,
   Row,
   Select,
   Spin,
   Table,
 } from "antd";
 import UserService from "../../../../service/customizeServices/UserManagements/userService";
-import {
-  ArrowLeftOutlined,
-  MinusCircleOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { MinusCircleOutlined, PlusOutlined, SyncOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import BillParentComponent from "../../../CommonComponents/billParentComponent";
 import dayjs from "dayjs";
 import PurchaseOrderService from "../../../../service/customizeServices/SupplierService/purchaseOrderService";
@@ -31,7 +28,6 @@ class PurchaseOrderFormClass extends BillParentComponent {
       ...this.state,
     };
   }
-  // updateUrl = "/sales-and-billing/order/history";
   componentDidMount() {
     if (this.props.id) {
       this.setState({ mode: "update", id: this.props.id });
@@ -69,6 +65,38 @@ class PurchaseOrderFormClass extends BillParentComponent {
       });
     }
   }
+
+  save(data) {
+    this.setState({ isLoading: true });
+    if (this.state.mode === "add") {
+      this.service
+        .create(data)
+        .then((res) => {
+          message.success("Item Added successfully");
+          this.props.onSuccess();
+        })
+        .catch((err) => {
+          message.error(err.response?.data?.message);
+        })
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
+    } else {
+      this.service
+        .updateItem(this.state.id, data)
+        .then((res) => {
+          message.success("Item Updated successfully");
+          this.props.onSuccess();
+        })
+        .catch((err) => {
+          message.error(err.response.data.message);
+        })
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
+    }
+  }
+
   render() {
     return (
       <Spin spinning={this.state.isLoading}>
@@ -77,16 +105,17 @@ class PurchaseOrderFormClass extends BillParentComponent {
           onFinish={this.save}
           ref={this.props.formRef}
           onValuesChange={(changedValues, allValues) => {
-            const orderTotal = allValues.purchaseProducts?.length > 0
-              ? allValues.purchaseProducts
-                  .map((e) => {
-                    return (
-                      (Number(e?.pricePerUnit) || 0) *
-                      (Number(e?.quantity) || 0)
-                    );
-                  })
-                  .reduce((e, total) => total + e, 0)
-              : 0;
+            const orderTotal =
+              allValues.purchaseProducts?.length > 0
+                ? allValues.purchaseProducts
+                    .map((e) => {
+                      return (
+                        (Number(e?.pricePerUnit) || 0) *
+                        (Number(e?.quantity) || 0)
+                      );
+                    })
+                    .reduce((e, total) => total + e, 0)
+                : 0;
             if (this.props.formRef && this.props.formRef.current) {
               this.props.formRef.current.setFieldsValue({ orderTotal });
             }
@@ -120,9 +149,11 @@ class PurchaseOrderFormClass extends BillParentComponent {
                       { value: "Canceled", label: "Canceled" },
                     ]}
                     className="input-tag-style"
+                    disabled={this.state.mode==="view"}
                   />
                 </Form.Item>
               </Col>
+              {console.log(this.state.mode)}
               <Col xs={24} sm={12}>
                 <Form.Item
                   name="orderTotal"
@@ -382,7 +413,18 @@ class PurchaseOrderFormClass extends BillParentComponent {
                       />
                       <br />
                       <Flex justify="space-between">
-                        <Button type="primary" htmlType="submit">
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          disabled={this.state.isLoading}
+                          icon={
+                            <Spin
+                              spinning={this.state.isLoading}
+                              indicator={<SyncOutlined spin />}
+                              style={{ color: "white" }}
+                            />
+                          }
+                        >
                           {this.state.mode === "add" ? "Submit" : "Update"}
                         </Button>
                         <Button
@@ -413,6 +455,7 @@ const PurchaseOrderForm = (props) => {
       navigate={navigate}
       formRef={props.formRef}
       supplierData={props.supplierData}
+      onSuccess={props.onSuccess}
     />
   );
 };

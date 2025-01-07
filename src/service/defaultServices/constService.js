@@ -2,6 +2,7 @@ const baseUrl = process.env.REACT_APP_API + "/api";
 
 // Login
 export const LOGIN_URL = baseUrl + "/auth/login";
+export const LOGOUT_URL = baseUrl + "/auth/logout";
 export const FORGET_PASSWORD_URL = baseUrl + "/auth/forget-password";
 export const RESET_PASSWORD_URL = baseUrl + "/auth/confirm-reset";
 

@@ -68,7 +68,9 @@ class BillParentComponent extends TableParentPage {
         .create(data)
         .then((res) => {
           message.success("Item Added successfully");
-          this.props.navigate(this.updateUrl, { replace: true });
+          this.updateUrl
+            ? this.props.navigate(this.updateUrl, { replace: true })
+            : this.setState({ formOpen: false });
         })
         .catch((err) => {
           message.error(err.response?.data?.message);

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Layout, Menu, message, theme, Tooltip } from "antd";
 import { Link, Navigate, useNavigate, useRoutes } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -19,31 +16,22 @@ import CustomerEngagement from "../module/CustomerEngagement/customerEngagement"
 import FinanceManagement from "../module/FinanceManagement/financeManagement";
 import ComplalinceAndService from "../module/ComplainceAndServices/complainc_and_service";
 import UserManagement from "../module/UserManagement/userManagement";
-import { BsCartCheck, BsShop } from "react-icons/bs";
+import { BsShop } from "react-icons/bs";
 import StoreSetup from "../module/StoreSetup/storeSetup";
 import SalesAndBilling from "../module/SalesAndBilling/salesAndBilling";
 import BusinessInsight from "../module/BusinessInsights/businessInsights";
-import { MdOutlineNotificationsActive } from "react-icons/md";
 import { FaChevronDown, FaUserTie } from "react-icons/fa";
 import { TbPasswordFingerprint } from "react-icons/tb";
-import { CiSettings } from "react-icons/ci";
-import { FaSearch, FaBell, FaUser, FaCartPlus } from 'react-icons/fa'; // Font Awesome icons
-import { MdDashboard, MdSettings } from 'react-icons/md';
-import { MdOutlineSwitchAccessShortcutAdd } from "react-icons/md";
-import { FaLocationArrow, FaFileInvoice } from "react-icons/fa6";
-import { RiMoneyRupeeCircleFill, RiShareForwardLine } from "react-icons/ri";
-import { IoIosPeople } from "react-icons/io";
-import { IoArrowRedo } from "react-icons/io5";
+import { RiShareForwardLine } from "react-icons/ri";
 import CurrentUserService from "../service/customizeServices/UserManagements/currentUserSevice";
-import { BsGraphUpArrow } from "react-icons/bs";
 import { LuBellRing } from "react-icons/lu";
-import { SlActionRedo } from "react-icons/sl";
-
+import LogoutService from "../service/defaultServices/authentication/logoutService";
 
 const { Header, Sider, Content } = Layout;
 
 const HomePage = () => {
-  const service = new CurrentUserService()
+  const service = new CurrentUserService();
+  const logoutService = new LogoutService();
   const [currentUser, setCurrentUser] = useState("");
   const token = Cookies.get("login_token");
   const navigate = useNavigate();
@@ -51,7 +39,6 @@ const HomePage = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
 
   const menuItems = [
     {
@@ -333,8 +320,7 @@ const HomePage = () => {
         setCurrentUser(res.data?.data);
       })
       .catch((err) => {
-        const msg = err.data?.message ? err.response.data.message : err.message;
-        message.error(msg);
+        message.error(err.response.data?.message);
       })
       .finally(() => {
         // setIsLoading(false);
@@ -348,15 +334,13 @@ const HomePage = () => {
       window.removeEventListener("mousemove", refreshTokenExpiration);
       window.removeEventListener("keydown", refreshTokenExpiration);
     };
-
   }, []);
 
   const dropDownStyle = {
     background: "none",
     fontSize: "16px",
-    padding: "0px"
-  }
-
+    padding: "0px",
+  };
 
   const quickActionsMenu = (
     <Menu
@@ -370,12 +354,12 @@ const HomePage = () => {
                 icon={<>📦</>}
                 // icon={<FaUserTie style={{fontSize:"20px", color:"blueviolet"}} />}
                 onClick={() => {
-                  navigate("/inventory-management/procuct-management/product", { replace: true });
+                  navigate("/inventory-management/procuct-management/product", {
+                    replace: true,
+                  });
                 }}
                 style={dropDownStyle}
-              >
-
-              </Button>
+              ></Button>
             </Tooltip>
           ),
         },
@@ -389,14 +373,10 @@ const HomePage = () => {
                 // icon={<p>⚙️</p>}
                 icon={<>🧾</>}
                 onClick={() => {
-
                   navigate("/sales-and-billing/invoice/new", { replace: true });
-
                 }}
                 style={dropDownStyle}
-              >
-
-              </Button>
+              ></Button>
             </Tooltip>
           ),
         },
@@ -413,9 +393,7 @@ const HomePage = () => {
                   navigate("/customer-engagement/customer", { replace: true });
                 }}
                 style={dropDownStyle}
-              >
-
-              </Button>
+              ></Button>
             </Tooltip>
           ),
         },
@@ -428,13 +406,10 @@ const HomePage = () => {
                 // icon={<BsGraphUpArrow style={{ fontSize: "26px", color: "", padding: "2px" }} />}
                 icon={<p>📈</p>}
                 onClick={() => {
-
                   navigate("/business-insights/reports", { replace: true });
                 }}
                 style={dropDownStyle}
-              >
-
-              </Button>
+              ></Button>
             </Tooltip>
           ),
         },
@@ -447,13 +422,12 @@ const HomePage = () => {
                 // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
                 icon={<p>🎁</p>}
                 onClick={() => {
-
-                  navigate("/customer-engagement/offer-alert", { replace: true });
+                  navigate("/customer-engagement/offer-alert", {
+                    replace: true,
+                  });
                 }}
                 style={dropDownStyle}
-              >
-
-              </Button>
+              ></Button>
             </Tooltip>
           ),
         },
@@ -466,13 +440,13 @@ const HomePage = () => {
                 // icon={<BsCartCheck style={{ fontSize: "30px", color: "", padding: "2px" }} />}
                 icon={<p>🛒</p>}
                 onClick={() => {
-
-                  navigate("/inventory-management/supplier-management/purchase-orders", { replace: true });
+                  navigate(
+                    "/inventory-management/supplier-management/purchase-orders",
+                    { replace: true }
+                  );
                 }}
                 style={dropDownStyle}
-              >
-
-              </Button>
+              ></Button>
             </Tooltip>
           ),
         },
@@ -485,13 +459,10 @@ const HomePage = () => {
                 // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
                 icon={<p>🛍️</p>}
                 onClick={() => {
-
                   navigate("/sales-and-billing/order", { replace: true });
                 }}
                 style={dropDownStyle}
-              >
-
-              </Button>
+              ></Button>
             </Tooltip>
           ),
         },
@@ -504,13 +475,10 @@ const HomePage = () => {
                 // icon={<RiMoneyRupeeCircleFill style={{ fontSize: "30px", padding: "2px" }} />}
                 icon={<p>💳</p>}
                 onClick={() => {
-
                   navigate("/finance-management/expence", { replace: true });
                 }}
                 style={dropDownStyle}
-              >
-
-              </Button>
+              ></Button>
             </Tooltip>
           ),
         },
@@ -523,26 +491,34 @@ const HomePage = () => {
                 // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
                 icon={<p>🤝</p>}
                 onClick={() => {
-
                   navigate("/finance-management/settlement", { replace: true });
                 }}
                 style={dropDownStyle}
-              >
-
-              </Button>
+              ></Button>
             </Tooltip>
           ),
         },
       ]}
       style={{
-        display: 'flex',
+        display: "flex",
         flexWrap: "wrap",
         width: "200px",
-        gap: '10px',
-
+        gap: "10px",
       }}
     />
-  )
+  );
+
+  const logout = () => {
+    logoutService
+      .create()
+      .then((res) => {
+        Cookies.remove("login_token");
+        navigate("/login", { replace: true });
+      })
+      .catch((err) => {
+        message.error(err.response.data?.message);
+      });
+  };
 
   return token ? (
     <Layout style={{ height: "100vh" }}>
@@ -561,8 +537,6 @@ const HomePage = () => {
             marginBottom: "0px",
             position: "sticky",
             top: 0,
-            // backgroundColor: "#001529",
-            // backgroundColor: "rgba(240, 240, 240, 0.2)",
             backdropFilter: "blur(38px)",
             zIndex: 1,
           }}
@@ -582,8 +556,6 @@ const HomePage = () => {
             scrollbarWidth: "none",
             msOverflowStyle: "none",
             backgroundColor: "#001529",
-            // backgroundColor: "rgba(240, 240, 240, 0.2)",
-            // backdropFilter: "blur(38px)",
           }}
         >
           <Menu
@@ -595,10 +567,7 @@ const HomePage = () => {
               overflowY: "auto",
               scrollbarWidth: "none",
               msOverflowStyle: "none",
-              //   backgroundColor: "transparent",
-              // //   backgroundColor: "rgba(240, 240, 240, 0.2)",
-              // // backdropFilter: "blur(18px)",
-            }} // Hide scrollbar
+            }}
           />
         </div>
         <div
@@ -608,7 +577,6 @@ const HomePage = () => {
             marginBottom: "0px",
             position: "sticky",
             bottom: 0,
-            // backgroundColor: "#001529",
             zIndex: 1,
           }}
         >
@@ -628,7 +596,7 @@ const HomePage = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: "10px"
+            padding: "10px",
           }}
         >
           <Button
@@ -641,63 +609,105 @@ const HomePage = () => {
               height: 64,
             }}
           />
-
-
-          <div style={{ alignSelf: "flex-end", display: "flex", alignItems: "center", alignSelf: "center", justifyContent: "space-around", minWidth: "200px", maxWidth: "280px", paddingRight:"20px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "120px", marginRight: "10px" }}>
+          <div
+            style={{
+              alignSelf: "flex-end",
+              display: "flex",
+              alignItems: "center",
+              alignSelf: "center",
+              justifyContent: "space-around",
+              minWidth: "200px",
+              maxWidth: "280px",
+              paddingRight: "20px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "120px",
+                marginRight: "10px",
+              }}
+            >
               <Dropdown
                 overlay={quickActionsMenu}
                 placement="bottom"
                 arrow
-                trigger={['click']}
+                trigger={["click"]}
                 color="blue"
               >
                 <Tooltip placement="right" title="Quick Actions">
-                  {/* <Button
+                  <div
                     style={{
-                      // fontSize: "16px",
-                      width: 20,
-                      height: 20,
-                      border: "none",
-                      padding: "0px",
-                      alignItems: "center"
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#e5ecf0",
+                      borderRadius: "50%",
+                      width: "30px",
+                      height: "30px",
                     }}
-0
-                  > */}
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#e5ecf0", borderRadius: "50%", width: "30px", height: "30px" }}>
-                      <RiShareForwardLine style={{ height: "26px", cursor: "pointer", width: "20px", }} />
-                    </div>
-
-                  {/* </Button> */}
+                  >
+                    <RiShareForwardLine
+                      style={{
+                        height: "26px",
+                        cursor: "pointer",
+                        width: "20px",
+                      }}
+                    />
+                  </div>
                 </Tooltip>
               </Dropdown>
               <Tooltip placement="right" title="Notifications">
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#e5ecf0", borderRadius: "50%", width: "30px", height: "30px" }}>
-                  <LuBellRing style={{ height: "18px", cursor: "pointer", width: "18px", }} />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#e5ecf0",
+                    borderRadius: "50%",
+                    width: "30px",
+                    height: "30px",
+                  }}
+                >
+                  <LuBellRing
+                    style={{ height: "18px", cursor: "pointer", width: "18px" }}
+                  />
                 </div>
               </Tooltip>
 
-              <img src={currentUser?.profileImage !== null ? `data:image/png;base64,${currentUser?.profileImage}` : "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} alt="Profile Picture" style={{ height: "30px", width: "30px", borderRadius: "50%", cursor: "pointer" }} />
-              {/* <img src="" alt="GHJ" style={{ height: "30px", width: "30px", borderRadius: "50%", cursor: "pointer" }} /> */}
+              <img
+                src={
+                  currentUser?.profileImage !== null
+                    ? `data:image/png;base64,${currentUser?.profileImage}`
+                    : "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                }
+                alt="Profile Picture"
+                style={{
+                  height: "30px",
+                  width: "30px",
+                  borderRadius: "50%",
+                  cursor: "pointer",
+                }}
+              />
             </div>
-            <p style={{ fontWeight: "600", cursor: "pointer", paddingRight: "6px" }}>{currentUser?.username}</p>
+            <p
+              style={{
+                fontWeight: "600",
+                cursor: "pointer",
+                paddingRight: "6px",
+              }}
+            >
+              {currentUser?.username}
+            </p>
             <Dropdown
               menu={{
                 items: [
                   {
                     key: 1,
                     label: (
-                      <Button
-                        type="text"
-                        icon={<>👤</>}
-                        // icon={<FaUserTie style={{fontSize:"20px", color:"blueviolet"}} />}
-                        onClick={() => {
-                          // Cookies.remove("login_token");
-                          // navigate("/login", { replace: true });
-
-                        }}
-                        style={dropDownStyle}
-                      >
+                      <Button type="text" icon={<>👤</>} style={dropDownStyle}>
                         Profile
                       </Button>
                     ),
@@ -705,31 +715,21 @@ const HomePage = () => {
                   {
                     key: 2,
                     label: (
-                      <Button
-                        type="text"
-                        // icon={<CiSettings style={{fontSize:"20px", color:"green"}} />}
-                        // icon={<p>⚙️</p>}
-                        icon={<>🛠️</>}
-                        onClick={() => {
-                          // Cookies.remove("login_token");
-                          // navigate("/login", { replace: true });
-
-                        }}
-                        style={dropDownStyle}
-                      >
+                      <Button type="text" icon={<>🛠️</>} style={dropDownStyle}>
                         Settings
                       </Button>
                     ),
-                  }, {
+                  },
+                  {
                     key: 3,
                     label: (
                       <Button
                         type="text"
-                        icon={<TbPasswordFingerprint style={{ fontSize: "20px", color: "" }} />}
-                        onClick={() => {
-                          // Cookies.remove("login_token");
-                          // navigate("/login", { replace: true });
-                        }}
+                        icon={
+                          <TbPasswordFingerprint
+                            style={{ fontSize: "20px", color: "" }}
+                          />
+                        }
                         style={dropDownStyle}
                       >
                         Change password
@@ -741,11 +741,9 @@ const HomePage = () => {
                     label: (
                       <Button
                         type="text"
-                        // icon={<PoweroffOutlined style={{fontSize:"16px", color:"red", padding:"2px"}}/>}
                         icon={<p>🔓</p>}
                         onClick={() => {
-                          Cookies.remove("login_token");
-                          navigate("/login", { replace: true });
+                          logout();
                         }}
                         style={dropDownStyle}
                       >
@@ -757,7 +755,7 @@ const HomePage = () => {
               }}
               placement="bottomRight"
               arrow
-              trigger={['click']}
+              trigger={["click"]}
             >
               <Button
                 style={{
@@ -766,16 +764,19 @@ const HomePage = () => {
                   height: 20,
                   border: "none",
                   padding: "0px",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
                   <FaChevronDown />
                 </div>
-
               </Button>
-
             </Dropdown>
           </div>
         </Header>
@@ -784,7 +785,6 @@ const HomePage = () => {
             margin: "24px 16px",
             padding: "0px 24px",
             minHeight: 280,
-            // background: colorBgContainer,
             borderRadius: borderRadiusLG,
             maxHeight: "82vh",
             overflowY: "scroll",
