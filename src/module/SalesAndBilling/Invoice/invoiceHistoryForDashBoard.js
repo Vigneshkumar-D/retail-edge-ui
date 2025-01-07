@@ -113,6 +113,7 @@ class InvoiceHistoryForDashBoard extends TableParentPage {
             columns={this.columns}
             scroll={{ x: "max-content" }}
             className="dashboardInvoiceTable"
+            pagination={false}
           />
         </ConfigProvider>
         <Modal

@@ -45,6 +45,10 @@ class PurchaseOrder extends TableParentPage {
 
   componentDidMount() {
     super.componentDidMount();
+    this.tableDataCall();
+  }
+
+  tableDataCall() {
     this.supplierService
       .getAll()
       .then((res) => {
@@ -256,6 +260,7 @@ class PurchaseOrder extends TableParentPage {
             supplierData={this.state.supplierData}
             id={this.state.id}
             onSuccess={() => {
+              this.tableDataCall();
               this.setState({ formOpen: false });
             }}
           />
