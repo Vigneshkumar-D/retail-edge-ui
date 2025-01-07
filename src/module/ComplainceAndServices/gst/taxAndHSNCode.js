@@ -247,7 +247,7 @@ class TaxAndHSNCode extends TableParentPage {
                     className="input-tag-style"
                     onChange={this.onChangeing}
                     options={this.state.categoryList}
-                    readOnly={this.state.mode === "view"}
+                    disabled={this.state.mode === "view"}
                   />
                 </Form.Item>
               </Col>
