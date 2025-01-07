@@ -73,6 +73,7 @@ class PurchaseOrderFormClass extends BillParentComponent {
         .create(data)
         .then((res) => {
           message.success("Item Added successfully");
+          this.props.formRef.current.resetFields();
           this.props.onSuccess();
         })
         .catch((err) => {
@@ -86,6 +87,7 @@ class PurchaseOrderFormClass extends BillParentComponent {
         .updateItem(this.state.id, data)
         .then((res) => {
           message.success("Item Updated successfully");
+          this.props.formRef.current.resetFields();
           this.props.onSuccess();
         })
         .catch((err) => {

@@ -155,12 +155,6 @@ class PurchaseOrder extends TableParentPage {
       render: (e) => e || "-",
       fixed: "left",
     },
-    // {
-    //   title: "Model",
-    //   dataIndex: "model",
-    //   key: "model",
-    //   render: (e) => e || "-",
-    // },
     {
       title: "Brand",
       dataIndex: "brand",

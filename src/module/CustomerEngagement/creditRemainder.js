@@ -221,7 +221,7 @@ class CreditRemainder extends TableParentPage {
                         ?.toLowerCase()
                         .includes(inputValue.toLowerCase())
                     }
-                    readOnly={this.state.mode === "view"}
+                    disabled={this.state.mode === "view"}
                   />
                 </Form.Item>
               </Col>
@@ -246,7 +246,7 @@ class CreditRemainder extends TableParentPage {
                       };
                     })}
                     className="input-tag-style"
-                    readOnly={this.state.mode === "view"}
+                    disabled={this.state.mode === "view"}
                   />
                 </Form.Item>
               </Col>
@@ -387,7 +387,7 @@ class CreditRemainder extends TableParentPage {
                       <DatePicker
                         format="YYYY-MM-DD"
                         style={{ width: "100%" }}
-                        readOnly={this.state.mode === "view"}
+                        disabled={this.state.mode === "view"}
                         className="input-tag-style"
                       />
                     </Form.Item>
@@ -406,7 +406,7 @@ class CreditRemainder extends TableParentPage {
                   <DatePicker
                     format="YYYY-MM-DD"
                     style={{ width: "100%" }}
-                    readOnly={this.state.mode === "view"}
+                    disabled ={this.state.mode === "view"}
                     className="input-tag-style"
                   />
                 </Form.Item>
@@ -425,7 +425,7 @@ class CreditRemainder extends TableParentPage {
                 >
                   <Select
                     mode="multiple"
-                    readOnly={this.state.mode === "view"}
+                    disabled ={this.state.mode === "view"}
                     className="input-tag-style"
                     options={[
                       {
@@ -483,7 +483,7 @@ class CreditRemainder extends TableParentPage {
                   className="form-input-tag-bottom-space"
                 >
                   <Radio.Group
-                    readOnly={this.state.mode === "view"}
+                    disabled ={this.state.mode === "view"}
                     className="input-tag-style"
                   >
                     <Radio value={true}>Yes</Radio>

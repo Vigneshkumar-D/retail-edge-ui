@@ -108,6 +108,26 @@ class PaidServiceBillClass extends BillParentComponent {
                   </Col>
                   <Col xs={24} sm={12}>
                     <Form.Item
+                      name="serviceCompletionDate"
+                      label="Completion Date"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter the completion date",
+                        },
+                      ]}
+                      className="form-input-tag-bottom-space"
+                    >
+                      <DatePicker
+                        style={{ width: "100%" }}
+                        className="input-tag-style"
+                        format="YYYY-MM-DD"
+                        disabled={this.props.mode === "view"}
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} sm={12}>
+                    <Form.Item
                       name="advancePayment"
                       label="Advance Payment"
                       rules={[

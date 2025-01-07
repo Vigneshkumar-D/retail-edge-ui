@@ -1,27 +1,23 @@
-import { Button, Col, Form, Row } from "antd";
-import DateRangePicker from "../../../component/dateRangePicker";
-import { UTCFormate } from "../../../service/defaultServices/formates";
+import { Button} from "antd";
+import { Link } from "react-router-dom";
 
 const GSTReport = () => {
-  const getReport = (val) => {
-    console.log("state date : ", UTCFormate(val.startDate));
-    console.log("end date : ", UTCFormate(val.endDate));
-  };
   return (
-    <Form onFinish={getReport}>
-      <Row gutter={[20,20]}>
-        <Col sm={24} md={16} lg={12}>
-          <DateRangePicker />
-        </Col>
-        <Col md={6}>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Generate
-            </Button>
-          </Form.Item>
-        </Col>
-      </Row>
-    </Form>
+    <>
+      <div className="skills-main-container">
+        <img
+          src={`${process.env.PUBLIC_URL}/construction.jpg`}
+          className="under-const-image"
+          alt="under-construction-pic"
+        />
+        <h1 className="under-const-title">This page is under construction</h1>
+        <Link to="/">
+          <Button className="back-to-home-btn" type="primary">
+            Back to Home
+          </Button>
+        </Link>
+      </div>
+    </>
   );
 };
 

@@ -213,7 +213,7 @@ class Customer extends TableParentPage {
                     style={{ width: "100%" }}
                     className="input-tag-style"
                     format="YYYY-MM-DD"
-                    readOnly={this.state.mode === "view"}
+                    disabled ={this.state.mode === "view"}
                   />
                 </Form.Item>
               </Col>

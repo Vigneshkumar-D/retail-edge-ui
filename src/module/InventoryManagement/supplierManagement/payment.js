@@ -136,18 +136,21 @@ class Payment extends TableParentPage {
 
   componentDidMount() {
     super.componentDidMount();
-    this.supplierService.getAll().then((res) => {
-      const filteredSupplierData = res.data.data.map((supplier) => ({
-        value: supplier.id,
-        label: supplier.supplierName,
-      }));
-      this.setState({ supplierData: filteredSupplierData });
-    }).catch((err) => {
-      message.error(err.response.data?.message);
-    })
-    .finally(() => {
-      this.setState({ isLoading: false });
-    });
+    this.supplierService
+      .getAll()
+      .then((res) => {
+        const filteredSupplierData = res.data.data.map((supplier) => ({
+          value: supplier.id,
+          label: supplier.supplierName,
+        }));
+        this.setState({ supplierData: filteredSupplierData });
+      })
+      .catch((err) => {
+        message.error(err.response.data?.message);
+      })
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
   }
 
   render() {
@@ -213,6 +216,7 @@ class Payment extends TableParentPage {
                       message: "Please enter the supplier name",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <Select
                     showSearch
@@ -223,7 +227,8 @@ class Payment extends TableParentPage {
                         .toLowerCase()
                         .includes(input.toLowerCase())
                     }
-                    readOnly={this.state.mode === "view"}
+                    disabled={this.state.mode === "view"}
+                    className="input-tag-style"
                   />
                 </Form.Item>
               </Col>
@@ -237,8 +242,12 @@ class Payment extends TableParentPage {
                       message: "Please select a payment method",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input readOnly={this.state.mode === "view"} />
+                  <Input
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -251,8 +260,13 @@ class Payment extends TableParentPage {
                       message: "Please enter the payment amount",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input type="number" readOnly={this.state.mode === "view"} />
+                  <Input
+                    type="number"
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -265,8 +279,12 @@ class Payment extends TableParentPage {
                       message: "Please enter a Transaction Id",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
-                  <Input readOnly={this.state.mode === "view"} />
+                  <Input
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
@@ -276,6 +294,7 @@ class Payment extends TableParentPage {
                   rules={[
                     { required: true, message: "Please select a status" },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <Select
                     showSearch
@@ -290,7 +309,8 @@ class Payment extends TableParentPage {
                         label: "Pending",
                       },
                     ]}
-                    readOnly={this.state.mode === "view"}
+                    disabled={this.state.mode === "view"}
+                    className="input-tag-style"
                   />
                 </Form.Item>
               </Col>
@@ -304,33 +324,44 @@ class Payment extends TableParentPage {
                       message: "Please enter the date",
                     },
                   ]}
+                  className="form-input-tag-bottom-space"
                 >
                   <DatePicker
                     showTime
                     style={{ width: "100%" }}
                     format="YYYY-MM-DD hh-mm a"
-                    readOnly={this.state.mode === "view"}
+                    disabled={this.state.mode === "view"}
+                    className="input-tag-style"
                   />
                 </Form.Item>
               </Col>
 
               <Col xs={24} sm={12}>
-                <Form.Item name="remarks" label="Remarks">
+                <Form.Item
+                  name="remarks"
+                  label="Remarks"
+                  className="form-input-tag-bottom-space"
+                >
                   <Input.TextArea
                     rows={2}
+                    className="input-tag-style"
                     readOnly={this.state.mode === "view"}
                   />
                 </Form.Item>
               </Col>
               {this.state.mode === "view" || (
                 <Flex justify="end" style={{ width: "100%" }}>
-                  <Button type="primary" htmlType="submit" icon={
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    icon={
                       <Spin
                         spinning={this.state.isLoading}
                         indicator={<SyncOutlined spin />}
                         style={{ color: "white" }}
                       />
-                    }>
+                    }
+                  >
                     {this.state.mode == "add" ? "Add" : "Update"}
                   </Button>
                 </Flex>
