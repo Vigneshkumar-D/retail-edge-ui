@@ -155,7 +155,6 @@ class PurchaseOrderFormClass extends BillParentComponent {
                   />
                 </Form.Item>
               </Col>
-              {console.log(this.state.mode)}
               <Col xs={24} sm={12}>
                 <Form.Item
                   name="orderTotal"

@@ -503,7 +503,6 @@ const InvoicePdf = (props) => {
                         index={4}
                         align="right"
                       ></Table.Summary.Cell>
-                      {console.log(props.pdfData)}
                       <Table.Summary.Cell index={5} align="right">
                         <strong>
                           ₹

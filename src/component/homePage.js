@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, message, theme, Tooltip } from "antd";
+import {
+  Button,
+  Dropdown,
+  Layout,
+  Menu,
+  message,
+  Spin,
+  theme,
+  Tooltip,
+} from "antd";
 import { Link, Navigate, useNavigate, useRoutes } from "react-router-dom";
 import Cookies from "js-cookie";
 import { FaChartLine, FaFileInvoiceDollar } from "react-icons/fa";
@@ -36,6 +45,7 @@ const HomePage = () => {
   const token = Cookies.get("login_token");
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [isLoading, setIsLoading]= useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -509,6 +519,7 @@ const HomePage = () => {
   );
 
   const logout = () => {
+    setIsLoading(true)
     logoutService
       .create()
       .then((res) => {
@@ -517,127 +528,156 @@ const HomePage = () => {
       })
       .catch((err) => {
         message.error(err.response.data?.message);
-      });
+      }).finally(()=>{
+        setIsLoading(false)
+      })
   };
 
   return token ? (
-    <Layout style={{ height: "100vh" }}>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        theme="dark"
-        width={250}
-        style={{ height: "100vh", overflowY: "scroll", scrollbarWidth: "none" }} // Hide overflow on the Sider
-      >
-        <div
+    <Spin spinning={isLoading}>
+      <Layout style={{ height: "100vh" }}>
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          theme="dark"
+          width={250}
           style={{
-            textAlign: "center",
-            paddingTop: "8px",
-            marginBottom: "0px",
-            position: "sticky",
-            top: 0,
-            backdropFilter: "blur(38px)",
-            zIndex: 1,
-          }}
+            height: "100vh",
+            overflowY: "scroll",
+            scrollbarWidth: "none",
+          }} // Hide overflow on the Sider
         >
-          <Link to="/">
+          <div
+            style={{
+              textAlign: "center",
+              paddingTop: "8px",
+              marginBottom: "0px",
+              position: "sticky",
+              top: 0,
+              backdropFilter: "blur(38px)",
+              zIndex: 1,
+            }}
+          >
+            <Link to="/">
+              <img
+                src={`${process.env.PUBLIC_URL}/edge-logo2.png`}
+                alt="Logo"
+                style={{ width: "75%", height: "auto", borderRadius: "10px" }}
+              />
+            </Link>
+          </div>
+          <div
+            style={{
+              height: "calc(100vh - 36px)",
+              overflowY: "auto",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              backgroundColor: "#001529",
+            }}
+          >
+            <Menu
+              mode="inline"
+              defaultSelectedKeys={["1"]}
+              theme="dark"
+              items={renderMenuItems(menuItems)}
+              style={{
+                overflowY: "auto",
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              textAlign: "center",
+              paddingTop: "8px",
+              marginBottom: "0px",
+              position: "sticky",
+              bottom: 0,
+              zIndex: 1,
+            }}
+          >
             <img
               src={`${process.env.PUBLIC_URL}/edge-logo2.png`}
               alt="Logo"
               style={{ width: "75%", height: "auto", borderRadius: "10px" }}
             />
-          </Link>
-        </div>
-        <div
-          style={{
-            height: "calc(100vh - 36px)",
-            overflowY: "auto",
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-            backgroundColor: "#001529",
-          }}
-        >
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            theme="dark"
-            items={renderMenuItems(menuItems)}
-            style={{
-              overflowY: "auto",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          />
-        </div>
-        <div
-          style={{
-            textAlign: "center",
-            paddingTop: "8px",
-            marginBottom: "0px",
-            position: "sticky",
-            bottom: 0,
-            zIndex: 1,
-          }}
-        >
-          <img
-            src={`${process.env.PUBLIC_URL}/edge-logo2.png`}
-            alt="Logo"
-            style={{ width: "75%", height: "auto", borderRadius: "10px" }}
-          />
-        </div>
-      </Sider>
+          </div>
+        </Sider>
 
-      <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "10px",
-          }}
-        >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
+        <Layout>
+          <Header
             style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-            }}
-          />
-          <div
-            style={{
-              alignSelf: "flex-end",
+              padding: 0,
+              background: colorBgContainer,
               display: "flex",
+              justifyContent: "space-between",
               alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "space-around",
-              minWidth: "200px",
-              maxWidth: "280px",
-              paddingRight: "20px",
+              padding: "10px",
             }}
           >
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 64,
+                height: 64,
+              }}
+            />
             <div
               style={{
+                alignSelf: "flex-end",
                 display: "flex",
-                justifyContent: "space-between",
                 alignItems: "center",
-                width: "120px",
-                marginRight: "10px",
+                alignSelf: "center",
+                justifyContent: "space-around",
+                minWidth: "200px",
+                maxWidth: "280px",
+                paddingRight: "20px",
               }}
             >
-              <Dropdown
-                overlay={quickActionsMenu}
-                placement="bottom"
-                arrow
-                trigger={["click"]}
-                color="blue"
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "120px",
+                  marginRight: "10px",
+                }}
               >
-                <Tooltip placement="right" title="Quick Actions">
+                <Dropdown
+                  overlay={quickActionsMenu}
+                  placement="bottom"
+                  arrow
+                  trigger={["click"]}
+                  color="blue"
+                >
+                  <Tooltip placement="right" title="Quick Actions">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "#e5ecf0",
+                        borderRadius: "50%",
+                        width: "30px",
+                        height: "30px",
+                      }}
+                    >
+                      <RiShareForwardLine
+                        style={{
+                          height: "26px",
+                          cursor: "pointer",
+                          width: "20px",
+                        }}
+                      />
+                    </div>
+                  </Tooltip>
+                </Dropdown>
+                <Tooltip placement="right" title="Notifications">
                   <div
                     style={{
                       display: "flex",
@@ -649,151 +689,140 @@ const HomePage = () => {
                       height: "30px",
                     }}
                   >
-                    <RiShareForwardLine
+                    <LuBellRing
                       style={{
-                        height: "26px",
+                        height: "18px",
                         cursor: "pointer",
-                        width: "20px",
+                        width: "18px",
                       }}
                     />
                   </div>
                 </Tooltip>
-              </Dropdown>
-              <Tooltip placement="right" title="Notifications">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#e5ecf0",
-                    borderRadius: "50%",
-                    width: "30px",
-                    height: "30px",
-                  }}
-                >
-                  <LuBellRing
-                    style={{ height: "18px", cursor: "pointer", width: "18px" }}
-                  />
-                </div>
-              </Tooltip>
 
-              <img
-                src={
-                  currentUser?.profileImage !== null
-                    ? `data:image/png;base64,${currentUser?.profileImage}`
-                    : "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                }
-                alt="Profile Picture"
+                <img
+                  src={
+                    currentUser?.profileImage !== null
+                      ? `data:image/png;base64,${currentUser?.profileImage}`
+                      : "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                  }
+                  alt="Profile Picture"
+                  style={{
+                    height: "30px",
+                    width: "30px",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                  }}
+                />
+              </div>
+              <p
                 style={{
-                  height: "30px",
-                  width: "30px",
-                  borderRadius: "50%",
+                  fontWeight: "600",
                   cursor: "pointer",
-                }}
-              />
-            </div>
-            <p
-              style={{
-                fontWeight: "600",
-                cursor: "pointer",
-                paddingRight: "6px",
-              }}
-            >
-              {currentUser?.username}
-            </p>
-            <Dropdown
-              menu={{
-                items: [
-                  {
-                    key: 1,
-                    label: (
-                      <Button type="text" icon={<>👤</>} style={dropDownStyle}>
-                        Profile
-                      </Button>
-                    ),
-                  },
-                  {
-                    key: 2,
-                    label: (
-                      <Button type="text" icon={<>🛠️</>} style={dropDownStyle}>
-                        Settings
-                      </Button>
-                    ),
-                  },
-                  {
-                    key: 3,
-                    label: (
-                      <Button
-                        type="text"
-                        icon={
-                          <TbPasswordFingerprint
-                            style={{ fontSize: "20px", color: "" }}
-                          />
-                        }
-                        style={dropDownStyle}
-                      >
-                        Change password
-                      </Button>
-                    ),
-                  },
-                  {
-                    key: 4,
-                    label: (
-                      <Button
-                        type="text"
-                        icon={<p>🔓</p>}
-                        onClick={() => {
-                          logout();
-                        }}
-                        style={dropDownStyle}
-                      >
-                        Logout
-                      </Button>
-                    ),
-                  },
-                ],
-              }}
-              placement="bottomRight"
-              arrow
-              trigger={["click"]}
-            >
-              <Button
-                style={{
-                  fontSize: "16px",
-                  width: 20,
-                  height: 20,
-                  border: "none",
-                  padding: "0px",
-                  alignItems: "center",
+                  paddingRight: "6px",
                 }}
               >
-                <div
+                {currentUser?.username}
+              </p>
+              <Dropdown
+                menu={{
+                  items: [
+                    {
+                      key: 1,
+                      label: (
+                        <Button
+                          type="text"
+                          icon={<>👤</>}
+                          style={dropDownStyle}
+                        >
+                          Profile
+                        </Button>
+                      ),
+                    },
+                    {
+                      key: 2,
+                      label: (
+                        <Button
+                          type="text"
+                          icon={<>🛠️</>}
+                          style={dropDownStyle}
+                        >
+                          Settings
+                        </Button>
+                      ),
+                    },
+                    {
+                      key: 3,
+                      label: (
+                        <Button
+                          type="text"
+                          icon={
+                            <TbPasswordFingerprint
+                              style={{ fontSize: "20px", color: "" }}
+                            />
+                          }
+                          style={dropDownStyle}
+                        >
+                          Change password
+                        </Button>
+                      ),
+                    },
+                    {
+                      key: 4,
+                      label: (
+                        <Button
+                          type="text"
+                          icon={<p>🔓</p>}
+                          onClick={logout}
+                          style={dropDownStyle}
+                        >
+                          Logout
+                        </Button>
+                      ),
+                    },
+                  ],
+                }}
+                placement="bottomRight"
+                arrow
+                trigger={["click"]}
+              >
+                <Button
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
+                    fontSize: "16px",
+                    width: 20,
+                    height: 20,
+                    border: "none",
+                    padding: "0px",
                     alignItems: "center",
                   }}
                 >
-                  <FaChevronDown />
-                </div>
-              </Button>
-            </Dropdown>
-          </div>
-        </Header>
-        <Content
-          style={{
-            margin: "24px 16px",
-            padding: "0px 24px",
-            minHeight: 280,
-            borderRadius: borderRadiusLG,
-            maxHeight: "82vh",
-            overflowY: "scroll",
-          }}
-        >
-          {render}
-        </Content>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FaChevronDown />
+                  </div>
+                </Button>
+              </Dropdown>
+            </div>
+          </Header>
+          <Content
+            style={{
+              margin: "24px 16px",
+              padding: "0px 24px",
+              minHeight: 280,
+              borderRadius: borderRadiusLG,
+              maxHeight: "82vh",
+              overflowY: "scroll",
+            }}
+          >
+            {render}
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </Spin>
   ) : (
     <Navigate to="/login" />
   );

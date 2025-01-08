@@ -175,7 +175,6 @@ const ServiceInvoicePdf = (props) => {
   const printRef = useRef();
 
   useEffect(() => {
-    console.log("props", props);
     const formattedData = pdfData.lineItems.map((item, index) => {
       const product = item.product;
       return {

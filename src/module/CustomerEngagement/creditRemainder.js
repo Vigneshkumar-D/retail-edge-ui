@@ -165,7 +165,6 @@ class CreditRemainder extends TableParentPage {
             layout="vertical"
             onFinish={this.save}
             onValuesChange={(changedValue, allValue) => {
-              console.log("allValue", allValue);
               if (this.state.mode === "add") {
                 this.formRef.current.setFieldsValue({
                   remainingBalance: allValue.totalCreditAmount || 0,
