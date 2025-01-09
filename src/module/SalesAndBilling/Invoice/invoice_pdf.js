@@ -12,7 +12,7 @@ import {
   Typography,
 } from "antd";
 import jsPDF from "jspdf";
-import react, { useEffect } from "react";
+import { useEffect } from "react";
 
 import html2canvas from "html2canvas";
 import { IndianDateTimeFormate } from "../../../service/defaultServices/formates";
@@ -22,12 +22,7 @@ import GstService from "../../../service/customizeServices/StoreManagement/Store
 const { Title, Text } = Typography;
 const numberToWords = require("number-to-words");
 
-const amount = 19999;
 const desiredTableSize = 30;
-const integerPart = Math.floor(amount); // Get the integer part
-
-// Convert integer part to words
-const integerInWords = numberToWords.toWords(integerPart);
 
 const InvoicePdf = (props) => {
   const { pdfData } = props;
@@ -916,7 +911,6 @@ const InvoicePdf = (props) => {
               </ConfigProvider>
             </Col>
           </Row>
-          {/* </Footer> */}
           <Row>
             <Col span={24} style={{ textAlign: "center" }}>
               <Text
@@ -924,7 +918,6 @@ const InvoicePdf = (props) => {
               >
                 This is a Computer Generated Invoice
               </Text>
-              {/* <Text style={{ fontSize: "14px", fontFamily: "sans-serif", fontWeight: "600", textAlign: "center" }}>Thank you for visiting! We look forward to seeing you again!</Text> */}
             </Col>
           </Row>
         </Card>

@@ -49,6 +49,9 @@ class BillParentComponent extends TableParentPage {
               // Process the response data
               const processedFormData = processFormDataDeep(res.data.data[0]);
 
+              res.data.data[0].paymentMethod &&
+                this.setState({ paymentType: res.data.data[0].paymentMethod });
+
               // Set the processed data into the form
               this.form.setFieldsValue(processedFormData);
             }

@@ -55,7 +55,9 @@ class InvoiceBillClass extends BillParentComponent {
       super.componentDidMount();
       this.productService
         .getAll()
-        .then((res) => this.setState({ productList: res.data.data }))
+        .then((res) => {
+          this.setState({ productList: res.data.data });
+        })
         .catch((err) => message.error(err.response.data.message))
         .finally(() => {
           this.setState({ isLoading: false });
