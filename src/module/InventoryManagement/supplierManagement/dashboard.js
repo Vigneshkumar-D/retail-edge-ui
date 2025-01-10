@@ -350,7 +350,7 @@ class Dashboard extends TableParentPage {
               <Flex className="order-paymet-title" justify="space-between">
                 <h4>Last Few Transactions</h4>
                 <Link
-                  to="/inventory-management/supplier-management/payment"
+                  to="/inventory-management/supplier-management/payments"
                   className="nav-button"
                 >
                   View More Payments

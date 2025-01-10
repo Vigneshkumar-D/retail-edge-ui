@@ -45,10 +45,6 @@ class PurchaseOrder extends TableParentPage {
 
   componentDidMount() {
     super.componentDidMount();
-    this.tableDataCall();
-  }
-
-  tableDataCall() {
     this.supplierService
       .getAll()
       .then((res) => {

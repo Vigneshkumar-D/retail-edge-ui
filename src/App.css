@@ -9,7 +9,7 @@ Table {
 
 .input-tag-style {
   background-color: #f8fafc;
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 
 .hide-scrollbar {

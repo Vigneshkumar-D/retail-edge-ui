@@ -206,6 +206,7 @@ class PurchaseOrderFormClass extends BillParentComponent {
                     options={this.props?.supplierData}
                     placeholder="Supplier"
                     className="input-tag-style"
+                    style={{fontWeight:900}}
                   />
                 </Form.Item>
               </Col>
