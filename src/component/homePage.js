@@ -324,7 +324,9 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    service
+    const token = Cookies.get("login_token");
+    if(token){
+      service
       .getAll()
       .then((res) => {
         setCurrentUser(res.data?.data);
@@ -335,6 +337,8 @@ const HomePage = () => {
       .finally(() => {
         // setIsLoading(false);
       });
+    }
+    
     // Add event listeners for user activity
     window.addEventListener("mousemove", refreshTokenExpiration);
     window.addEventListener("keydown", refreshTokenExpiration);
