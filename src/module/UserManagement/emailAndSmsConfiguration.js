@@ -17,11 +17,11 @@ import { SyncOutlined } from "@ant-design/icons";
 const EmailAndSmsConfiguration = () => {
   const service = new EmailAndSmsConfigurationService();
   const [state, setState] = useState({
-    isloading: false,
+    isLoading: false,
   });
 
   return (
-    <Spin spinning={state.isloading}>
+    <Spin spinning={state.isLoading}>
       <Row gutter={[10, 10]}>
         <Col xs={24} lg={12}>
           <Card
@@ -102,7 +102,7 @@ const EmailAndSmsConfiguration = () => {
                   type="primary"
                   icon={
                     <Spin
-                      spinning={this.state.isLoading}
+                      spinning={state.isLoading}
                       indicator={<SyncOutlined spin />}
                       style={{ color: "white" }}
                     />
@@ -158,7 +158,7 @@ const EmailAndSmsConfiguration = () => {
                     htmlType="submit"
                     icon={
                       <Spin
-                        spinning={this.state.isLoading}
+                        spinning={state.isLoading}
                         indicator={<SyncOutlined spin />}
                         style={{ color: "white" }}
                       />
