@@ -367,7 +367,7 @@ class PurchaseOrderFormClass extends BillParentComponent {
                             ),
                           },
                           {
-                            title: "Price",
+                            title: "Price per unit",
                             dataIndex: "pricePerUnit",
                             onCell: () => ({
                               style: {
@@ -383,7 +383,7 @@ class PurchaseOrderFormClass extends BillParentComponent {
                                 style={{ margin: 0 }}
                               >
                                 <Input
-                                  placeholder="Price / unit"
+                                  placeholder="Price per unit"
                                   type="number"
                                   style={{
                                     border: "none",

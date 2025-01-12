@@ -281,9 +281,6 @@ class Expence extends TableParentPage {
                 <Form.Item
                   name="description"
                   label="Description"
-                  // rules={[
-                  //   { required: true, message: "Please enter description" },
-                  // ]}
                   className="form-input-tag-bottom-space"
                 >
                   <TextArea

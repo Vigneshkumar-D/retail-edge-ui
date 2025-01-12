@@ -288,12 +288,6 @@ class EMI extends TableParentPage {
                 <Form.Item
                   name="description"
                   label="Description"
-                  rules={[
-                    {
-                      required: true,
-                      message: `Please enter the description`,
-                    },
-                  ]}
                 >
                   <TextArea readOnly={this.state.mode === "view"} />
                 </Form.Item>

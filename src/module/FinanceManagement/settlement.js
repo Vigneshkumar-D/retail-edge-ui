@@ -171,6 +171,27 @@ class Settlement extends TableParentPage {
             onFinish={this.save}
           >
             <Row gutter={[5, 5]}>
+            
+            <Col xs={24} sm={12}>
+                <Form.Item
+                  name="settlementDate"
+                  label="Settlement Date"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter the date",
+                    },
+                  ]}
+                  className="form-input-tag-bottom-space"
+                >
+                  <DatePicker
+                    placeholder="Date"
+                    className="input-tag-style"
+                    disabled={this.state.mode === "view"}
+                    style={{width:"100%"}}
+                  />
+                </Form.Item>
+              </Col>
               <Col xs={24} sm={12}>
                 <Form.Item
                   name={["user", "id"]}

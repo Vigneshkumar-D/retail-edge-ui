@@ -186,12 +186,6 @@ class WarrantyBillClass extends BillParentComponent {
                     <Form.Item
                       name="complaintDescription"
                       label="Complaint Description"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please enter the description",
-                        },
-                      ]}
                       className="form-input-tag-bottom-space"
                     >
                       <TextArea
