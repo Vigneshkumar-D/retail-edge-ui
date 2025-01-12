@@ -158,7 +158,7 @@ class PurchaseOrderFormClass extends BillParentComponent {
               <Col xs={24} sm={12}>
                 <Form.Item
                   name="orderTotal"
-                  label="Order Total"
+                  label="Order Total (Auto calculated)"
                   className="form-input-tag-bottom-space"
                   rules={[
                     {
@@ -383,7 +383,7 @@ class PurchaseOrderFormClass extends BillParentComponent {
                                 style={{ margin: 0 }}
                               >
                                 <Input
-                                  placeholder="Price"
+                                  placeholder="Price / unit"
                                   type="number"
                                   style={{
                                     border: "none",

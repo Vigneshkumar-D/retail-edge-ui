@@ -1,112 +1,3 @@
-// import TableParentPage from "../../component/tableParentPage";
-// import {
-//   Button,
-//   Col,
-//   ConfigProvider,
-//   Flex,
-//   Form,
-//   Input,
-//   Modal,
-//   Radio,
-//   Row,
-//   Spin,
-//   Table,
-// } from "antd";
-// import Delete from "../../component/deleteButton";
-// import Edit from "../../component/editButton";
-// import RoleService from "../../service/customizeServices/UserManagements/roleService";
-// import { UserAddOutlined } from "@ant-design/icons";
-// import { DateTimeFormat } from "../../service/defaultServices/formates";
-// import View from "../../component/viewButton";
-// import { Link } from "react-router-dom";
-// import "../../App.css";
-
-// class Settlement extends TableParentPage {
-//   service = new RoleService();
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       // common datas
-//       data: [],
-//       formOpen: false,
-//       mode: null,
-//       id: null,
-
-//       // specific datas
-//     };
-//   }
-//   columns = [
-//     {
-//       title: "Role Name",
-//       dataIndex: "roleName",
-//       key: "roleName",
-//       render: (e) => e || "-",
-//       fixed: "left",
-//     },
-//     {
-//       title: "Active",
-//       dataIndex: "active",
-//       key: "active",
-//       render: (e) => (e ? "Active" : "Inactive"),
-//     },
-//     {
-//       title: "Created On",
-//       dataIndex: "createdOn",
-//       key: "createdOn",
-//       render: (e) => DateTimeFormat(e) || "-",
-//     },
-//     {
-//       title: "Updated On",
-//       dataIndex: "updatedOn",
-//       key: "updatedOn",
-//       render: (e) => DateTimeFormat(e) || "-",
-//     },
-//     {
-//       title: "Action",
-//       dataIndex: "id",
-//       key: "id",
-//       align: "center",
-//       width: "150px",
-//       render: (e) => {
-//         return (
-//           <>
-//             <Delete id={e} deleteItem={() => this.delete(e)} />
-//             <Edit
-//               onClickFn={() => {
-//                 this.editForm(e);
-//               }}
-//             />
-//             <View onClickFn={() => this.viewForm(e)} />
-//           </>
-//         );
-//       },
-//       fixed: "right",
-//     },
-//   ];
-//   render() {
-//     return (
-//       <>
-//         <div className="skills-main-container">
-//           <img
-//             src={`${process.env.PUBLIC_URL}/construction.jpg`}
-//             className="under-const-image"
-//             alt="under-construction-pic"
-//           />
-//           <h1 className="under-const-title">This page is under construction</h1>
-//           <Link to="/">
-//             <Button className="back-to-home-btn" type="primary">
-//               Back to Home
-//             </Button>
-//           </Link>
-//         </div>
-//       </>
-//     );
-//   }
-// }
-
-// export default Settlement;
-
-
 import {
   Button,
   Col,
@@ -282,51 +173,12 @@ class Settlement extends TableParentPage {
             <Row gutter={[5, 5]}>
               <Col xs={24} sm={12}>
                 <Form.Item
-                  name={["category", "id"]}
-                  label="Category"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter the category",
-                    },
-                  ]}
-                  className="form-input-tag-bottom-space"
-                >
-                  <Select
-                    optionFilterProp="label"
-                    value={this.state.selectedIndustries}
-                    onChange={this.onChangeing}
-                    options={this.state.categoryList}
-                    className="input-tag-style"
-                    dropdownRender={(menu) => (
-                      <>
-                        {menu}
-                        <Divider style={{ margin: "5px 0px 0px" }} />
-                        <Button
-                          icon={<EditOutlined />}
-                          type="primary"
-                          block
-                          onClick={() => {
-                            this.setState({ categoryFormOpen: true });
-                          }}
-                          // disabled={this.state.isFeatureDisabled}
-                        >
-                          Edit category
-                        </Button>
-                      </>
-                    )}
-                    disabled={this.state.mode === "view"}
-                  />
-                </Form.Item>
-              </Col>
-              <Col xs={24} sm={12}>
-                <Form.Item
                   name={["user", "id"]}
-                  label="Spend By"
+                  label="Check By"
                   rules={[
                     {
                       required: true,
-                      message: "Please enter the Spending person",
+                      message: "Please enter the checking person",
                     },
                   ]}
                   className="form-input-tag-bottom-space"
@@ -344,10 +196,10 @@ class Settlement extends TableParentPage {
               </Col>
               <Col xs={24} sm={12}>
                 <Form.Item
-                  name="amount"
-                  label="Amount"
+                  name="sales"
+                  label="Sales Amount"
                   rules={[
-                    { required: true, message: "Please enter the amount" },
+                    { required: true, message: "Please enter the sales amount" },
                   ]}
                   className="form-input-tag-bottom-space"
                 >
@@ -360,52 +212,124 @@ class Settlement extends TableParentPage {
               </Col>
               <Col xs={24} sm={12}>
                 <Form.Item
-                  name="paymentMethod"
-                  label="Payment Method"
+                  name="service"
+                  label="Service Amount"
                   rules={[
-                    { required: true, message: "Please enter payment method" },
+                    { required: true, message: "Please enter the service amount" },
                   ]}
                   className="form-input-tag-bottom-space"
                 >
                   <Input
+                    type="Number"
                     readOnly={this.state.mode === "view"}
                     className="input-tag-style"
                   />
                 </Form.Item>
               </Col>
-
               <Col xs={24} sm={12}>
                 <Form.Item
-                  name="description"
-                  label="Description"
-                  // rules={[
-                  //   { required: true, message: "Please enter description" },
-                  // ]}
+                  name="ec"
+                  label="EC Amount"
+                  rules={[
+                    { required: true, message: "Please enter the ec amount" },
+                  ]}
                   className="form-input-tag-bottom-space"
                 >
-                  <TextArea
-                     readOnly={this.state.mode === "view"}
+                  <Input
+                    type="Number"
+                    readOnly={this.state.mode === "view"}
                     className="input-tag-style"
                   />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
                 <Form.Item
-                  name="date"
-                  label="Date"
+                  name="expenses"
+                  label="Expenses Amount"
                   rules={[
-                    {
-                      required: true,
-                      message: "Please enter the date",
-                    },
+                    { required: true, message: "Please enter the expenses amount" },
                   ]}
                   className="form-input-tag-bottom-space"
                 >
-                  <DatePicker
-                    showTime
-                    format="YYYY-MM-DD hh-mm a"
-                    style={{ width: "100%" }}
-                    disabled={this.state.mode === "view"}
+                  <Input
+                    type="Number"
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  name="previousDayCash"
+                  label="Previous Day Cash"
+                  rules={[
+                    { required: true, message: "Please enter the previous day cash" },
+                  ]}
+                  className="form-input-tag-bottom-space"
+                >
+                  <Input
+                    type="Number"
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  name="totalCash"
+                  label="Total Cash"
+                  rules={[
+                    { required: true, message: "Please enter the total cash" },
+                  ]}
+                  className="form-input-tag-bottom-space"
+                >
+                  <Input
+                    type="Number"
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  name="netCash"
+                  label="Net Cash"
+                  rules={[
+                    { required: true, message: "Please enter the net cash" },
+                  ]}
+                  className="form-input-tag-bottom-space"
+                >
+                  <Input
+                    type="Number"
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  name="shortage"
+                  label="Shortage"
+                  rules={[
+                    { required: true, message: "Please enter the shortage" },
+                  ]}
+                  className="form-input-tag-bottom-space"
+                >
+                  <Input
+                    type="Number"
+                    readOnly={this.state.mode === "view"}
+                    className="input-tag-style"
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  name="remark"
+                  label="Remark"
+                  className="form-input-tag-bottom-space"
+                >
+                  <TextArea
+                     readOnly={this.state.mode === "view"}
                     className="input-tag-style"
                   />
                 </Form.Item>
@@ -426,3 +350,111 @@ class Settlement extends TableParentPage {
 }
 
 export default Settlement;
+
+// import TableParentPage from "../../component/tableParentPage";
+// import {
+//   Button,
+//   Col,
+//   ConfigProvider,
+//   Flex,
+//   Form,
+//   Input,
+//   Modal,
+//   Radio,
+//   Row,
+//   Spin,
+//   Table,
+// } from "antd";
+// import Delete from "../../component/deleteButton";
+// import Edit from "../../component/editButton";
+// import RoleService from "../../service/customizeServices/UserManagements/roleService";
+// import { UserAddOutlined } from "@ant-design/icons";
+// import { DateTimeFormat } from "../../service/defaultServices/formates";
+// import View from "../../component/viewButton";
+// import { Link } from "react-router-dom";
+// import "../../App.css";
+
+// class Settlement extends TableParentPage {
+//   service = new RoleService();
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       // common datas
+//       data: [],
+//       formOpen: false,
+//       mode: null,
+//       id: null,
+
+//       // specific datas
+//     };
+//   }
+//   columns = [
+//     {
+//       title: "Role Name",
+//       dataIndex: "roleName",
+//       key: "roleName",
+//       render: (e) => e || "-",
+//       fixed: "left",
+//     },
+//     {
+//       title: "Active",
+//       dataIndex: "active",
+//       key: "active",
+//       render: (e) => (e ? "Active" : "Inactive"),
+//     },
+//     {
+//       title: "Created On",
+//       dataIndex: "createdOn",
+//       key: "createdOn",
+//       render: (e) => DateTimeFormat(e) || "-",
+//     },
+//     {
+//       title: "Updated On",
+//       dataIndex: "updatedOn",
+//       key: "updatedOn",
+//       render: (e) => DateTimeFormat(e) || "-",
+//     },
+//     {
+//       title: "Action",
+//       dataIndex: "id",
+//       key: "id",
+//       align: "center",
+//       width: "150px",
+//       render: (e) => {
+//         return (
+//           <>
+//             <Delete id={e} deleteItem={() => this.delete(e)} />
+//             <Edit
+//               onClickFn={() => {
+//                 this.editForm(e);
+//               }}
+//             />
+//             <View onClickFn={() => this.viewForm(e)} />
+//           </>
+//         );
+//       },
+//       fixed: "right",
+//     },
+//   ];
+//   render() {
+//     return (
+//       <>
+//         <div className="skills-main-container">
+//           <img
+//             src={`${process.env.PUBLIC_URL}/construction.jpg`}
+//             className="under-const-image"
+//             alt="under-construction-pic"
+//           />
+//           <h1 className="under-const-title">This page is under construction</h1>
+//           <Link to="/">
+//             <Button className="back-to-home-btn" type="primary">
+//               Back to Home
+//             </Button>
+//           </Link>
+//         </div>
+//       </>
+//     );
+//   }
+// }
+
+// export default Settlement;
